@@ -1,0 +1,15 @@
+name: Contour
+description: A Kubernetes ingress controller using Envoy proxy that provides dynamic
+  configuration updates and advanced routing capabilities for managing external access
+  to services in a cluster.
+url: https://projectcontour.io/
+tags:
+- Kubernetes
+- Ingress Controller
+- Envoy
+- Proxy
+- Networking
+created: '2025'
+modified: '2025'
+apis: []
+common: []
