@@ -10,6 +10,74 @@ tags:
 - Proxy
 - Networking
 created: '2025-01-01'
-modified: '2026-03-16'
-apis: []
-common: []
+modified: '2026-03-18'
+apis:
+  - aid: contour:contour-httpproxy-api
+    name: Contour HTTPProxy API
+    description: >-
+      Kubernetes Custom Resource Definition that extends the standard Ingress API
+      with advanced routing, multi-team support, TLS delegation, and weighted load
+      balancing across multiple backend services. HTTPProxy is Contour's primary
+      ingress configuration resource and supports inclusion of routing configuration
+      across namespaces.
+    humanURL: https://projectcontour.io/docs/main/config/api/
+    baseURL: https://projectcontour.io
+    tags:
+      - Kubernetes
+      - Ingress
+      - HTTPProxy
+      - Routing
+      - Custom Resource
+    properties:
+      - type: Documentation
+        url: https://projectcontour.io/docs/main/config/api/
+      - type: Reference
+        url: https://projectcontour.io/docs/main/config/api-reference.html
+      - type: OpenAPI
+        url: openapi/contour-httpproxy-openapi.yml
+      - type: JSONSchema
+        url: json-schema/contour-httpproxy-schema.json
+  - aid: contour:contour-gateway-api
+    name: Contour Gateway API
+    description: >-
+      Contour's implementation of the Kubernetes Gateway API, supporting HTTPRoute
+      and TLSRoute resources for defining ingress traffic routing rules. Gateway API
+      is the next-generation Kubernetes ingress standard and Contour provides support
+      for GatewayClass, Gateway, HTTPRoute, and related resources.
+    humanURL: https://projectcontour.io/docs/1.30/config/gateway-api/
+    baseURL: https://projectcontour.io
+    tags:
+      - Kubernetes
+      - Gateway API
+      - Ingress
+      - Routing
+      - Networking
+    properties:
+      - type: Documentation
+        url: https://projectcontour.io/docs/1.30/config/gateway-api/
+      - type: OpenAPI
+        url: openapi/contour-gateway-openapi.yml
+common:
+  - type: Website
+    url: https://projectcontour.io/
+  - type: JSON-LD
+    url: json-ld/contour-context.jsonld
+  - type: JSONSchema
+    url: json-schema/contour-httpproxy-schema.json
+  - type: Getting Started
+    url: https://projectcontour.io/getting-started/
+  - type: Documentation
+    url: https://projectcontour.io/docs/main/
+  - type: GitHub Organization
+    url: https://github.com/projectcontour
+  - type: GitHubRepository
+    url: https://github.com/projectcontour/contour
+  - type: Support
+    url: https://projectcontour.io/resources/support/
+  - type: Community
+    url: https://projectcontour.io/community/
+  - type: Resources
+    url: https://projectcontour.io/resources/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

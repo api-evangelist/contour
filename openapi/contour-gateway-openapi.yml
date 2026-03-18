@@ -1,0 +1,1095 @@
+openapi: 3.1.0
+info:
+  title: Contour Gateway API
+  description: >-
+    Contour's implementation of the Kubernetes Gateway API, providing support
+    for GatewayClass, Gateway, HTTPRoute, TLSRoute, and related resources.
+    The Gateway API is the next-generation Kubernetes ingress standard, and
+    Contour implements it alongside the legacy Ingress and HTTPProxy resources.
+    All resources are managed through the Kubernetes API server using standard
+    Kubernetes CRD patterns.
+  version: '1.30.0'
+  contact:
+    name: Contour Community
+    url: https://projectcontour.io/community/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+externalDocs:
+  description: Contour Gateway API Documentation
+  url: https://projectcontour.io/docs/1.30/config/gateway-api/
+servers:
+  - url: https://{kubernetes-api-server}
+    description: Kubernetes API server
+    variables:
+      kubernetes-api-server:
+        default: localhost:6443
+        description: Address of the Kubernetes API server
+tags:
+  - name: GatewayClass
+    description: >-
+      Cluster-scoped resources that define the controller responsible for
+      managing Gateways of a particular class. GatewayClass is analogous to
+      IngressClass in the legacy Ingress API.
+  - name: Gateway
+    description: >-
+      Namespace-scoped resources that describe network infrastructure instances
+      that route traffic. Each Gateway is associated with a GatewayClass and
+      defines listeners for inbound traffic.
+  - name: HTTPRoute
+    description: >-
+      Namespace-scoped resources that define HTTP routing rules, mapping
+      HTTP/HTTPS requests to backend Kubernetes services based on host,
+      path, headers, and other criteria.
+  - name: TLSRoute
+    description: >-
+      Namespace-scoped resources that define TLS routing rules for routing
+      TLS connections based on SNI hostname to backend services.
+paths:
+  /apis/gateway.networking.k8s.io/v1/gatewayclasses:
+    get:
+      operationId: listGatewayClass
+      summary: List GatewayClass resources
+      description: >-
+        Returns all GatewayClass resources in the cluster. GatewayClasses are
+        cluster-scoped and define which controller (such as Contour) manages
+        Gateways of that class. Contour registers a GatewayClass for itself
+        during installation.
+      tags:
+        - GatewayClass
+      parameters:
+        - $ref: '#/components/parameters/labelSelector'
+        - $ref: '#/components/parameters/fieldSelector'
+      responses:
+        '200':
+          description: List of GatewayClass resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayClassList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}:
+    get:
+      operationId: readGatewayClass
+      summary: Get a specific GatewayClass
+      description: >-
+        Returns the specified GatewayClass resource including its controller
+        reference, parameters, and current acceptance status.
+      tags:
+        - GatewayClass
+      parameters:
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: GatewayClass resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayClass'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: GatewayClass not found
+  /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways:
+    get:
+      operationId: listNamespacedGateway
+      summary: List Gateway resources in a namespace
+      description: >-
+        Returns all Gateway resources in the specified namespace. Each Gateway
+        describes network infrastructure with one or more listeners for inbound
+        traffic, associated with a GatewayClass.
+      tags:
+        - Gateway
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/labelSelector'
+      responses:
+        '200':
+          description: List of Gateway resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedGateway
+      summary: Create a Gateway resource
+      description: >-
+        Creates a new Gateway resource in the specified namespace. Contour will
+        provision an Envoy instance to handle traffic according to the Gateway's
+        listener configuration.
+      tags:
+        - Gateway
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Gateway'
+      responses:
+        '201':
+          description: Gateway created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gateway'
+        '400':
+          description: Invalid Gateway specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '409':
+          description: Gateway with this name already exists
+  /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}:
+    get:
+      operationId: readNamespacedGateway
+      summary: Get a specific Gateway resource
+      description: >-
+        Returns the specified Gateway resource, including its listeners,
+        addresses, and current status as reported by the Contour controller.
+      tags:
+        - Gateway
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: Gateway resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gateway'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Gateway not found
+    put:
+      operationId: replaceNamespacedGateway
+      summary: Replace a Gateway resource
+      description: >-
+        Replaces the entire Gateway resource with the provided specification.
+      tags:
+        - Gateway
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Gateway'
+      responses:
+        '200':
+          description: Gateway updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gateway'
+        '400':
+          description: Invalid specification
+        '401':
+          description: Unauthorized
+        '404':
+          description: Gateway not found
+    delete:
+      operationId: deleteNamespacedGateway
+      summary: Delete a Gateway resource
+      description: >-
+        Deletes the specified Gateway resource. Contour will decommission the
+        associated Envoy infrastructure.
+      tags:
+        - Gateway
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: Gateway deleted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Gateway not found
+  /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes:
+    get:
+      operationId: listNamespacedHTTPRoute
+      summary: List HTTPRoute resources in a namespace
+      description: >-
+        Returns all HTTPRoute resources in the specified namespace. HTTPRoutes
+        define routing rules for HTTP and HTTPS traffic, attaching to one or
+        more Gateways.
+      tags:
+        - HTTPRoute
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/labelSelector'
+      responses:
+        '200':
+          description: List of HTTPRoute resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRouteList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedHTTPRoute
+      summary: Create an HTTPRoute resource
+      description: >-
+        Creates a new HTTPRoute resource that defines HTTP traffic routing
+        rules and attaches them to a Gateway. The route can match on host,
+        path, headers, query parameters, and HTTP method.
+      tags:
+        - HTTPRoute
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HTTPRoute'
+      responses:
+        '201':
+          description: HTTPRoute created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRoute'
+        '400':
+          description: Invalid HTTPRoute specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}:
+    get:
+      operationId: readNamespacedHTTPRoute
+      summary: Get a specific HTTPRoute resource
+      description: >-
+        Returns the specified HTTPRoute resource, including its routing rules
+        and current status conditions.
+      tags:
+        - HTTPRoute
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: HTTPRoute resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRoute'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: HTTPRoute not found
+    put:
+      operationId: replaceNamespacedHTTPRoute
+      summary: Replace an HTTPRoute resource
+      description: >-
+        Replaces the entire HTTPRoute resource with the provided specification.
+      tags:
+        - HTTPRoute
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HTTPRoute'
+      responses:
+        '200':
+          description: HTTPRoute updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRoute'
+        '400':
+          description: Invalid specification
+        '401':
+          description: Unauthorized
+        '404':
+          description: HTTPRoute not found
+    delete:
+      operationId: deleteNamespacedHTTPRoute
+      summary: Delete an HTTPRoute resource
+      description: >-
+        Deletes the specified HTTPRoute resource. Contour will remove the
+        associated routing rules from the Envoy configuration.
+      tags:
+        - HTTPRoute
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: HTTPRoute deleted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: HTTPRoute not found
+  /apis/gateway.networking.k8s.io/v1alpha2/namespaces/{namespace}/tlsroutes:
+    get:
+      operationId: listNamespacedTLSRoute
+      summary: List TLSRoute resources in a namespace
+      description: >-
+        Returns all TLSRoute resources in the specified namespace. TLSRoutes
+        define routing rules for TLS connections, routing based on SNI
+        hostnames to backend services.
+      tags:
+        - TLSRoute
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/labelSelector'
+      responses:
+        '200':
+          description: List of TLSRoute resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSRouteList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedTLSRoute
+      summary: Create a TLSRoute resource
+      description: >-
+        Creates a new TLSRoute resource that defines TLS passthrough routing
+        rules attaching to a Gateway listener.
+      tags:
+        - TLSRoute
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TLSRoute'
+      responses:
+        '201':
+          description: TLSRoute created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSRoute'
+        '400':
+          description: Invalid TLSRoute specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+components:
+  parameters:
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    fieldSelector:
+      name: fieldSelector
+      in: query
+      required: false
+      description: Field selector to filter resources.
+      schema:
+        type: string
+  schemas:
+    GatewayClass:
+      type: object
+      description: >-
+        Cluster-scoped resource associating a controller with Gateways of a
+        given class. Contour registers a GatewayClass pointing to itself.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.networking.k8s.io/v1
+        kind:
+          type: string
+          enum:
+            - GatewayClass
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: GatewayClass specification.
+          required:
+            - controllerName
+          properties:
+            controllerName:
+              type: string
+              description: >-
+                Name of the controller responsible for managing Gateways of this
+                class. For Contour, this is 'projectcontour.io/contour'.
+              example: projectcontour.io/contour
+            parametersRef:
+              type: object
+              description: Reference to a resource providing configuration for this class.
+              properties:
+                group:
+                  type: string
+                kind:
+                  type: string
+                name:
+                  type: string
+                namespace:
+                  type: string
+            description:
+              type: string
+              description: Human-readable description of the GatewayClass.
+        status:
+          type: object
+          description: Status conditions reported by the controller.
+          properties:
+            conditions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Condition'
+    GatewayClassList:
+      type: object
+      description: List of GatewayClass resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayClass'
+    Gateway:
+      type: object
+      description: >-
+        Namespace-scoped resource describing a network infrastructure instance
+        with one or more listeners for handling inbound traffic.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.networking.k8s.io/v1
+        kind:
+          type: string
+          enum:
+            - Gateway
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: Gateway specification.
+          required:
+            - gatewayClassName
+          properties:
+            gatewayClassName:
+              type: string
+              description: Name of the GatewayClass this Gateway belongs to.
+            listeners:
+              type: array
+              description: List of listeners for accepting inbound traffic.
+              items:
+                $ref: '#/components/schemas/Listener'
+            addresses:
+              type: array
+              description: Requested network addresses for the Gateway.
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                      - IPAddress
+                      - Hostname
+                  value:
+                    type: string
+        status:
+          type: object
+          description: Status of the Gateway as reported by the controller.
+          properties:
+            addresses:
+              type: array
+              description: Network addresses assigned to the Gateway.
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  value:
+                    type: string
+            conditions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Condition'
+            listeners:
+              type: array
+              items:
+                $ref: '#/components/schemas/ListenerStatus'
+    Listener:
+      type: object
+      description: A listener on the Gateway accepting inbound connections.
+      required:
+        - name
+        - port
+        - protocol
+      properties:
+        name:
+          type: string
+          description: Unique name for this listener within the Gateway.
+        hostname:
+          type: string
+          description: >-
+            Hostname that this listener is bound to. Requests with matching
+            SNI or Host header are routed to this listener.
+        port:
+          type: integer
+          description: Network port number the listener binds to.
+          minimum: 1
+          maximum: 65535
+        protocol:
+          type: string
+          description: Network protocol the listener accepts.
+          enum:
+            - HTTP
+            - HTTPS
+            - TLS
+            - TCP
+        tls:
+          type: object
+          description: TLS configuration for HTTPS and TLS listeners.
+          properties:
+            mode:
+              type: string
+              enum:
+                - Terminate
+                - Passthrough
+            certificateRefs:
+              type: array
+              items:
+                $ref: '#/components/schemas/SecretObjectReference'
+        allowedRoutes:
+          type: object
+          description: Defines which routes are allowed to attach to this listener.
+          properties:
+            namespaces:
+              type: object
+              properties:
+                from:
+                  type: string
+                  enum:
+                    - All
+                    - Same
+                    - Selector
+                selector:
+                  type: object
+            kinds:
+              type: array
+              items:
+                type: object
+                properties:
+                  group:
+                    type: string
+                  kind:
+                    type: string
+    ListenerStatus:
+      type: object
+      description: Status of a Gateway listener.
+      properties:
+        name:
+          type: string
+          description: Name of the listener.
+        supportedKinds:
+          type: array
+          description: Route kinds supported by this listener.
+          items:
+            type: object
+        attachedRoutes:
+          type: integer
+          description: Number of routes currently attached to this listener.
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition'
+    GatewayList:
+      type: object
+      description: List of Gateway resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gateway'
+    HTTPRoute:
+      type: object
+      description: >-
+        Namespace-scoped resource defining HTTP/HTTPS routing rules that attach
+        to one or more Gateways. Supports matching on host, path, headers,
+        query parameters, and HTTP method.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.networking.k8s.io/v1
+        kind:
+          type: string
+          enum:
+            - HTTPRoute
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: HTTPRoute specification.
+          properties:
+            parentRefs:
+              type: array
+              description: References to the Gateways this route attaches to.
+              items:
+                $ref: '#/components/schemas/ParentReference'
+            hostnames:
+              type: array
+              description: >-
+                Hostnames this route should match. Requests with matching
+                Host headers are routed according to this HTTPRoute.
+              items:
+                type: string
+            rules:
+              type: array
+              description: List of routing rules.
+              items:
+                $ref: '#/components/schemas/HTTPRouteRule'
+        status:
+          type: object
+          description: Status conditions for the route as reported by the controller.
+          properties:
+            parents:
+              type: array
+              items:
+                type: object
+                properties:
+                  parentRef:
+                    $ref: '#/components/schemas/ParentReference'
+                  conditions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Condition'
+    HTTPRouteRule:
+      type: object
+      description: A single routing rule within an HTTPRoute.
+      properties:
+        matches:
+          type: array
+          description: List of match criteria; request must match at least one.
+          items:
+            $ref: '#/components/schemas/HTTPRouteMatch'
+        filters:
+          type: array
+          description: List of filters applied to matching requests.
+          items:
+            $ref: '#/components/schemas/HTTPRouteFilter'
+        backendRefs:
+          type: array
+          description: Backend services to route matching requests to.
+          items:
+            $ref: '#/components/schemas/HTTPBackendRef'
+        timeouts:
+          type: object
+          description: Timeout configuration for this rule.
+          properties:
+            request:
+              type: string
+              description: Timeout for a complete HTTP request.
+            backendRequest:
+              type: string
+              description: Timeout for a request to the backend.
+    HTTPRouteMatch:
+      type: object
+      description: Criteria for matching an HTTP request to this routing rule.
+      properties:
+        path:
+          type: object
+          description: Path match criteria.
+          properties:
+            type:
+              type: string
+              enum:
+                - Exact
+                - PathPrefix
+                - RegularExpression
+            value:
+              type: string
+        headers:
+          type: array
+          description: Header match criteria.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                  - Exact
+                  - RegularExpression
+              value:
+                type: string
+        queryParams:
+          type: array
+          description: Query parameter match criteria.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                  - Exact
+                  - RegularExpression
+              value:
+                type: string
+        method:
+          type: string
+          description: HTTP method to match.
+          enum:
+            - GET
+            - POST
+            - PUT
+            - PATCH
+            - DELETE
+            - HEAD
+            - OPTIONS
+            - CONNECT
+            - TRACE
+    HTTPRouteFilter:
+      type: object
+      description: A filter applied to requests matching this route rule.
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: Type of filter to apply.
+          enum:
+            - RequestHeaderModifier
+            - ResponseHeaderModifier
+            - RequestRedirect
+            - URLRewrite
+            - RequestMirror
+            - ExtensionRef
+        requestHeaderModifier:
+          type: object
+          description: Modifies request headers before forwarding.
+          properties:
+            set:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
+            add:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
+            remove:
+              type: array
+              items:
+                type: string
+        requestRedirect:
+          type: object
+          description: Redirects the request to a different URL.
+          properties:
+            scheme:
+              type: string
+              enum:
+                - http
+                - https
+            hostname:
+              type: string
+            path:
+              type: object
+            port:
+              type: integer
+            statusCode:
+              type: integer
+              enum:
+                - 301
+                - 302
+    HTTPBackendRef:
+      type: object
+      description: A backend service to route matching requests to.
+      required:
+        - name
+        - port
+      properties:
+        name:
+          type: string
+          description: Name of the Kubernetes Service.
+        namespace:
+          type: string
+          description: Namespace of the Service. Defaults to the route's namespace.
+        port:
+          type: integer
+          description: Port number on the Service.
+          minimum: 1
+          maximum: 65535
+        weight:
+          type: integer
+          description: Relative weight for traffic distribution among backends.
+          minimum: 0
+        filters:
+          type: array
+          description: Filters applied specifically to traffic routed to this backend.
+          items:
+            $ref: '#/components/schemas/HTTPRouteFilter'
+    HTTPRouteList:
+      type: object
+      description: List of HTTPRoute resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPRoute'
+    TLSRoute:
+      type: object
+      description: >-
+        Namespace-scoped resource defining TLS routing rules for passthrough
+        connections, routing based on SNI hostname to backend services.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.networking.k8s.io/v1alpha2
+        kind:
+          type: string
+          enum:
+            - TLSRoute
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          properties:
+            parentRefs:
+              type: array
+              items:
+                $ref: '#/components/schemas/ParentReference'
+            hostnames:
+              type: array
+              description: SNI hostnames this route matches.
+              items:
+                type: string
+            rules:
+              type: array
+              description: TLS routing rules.
+              items:
+                type: object
+                properties:
+                  backendRefs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        namespace:
+                          type: string
+                        port:
+                          type: integer
+                        weight:
+                          type: integer
+        status:
+          type: object
+          properties:
+            parents:
+              type: array
+              items:
+                type: object
+    TLSRouteList:
+      type: object
+      description: List of TLSRoute resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TLSRoute'
+    ParentReference:
+      type: object
+      description: A reference to a parent resource (typically a Gateway) to attach to.
+      required:
+        - name
+      properties:
+        group:
+          type: string
+          description: API group of the parent resource.
+        kind:
+          type: string
+          description: Kind of the parent resource.
+        namespace:
+          type: string
+          description: Namespace of the parent resource.
+        name:
+          type: string
+          description: Name of the parent resource.
+        sectionName:
+          type: string
+          description: Name of a specific listener section within the parent.
+        port:
+          type: integer
+          description: Port of a specific listener within the parent.
+    SecretObjectReference:
+      type: object
+      description: A reference to a Kubernetes Secret containing a TLS certificate.
+      required:
+        - name
+      properties:
+        group:
+          type: string
+        kind:
+          type: string
+          default: Secret
+        namespace:
+          type: string
+        name:
+          type: string
+          description: Name of the Secret.
+    Condition:
+      type: object
+      description: A standard Kubernetes condition indicating the state of a resource.
+      required:
+        - type
+        - status
+      properties:
+        type:
+          type: string
+          description: Type of the condition.
+        status:
+          type: string
+          enum:
+            - 'True'
+            - 'False'
+            - Unknown
+          description: Status of the condition.
+        observedGeneration:
+          type: integer
+          format: int64
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when this condition last changed.
+        reason:
+          type: string
+          description: Short reason code for the condition.
+        message:
+          type: string
+          description: Human-readable details about this condition.
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Labels for organizing and selecting resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for non-identifying metadata.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        generation:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        creationTimestamp:
+          type: string
+          format: date-time

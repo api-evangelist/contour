@@ -1,0 +1,193 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "contour": "https://projectcontour.io/vocabulary#",
+    "k8s": "https://kubernetes.io/vocabulary#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+
+    "HTTPProxy": {
+      "@id": "contour:HTTPProxy",
+      "@context": {
+        "name": "schema:name",
+        "namespace": "k8s:namespace",
+        "fqdn": {
+          "@id": "contour:fullyQualifiedDomainName",
+          "@type": "@id"
+        },
+        "status": "contour:proxyStatus",
+        "description": "schema:description",
+        "creationTimestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "labels": "k8s:labels",
+        "annotations": "k8s:annotations",
+        "routes": {
+          "@id": "contour:routes",
+          "@container": "@set"
+        },
+        "includes": {
+          "@id": "contour:includes",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "VirtualHost": {
+      "@id": "contour:VirtualHost",
+      "@context": {
+        "fqdn": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "tls": "contour:tlsConfiguration",
+        "rateLimitPolicy": "contour:rateLimitPolicy",
+        "corsPolicy": "contour:corsPolicy"
+      }
+    },
+
+    "Route": {
+      "@id": "contour:Route",
+      "@context": {
+        "conditions": {
+          "@id": "contour:matchConditions",
+          "@container": "@set"
+        },
+        "services": {
+          "@id": "contour:backendServices",
+          "@container": "@set"
+        },
+        "timeoutPolicy": "contour:timeoutPolicy",
+        "retryPolicy": "contour:retryPolicy"
+      }
+    },
+
+    "Service": {
+      "@id": "contour:BackendService",
+      "@context": {
+        "name": "schema:name",
+        "port": "schema:portNumber",
+        "weight": "contour:trafficWeight",
+        "protocol": "contour:upstreamProtocol"
+      }
+    },
+
+    "GatewayClass": {
+      "@id": "contour:GatewayClass",
+      "@context": {
+        "name": "schema:name",
+        "controllerName": {
+          "@id": "contour:controllerName",
+          "@type": "@id"
+        },
+        "description": "schema:description",
+        "creationTimestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Gateway": {
+      "@id": "contour:Gateway",
+      "@context": {
+        "name": "schema:name",
+        "namespace": "k8s:namespace",
+        "gatewayClassName": {
+          "@id": "contour:gatewayClass",
+          "@type": "@id"
+        },
+        "listeners": {
+          "@id": "contour:listeners",
+          "@container": "@set"
+        },
+        "addresses": {
+          "@id": "contour:networkAddresses",
+          "@container": "@set"
+        },
+        "creationTimestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Listener": {
+      "@id": "contour:Listener",
+      "@context": {
+        "name": "schema:name",
+        "hostname": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "port": "schema:portNumber",
+        "protocol": "contour:networkProtocol"
+      }
+    },
+
+    "HTTPRoute": {
+      "@id": "contour:HTTPRoute",
+      "@context": {
+        "name": "schema:name",
+        "namespace": "k8s:namespace",
+        "hostnames": {
+          "@id": "contour:hostnames",
+          "@container": "@set"
+        },
+        "rules": {
+          "@id": "contour:routeRules",
+          "@container": "@set"
+        },
+        "creationTimestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "TLSCertificateDelegation": {
+      "@id": "contour:TLSCertificateDelegation",
+      "@context": {
+        "name": "schema:name",
+        "namespace": "k8s:namespace",
+        "delegations": {
+          "@id": "contour:delegations",
+          "@container": "@set"
+        },
+        "secretName": "contour:certificateSecretName",
+        "targetNamespaces": {
+          "@id": "contour:targetNamespaces",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "RateLimitPolicy": {
+      "@id": "contour:RateLimitPolicy",
+      "@context": {
+        "requests": "contour:maxRequests",
+        "unit": "contour:rateUnit",
+        "burst": "contour:burstSize"
+      }
+    },
+
+    "RetryPolicy": {
+      "@id": "contour:RetryPolicy",
+      "@context": {
+        "count": "contour:retryCount",
+        "perTryTimeout": "contour:perTryTimeout"
+      }
+    },
+
+    "TimeoutPolicy": {
+      "@id": "contour:TimeoutPolicy",
+      "@context": {
+        "response": "contour:responseTimeout",
+        "idle": "contour:idleTimeout"
+      }
+    }
+  }
+}
