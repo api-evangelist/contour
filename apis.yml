@@ -55,8 +55,73 @@ apis:
     properties:
       - type: Documentation
         url: https://projectcontour.io/docs/1.30/config/gateway-api/
+      - type: Reference
+        url: https://projectcontour.io/docs/main/config/api-reference.html
       - type: OpenAPI
         url: openapi/contour-gateway-openapi.yml
+  - aid: contour:contour-kubernetes-ingress-api
+    name: Contour Kubernetes Ingress API
+    description: >-
+      Contour's support for the standard Kubernetes Ingress v1 resource, enabling
+      basic ingress use cases such as host-based and path-based routing to backend
+      services. Contour watches Ingress v1 resources and translates them into Envoy
+      proxy configuration, with support for IngressClass selection and Contour-specific
+      annotations for extended configuration.
+    humanURL: https://projectcontour.io/docs/main/config/ingress/
+    baseURL: https://projectcontour.io
+    tags:
+      - Kubernetes
+      - Ingress
+      - Routing
+      - Networking
+      - Standard API
+    properties:
+      - type: Documentation
+        url: https://projectcontour.io/docs/main/config/ingress/
+      - type: Reference
+        url: https://projectcontour.io/docs/main/config/annotations/
+  - aid: contour:contour-extensionservice-api
+    name: Contour ExtensionService API
+    description: >-
+      Kubernetes Custom Resource Definition for binding gRPC-based extension services
+      to the Contour API. ExtensionService resources allow external components to
+      implement Contour API features such as external authorization and rate limiting
+      by registering a network service that Contour will route to via Envoy's gRPC
+      extension protocol (v3).
+    humanURL: https://projectcontour.io/docs/main/config/api/
+    baseURL: https://projectcontour.io
+    tags:
+      - Kubernetes
+      - Extension Service
+      - gRPC
+      - Custom Resource
+      - Authorization
+    properties:
+      - type: Documentation
+        url: https://projectcontour.io/docs/main/config/api/
+      - type: Reference
+        url: https://projectcontour.io/docs/main/config/api-reference.html
+  - aid: contour:contour-configuration-api
+    name: Contour Configuration API
+    description: >-
+      Contour's ContourConfiguration Custom Resource Definition (v1alpha1) that
+      provides cluster-scoped configuration of a Contour instance, including ingress
+      settings, TLS defaults, timeouts, and feature gates. This API allows operators
+      to declaratively manage Contour's runtime behavior through Kubernetes resources
+      instead of command-line flags or static config files.
+    humanURL: https://projectcontour.io/docs/main/config/api/
+    baseURL: https://projectcontour.io
+    tags:
+      - Kubernetes
+      - Configuration
+      - Custom Resource
+      - Operator
+      - Networking
+    properties:
+      - type: Documentation
+        url: https://projectcontour.io/docs/main/config/api/
+      - type: Reference
+        url: https://projectcontour.io/docs/main/config/api-reference.html
 common:
   - type: Website
     url: https://projectcontour.io/
@@ -78,6 +143,12 @@ common:
     url: https://projectcontour.io/community/
   - type: Resources
     url: https://projectcontour.io/resources/
+  - type: Change Log
+    url: https://github.com/projectcontour/contour/releases
+  - type: Issue Tracker
+    url: https://github.com/projectcontour/contour/issues
+  - type: Upgrading
+    url: https://projectcontour.io/resources/upgrading/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
