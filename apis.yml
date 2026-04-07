@@ -1,14 +1,12 @@
 name: Contour
-description: A Kubernetes ingress controller using Envoy proxy that provides dynamic
-  configuration updates and advanced routing capabilities for managing external access
-  to services in a cluster.
+description: A Kubernetes ingress controller using Envoy proxy that provides dynamic configuration updates and advanced routing capabilities for managing external access to services in a cluster.
 url: https://projectcontour.io/
 tags:
-- Kubernetes
-- Ingress Controller
-- Envoy
-- Proxy
-- Networking
+  - Envoy
+  - Ingress Controller
+  - Kubernetes
+  - Networking
+  - Proxy
 created: '2025-01-01'
 modified: '2026-03-18'
 apis:
@@ -23,11 +21,11 @@ apis:
     humanURL: https://projectcontour.io/docs/main/config/api/
     baseURL: https://projectcontour.io
     tags:
-      - Kubernetes
-      - Ingress
-      - HTTPProxy
-      - Routing
       - Custom Resource
+      - HTTPProxy
+      - Ingress
+      - Kubernetes
+      - Routing
     properties:
       - type: Documentation
         url: https://projectcontour.io/docs/main/config/api/
@@ -47,11 +45,11 @@ apis:
     humanURL: https://projectcontour.io/docs/1.30/config/gateway-api/
     baseURL: https://projectcontour.io
     tags:
-      - Kubernetes
       - Gateway API
       - Ingress
-      - Routing
+      - Kubernetes
       - Networking
+      - Routing
     properties:
       - type: Documentation
         url: https://projectcontour.io/docs/1.30/config/gateway-api/
@@ -70,10 +68,10 @@ apis:
     humanURL: https://projectcontour.io/docs/main/config/ingress/
     baseURL: https://projectcontour.io
     tags:
-      - Kubernetes
       - Ingress
-      - Routing
+      - Kubernetes
       - Networking
+      - Routing
       - Standard API
     properties:
       - type: Documentation
@@ -91,11 +89,11 @@ apis:
     humanURL: https://projectcontour.io/docs/main/config/api/
     baseURL: https://projectcontour.io
     tags:
-      - Kubernetes
+      - Authorization
+      - Custom Resource
       - Extension Service
       - gRPC
-      - Custom Resource
-      - Authorization
+      - Kubernetes
     properties:
       - type: Documentation
         url: https://projectcontour.io/docs/main/config/api/
@@ -112,11 +110,11 @@ apis:
     humanURL: https://projectcontour.io/docs/main/config/api/
     baseURL: https://projectcontour.io
     tags:
-      - Kubernetes
       - Configuration
       - Custom Resource
-      - Operator
+      - Kubernetes
       - Networking
+      - Operator
     properties:
       - type: Documentation
         url: https://projectcontour.io/docs/main/config/api/

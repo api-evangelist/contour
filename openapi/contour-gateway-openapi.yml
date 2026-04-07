@@ -26,16 +26,16 @@ servers:
         default: localhost:6443
         description: Address of the Kubernetes API server
 tags:
-  - name: GatewayClass
-    description: >-
-      Cluster-scoped resources that define the controller responsible for
-      managing Gateways of a particular class. GatewayClass is analogous to
-      IngressClass in the legacy Ingress API.
   - name: Gateway
     description: >-
       Namespace-scoped resources that describe network infrastructure instances
       that route traffic. Each Gateway is associated with a GatewayClass and
       defines listeners for inbound traffic.
+  - name: GatewayClass
+    description: >-
+      Cluster-scoped resources that define the controller responsible for
+      managing Gateways of a particular class. GatewayClass is analogous to
+      IngressClass in the legacy Ingress API.
   - name: HTTPRoute
     description: >-
       Namespace-scoped resources that define HTTP routing rules, mapping
