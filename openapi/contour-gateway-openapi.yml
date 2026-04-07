@@ -49,7 +49,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/gatewayclasses:
     get:
       operationId: listGatewayClass
-      summary: List GatewayClass resources
+      summary: Contour List GatewayClass resources
       description: >-
         Returns all GatewayClass resources in the cluster. GatewayClasses are
         cluster-scoped and define which controller (such as Contour) manages
@@ -74,7 +74,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}:
     get:
       operationId: readGatewayClass
-      summary: Get a specific GatewayClass
+      summary: Contour Get a specific GatewayClass
       description: >-
         Returns the specified GatewayClass resource including its controller
         reference, parameters, and current acceptance status.
@@ -98,7 +98,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways:
     get:
       operationId: listNamespacedGateway
-      summary: List Gateway resources in a namespace
+      summary: Contour List Gateway resources in a namespace
       description: >-
         Returns all Gateway resources in the specified namespace. Each Gateway
         describes network infrastructure with one or more listeners for inbound
@@ -121,7 +121,7 @@ paths:
           description: Forbidden
     post:
       operationId: createNamespacedGateway
-      summary: Create a Gateway resource
+      summary: Contour Create a Gateway resource
       description: >-
         Creates a new Gateway resource in the specified namespace. Contour will
         provision an Envoy instance to handle traffic according to the Gateway's
@@ -154,7 +154,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}:
     get:
       operationId: readNamespacedGateway
-      summary: Get a specific Gateway resource
+      summary: Contour Get a specific Gateway resource
       description: >-
         Returns the specified Gateway resource, including its listeners,
         addresses, and current status as reported by the Contour controller.
@@ -178,7 +178,7 @@ paths:
           description: Gateway not found
     put:
       operationId: replaceNamespacedGateway
-      summary: Replace a Gateway resource
+      summary: Contour Replace a Gateway resource
       description: >-
         Replaces the entire Gateway resource with the provided specification.
       tags:
@@ -207,7 +207,7 @@ paths:
           description: Gateway not found
     delete:
       operationId: deleteNamespacedGateway
-      summary: Delete a Gateway resource
+      summary: Contour Delete a Gateway resource
       description: >-
         Deletes the specified Gateway resource. Contour will decommission the
         associated Envoy infrastructure.
@@ -228,7 +228,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes:
     get:
       operationId: listNamespacedHTTPRoute
-      summary: List HTTPRoute resources in a namespace
+      summary: Contour List HTTPRoute resources in a namespace
       description: >-
         Returns all HTTPRoute resources in the specified namespace. HTTPRoutes
         define routing rules for HTTP and HTTPS traffic, attaching to one or
@@ -251,7 +251,7 @@ paths:
           description: Forbidden
     post:
       operationId: createNamespacedHTTPRoute
-      summary: Create an HTTPRoute resource
+      summary: Contour Create an HTTPRoute resource
       description: >-
         Creates a new HTTPRoute resource that defines HTTP traffic routing
         rules and attaches them to a Gateway. The route can match on host,
@@ -282,7 +282,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}:
     get:
       operationId: readNamespacedHTTPRoute
-      summary: Get a specific HTTPRoute resource
+      summary: Contour Get a specific HTTPRoute resource
       description: >-
         Returns the specified HTTPRoute resource, including its routing rules
         and current status conditions.
@@ -306,7 +306,7 @@ paths:
           description: HTTPRoute not found
     put:
       operationId: replaceNamespacedHTTPRoute
-      summary: Replace an HTTPRoute resource
+      summary: Contour Replace an HTTPRoute resource
       description: >-
         Replaces the entire HTTPRoute resource with the provided specification.
       tags:
@@ -335,7 +335,7 @@ paths:
           description: HTTPRoute not found
     delete:
       operationId: deleteNamespacedHTTPRoute
-      summary: Delete an HTTPRoute resource
+      summary: Contour Delete an HTTPRoute resource
       description: >-
         Deletes the specified HTTPRoute resource. Contour will remove the
         associated routing rules from the Envoy configuration.
@@ -356,7 +356,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1alpha2/namespaces/{namespace}/tlsroutes:
     get:
       operationId: listNamespacedTLSRoute
-      summary: List TLSRoute resources in a namespace
+      summary: Contour List TLSRoute resources in a namespace
       description: >-
         Returns all TLSRoute resources in the specified namespace. TLSRoutes
         define routing rules for TLS connections, routing based on SNI
@@ -379,7 +379,7 @@ paths:
           description: Forbidden
     post:
       operationId: createNamespacedTLSRoute
-      summary: Create a TLSRoute resource
+      summary: Contour Create a TLSRoute resource
       description: >-
         Creates a new TLSRoute resource that defines TLS passthrough routing
         rules attaching to a Gateway listener.

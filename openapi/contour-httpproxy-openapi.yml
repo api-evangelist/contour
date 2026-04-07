@@ -39,7 +39,7 @@ paths:
   /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies:
     get:
       operationId: listNamespacedHTTPProxy
-      summary: List HTTPProxy resources in a namespace
+      summary: Contour List HTTPProxy resources in a namespace
       description: >-
         Returns a list of all HTTPProxy custom resources in the specified
         Kubernetes namespace. Results can be filtered using label selectors
@@ -65,7 +65,7 @@ paths:
           description: Forbidden - insufficient permissions
     post:
       operationId: createNamespacedHTTPProxy
-      summary: Create an HTTPProxy resource
+      summary: Contour Create an HTTPProxy resource
       description: >-
         Creates a new HTTPProxy custom resource in the specified namespace.
         The HTTPProxy defines virtual hosts, routing rules, TLS configuration,
@@ -102,7 +102,7 @@ paths:
   /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies/{name}:
     get:
       operationId: readNamespacedHTTPProxy
-      summary: Get a specific HTTPProxy resource
+      summary: Contour Get a specific HTTPProxy resource
       description: >-
         Returns the specified HTTPProxy custom resource from the given namespace,
         including its current status, observed generation, and condition information.
@@ -126,7 +126,7 @@ paths:
           description: HTTPProxy resource not found
     put:
       operationId: replaceNamespacedHTTPProxy
-      summary: Replace an HTTPProxy resource
+      summary: Contour Replace an HTTPProxy resource
       description: >-
         Replaces the entire HTTPProxy resource with the provided specification.
         The resourceVersion in the metadata must match the current version to
@@ -161,7 +161,7 @@ paths:
           description: Conflict - resource version mismatch
     patch:
       operationId: patchNamespacedHTTPProxy
-      summary: Partially update an HTTPProxy resource
+      summary: Contour Partially update an HTTPProxy resource
       description: >-
         Applies a partial update to the specified HTTPProxy resource using
         JSON Merge Patch or Strategic Merge Patch format.
@@ -196,7 +196,7 @@ paths:
           description: HTTPProxy resource not found
     delete:
       operationId: deleteNamespacedHTTPProxy
-      summary: Delete an HTTPProxy resource
+      summary: Contour Delete an HTTPProxy resource
       description: >-
         Deletes the specified HTTPProxy resource from the namespace. Contour will
         stop configuring Envoy for the routes defined in this resource.
@@ -217,7 +217,7 @@ paths:
   /apis/projectcontour.io/v1/httpproxies:
     get:
       operationId: listHTTPProxyAllNamespaces
-      summary: List HTTPProxy resources across all namespaces
+      summary: Contour List HTTPProxy resources across all namespaces
       description: >-
         Returns all HTTPProxy custom resources across all namespaces in the
         cluster. Useful for cluster-wide visibility into all ingress
@@ -243,7 +243,7 @@ paths:
   /apis/projectcontour.io/v1/namespaces/{namespace}/tlscertificatedelegations:
     get:
       operationId: listNamespacedTLSCertificateDelegation
-      summary: List TLSCertificateDelegation resources
+      summary: Contour List TLSCertificateDelegation resources
       description: >-
         Returns all TLSCertificateDelegation resources in the specified namespace.
         These resources allow TLS certificates to be delegated for use by
@@ -265,7 +265,7 @@ paths:
           description: Forbidden
     post:
       operationId: createNamespacedTLSCertificateDelegation
-      summary: Create a TLSCertificateDelegation resource
+      summary: Contour Create a TLSCertificateDelegation resource
       description: >-
         Creates a TLSCertificateDelegation resource that grants specified target
         namespaces permission to reference TLS certificates from this namespace
