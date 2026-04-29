@@ -8,7 +8,7 @@ tags:
   - Networking
   - Proxy
 created: '2025-01-01'
-modified: '2026-03-18'
+modified: '2026-04-28'
 apis:
   - aid: contour:contour-httpproxy-api
     name: Contour HTTPProxy API
@@ -127,6 +127,16 @@ common:
     url: json-ld/contour-context.jsonld
   - type: JSONSchema
     url: json-schema/contour-httpproxy-schema.json
+  - type: Vocabulary
+    url: vocabulary/contour-vocabulary.yml
+  - type: SpectralRules
+    url: rules/contour-httpproxy-rules.yml
+  - type: SpectralRules
+    url: rules/contour-gateway-rules.yml
+  - type: Capability
+    url: capabilities/manage-httpproxy-routing.yml
+  - type: Capability
+    url: capabilities/configure-gateway-api-routing.yml
   - type: Getting Started
     url: https://projectcontour.io/getting-started/
   - type: Documentation

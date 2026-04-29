@@ -1,0 +1,52 @@
+extends:
+  - "spectral:oas"
+documentationUrl: https://projectcontour.io/docs/main/config/gateway-api/
+rules:
+  contour-gateway-info-title:
+    description: Gateway OpenAPI info.title must reference Contour Gateway
+    severity: error
+    given: "$.info.title"
+    then:
+      function: pattern
+      functionOptions:
+        match: "(?i)Contour\\s+Gateway"
+  contour-gateway-server-defined:
+    description: At least one server URL must be defined for the Kubernetes API
+    severity: error
+    given: "$.servers"
+    then:
+      function: length
+      functionOptions:
+        min: 1
+  contour-gateway-tag-required:
+    description: Tags must declare GatewayClass, Gateway, HTTPRoute, or TLSRoute scope
+    severity: warn
+    given: "$.tags[*].name"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - GatewayClass
+          - Gateway
+          - HTTPRoute
+          - TLSRoute
+          - GRPCRoute
+          - TCPRoute
+          - UDPRoute
+  contour-gateway-operation-id-camelcase:
+    description: Every operation must define an operationId using camelCase
+    severity: error
+    given: "$.paths.*[get,put,post,delete,patch].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+  contour-gateway-api-group-prefix:
+    description: Gateway API paths must live under /apis/gateway.networking.k8s.io
+    severity: error
+    given: "$.paths"
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: "^/apis/gateway\\.networking\\.k8s\\.io/"

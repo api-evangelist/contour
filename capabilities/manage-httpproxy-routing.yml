@@ -1,0 +1,44 @@
+aid: contour:capability:manage-httpproxy-routing
+name: Manage HTTPProxy Ingress Routing
+description: >-
+  End-to-end workflow for managing Contour HTTPProxy ingress routing in a
+  Kubernetes cluster. Lists existing HTTPProxy resources, creates a new
+  HTTPProxy with virtual host, TLS, and weighted backends, reads it back to
+  confirm, patches it for incremental updates, and finally deletes it. Useful
+  for platform teams operating Contour as their ingress controller.
+api: contour:contour-httpproxy-api
+openapi: openapi/contour-httpproxy-openapi.yml
+tags:
+  - HTTPProxy
+  - Ingress
+  - Kubernetes
+  - Routing
+  - TLS
+operations:
+  - operationId: listNamespacedHTTPProxy
+    method: GET
+    path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies
+    purpose: Inventory existing HTTPProxy resources in the target namespace
+  - operationId: createNamespacedHTTPProxy
+    method: POST
+    path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies
+    purpose: Create a new HTTPProxy with virtual host and routing rules
+  - operationId: readNamespacedHTTPProxy
+    method: GET
+    path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies/{name}
+    purpose: Read the created HTTPProxy and verify its programmed state
+  - operationId: patchNamespacedHTTPProxy
+    method: PATCH
+    path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies/{name}
+    purpose: Patch routes, weights, or TLS settings without full replacement
+  - operationId: deleteNamespacedHTTPProxy
+    method: DELETE
+    path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies/{name}
+    purpose: Decommission the HTTPProxy when traffic should no longer route
+useCases:
+  - Onboard a new application behind a Contour-managed virtual host
+  - Roll out canary or weighted backend traffic shifts
+  - Delegate TLS certificates across namespaces with TLSCertificateDelegation
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

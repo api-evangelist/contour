@@ -1,0 +1,44 @@
+extends:
+  - "spectral:oas"
+documentationUrl: https://projectcontour.io/docs/main/config/api/
+rules:
+  contour-httpproxy-info-title:
+    description: HTTPProxy OpenAPI info.title must reference Contour HTTPProxy
+    severity: error
+    given: "$.info.title"
+    then:
+      function: pattern
+      functionOptions:
+        match: "(?i)Contour\\s+HTTPProxy"
+  contour-httpproxy-server-defined:
+    description: At least one server URL must be defined for the Kubernetes API
+    severity: error
+    given: "$.servers"
+    then:
+      function: length
+      functionOptions:
+        min: 1
+  contour-httpproxy-tag-required:
+    description: The HTTPProxy or TLSCertificateDelegation tags must be declared
+    severity: warn
+    given: "$.tags[*].name"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - HTTPProxy
+          - TLSCertificateDelegation
+  contour-httpproxy-operation-id-camelcase:
+    description: Every operation must define an operationId using camelCase
+    severity: error
+    given: "$.paths.*[get,put,post,delete,patch].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+  contour-httpproxy-namespace-path:
+    description: Namespaced HTTPProxy paths must include the namespace parameter
+    severity: warn
+    given: "$.paths[?(@property =~ /httpproxies/)]"
+    then:
+      function: truthy

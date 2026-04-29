@@ -1,0 +1,65 @@
+aid: contour:vocabulary
+name: Contour Ingress Vocabulary
+description: >-
+  Shared vocabulary for the Contour ingress controller, capturing the core
+  Kubernetes Custom Resource Definitions and Gateway API resources Contour
+  reconciles, along with the Envoy concepts they project onto.
+namespace: https://projectcontour.io/vocabulary#
+terms:
+  - term: HTTPProxy
+    definition: >-
+      Contour's primary ingress CRD that extends Ingress with virtual hosts,
+      TLS termination, weighted backends, header policies, rate limiting,
+      and cross-namespace inclusion of routing configuration.
+    sameAs: https://projectcontour.io/docs/main/config/api/#projectcontour.io/v1.HTTPProxy
+  - term: Include
+    definition: >-
+      A reference from one HTTPProxy to another, enabling delegation of
+      routing configuration to a separate namespace or team.
+  - term: Route
+    definition: >-
+      A path-matching rule on an HTTPProxy that forwards traffic to one or
+      more Service backends with optional weights and policies.
+  - term: TLSCertificateDelegation
+    definition: >-
+      A Contour CRD that allows a TLS Secret in one namespace to be used by
+      an HTTPProxy in another namespace.
+  - term: ContourConfiguration
+    definition: >-
+      Cluster-scoped CRD (v1alpha1) that declaratively configures Contour
+      runtime behavior in place of command-line flags or static config files.
+  - term: ExtensionService
+    definition: >-
+      A Contour CRD for binding gRPC-based extension services such as
+      external authorization or rate limiting backends to the Envoy data
+      plane.
+  - term: GatewayClass
+    definition: >-
+      Cluster-scoped Gateway API resource that identifies the Contour
+      controller as the implementation handling Gateway resources.
+    sameAs: https://gateway-api.sigs.k8s.io/api-types/gatewayclass/
+  - term: Gateway
+    definition: >-
+      Namespaced Gateway API resource representing a logical traffic entry
+      point provisioned by Contour. It defines listeners and accepted route
+      kinds.
+    sameAs: https://gateway-api.sigs.k8s.io/api-types/gateway/
+  - term: HTTPRoute
+    definition: >-
+      Gateway API HTTP routing resource attached to a Gateway. Defines
+      hostname, path, header, and method matchers and the backend services
+      to forward to.
+    sameAs: https://gateway-api.sigs.k8s.io/api-types/httproute/
+  - term: TLSRoute
+    definition: >-
+      Gateway API TLS passthrough routing resource for non-HTTP workloads
+      behind Contour.
+  - term: Envoy
+    definition: >-
+      The CNCF L7 proxy project that Contour configures via xDS APIs to
+      implement the data plane for HTTPProxy, Ingress, and Gateway API
+      resources.
+    sameAs: https://www.envoyproxy.io/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

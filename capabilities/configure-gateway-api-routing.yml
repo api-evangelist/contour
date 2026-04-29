@@ -1,0 +1,45 @@
+aid: contour:capability:configure-gateway-api-routing
+name: Configure Gateway API Routing with Contour
+description: >-
+  Workflow for using Contour's Gateway API implementation. Discovers the
+  available GatewayClasses, provisions a Gateway resource that selects
+  Contour, attaches an HTTPRoute (and optionally a TLSRoute) to that Gateway,
+  reads the resource state back to confirm programming, and tears the
+  resources down. Targets teams adopting the Kubernetes Gateway API standard
+  in front of an existing Contour deployment.
+api: contour:contour-gateway-api
+openapi: openapi/contour-gateway-openapi.yml
+tags:
+  - Gateway API
+  - HTTPRoute
+  - Kubernetes
+  - Networking
+  - Routing
+operations:
+  - operationId: listGatewayClass
+    method: GET
+    path: /apis/gateway.networking.k8s.io/v1/gatewayclasses
+    purpose: Discover GatewayClasses controlled by Contour
+  - operationId: createNamespacedGateway
+    method: POST
+    path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways
+    purpose: Provision a Gateway selecting the Contour GatewayClass
+  - operationId: createNamespacedHTTPRoute
+    method: POST
+    path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes
+    purpose: Attach HTTPRoute rules that match hostnames and paths
+  - operationId: readNamespacedHTTPRoute
+    method: GET
+    path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}
+    purpose: Verify HTTPRoute attachment status and accepted parents
+  - operationId: deleteNamespacedHTTPRoute
+    method: DELETE
+    path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}
+    purpose: Remove the HTTPRoute when retiring the application
+useCases:
+  - Migrate a workload from Ingress v1 or HTTPProxy to Gateway API
+  - Stand up a shared Gateway used by multiple application teams
+  - Add TLSRoute-based passthrough for non-HTTP workloads behind Contour
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
