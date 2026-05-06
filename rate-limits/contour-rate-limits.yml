@@ -4,106 +4,60 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Contour
 providerId: contour
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Envoy
   - Ingress Controller
   - Kubernetes
   - Networking
+  - Open Source
   - Proxy
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Contour API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+description: Contour itself is a Kubernetes ingress controller; its primary "API surface" is a set
+  of Kubernetes Custom Resource Definitions (HTTPProxy, ContourConfiguration, ExtensionService) consumed
+  in-cluster via the kube-apiserver. There is no Contour-hosted public API that imposes its own per-second
+  request limits. Contour does, however, provide rate-limiting capabilities for the ingress traffic
+  it manages - via local rate limiting (Envoy token-bucket) and global rate limiting (delegated to
+  an external rate-limit service over Envoy's gRPC ratelimit protocol). Those are operator-configured
+  limits applied to incoming HTTP traffic, not limits on the Contour API itself.
+sources:
+  - https://projectcontour.io/docs/main/config/rate-limiting/
+  - https://projectcontour.io/docs/main/config/api/
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Contour HTTPProxy API
-      - Contour Gateway API
-      - Contour Kubernetes Ingress API
-      - Contour ExtensionService API
-      - Contour Configuration API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Contour HTTPProxy API
-      - Contour Gateway API
-      - Contour Kubernetes Ingress API
-      - Contour ExtensionService API
-      - Contour Configuration API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Contour HTTPProxy API
-      - Contour Gateway API
-      - Contour Kubernetes Ingress API
-      - Contour ExtensionService API
-      - Contour Configuration API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Contour HTTPProxy API
-      - Contour Gateway API
-      - Contour Kubernetes Ingress API
-      - Contour ExtensionService API
-      - Contour Configuration API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Contour HTTPProxy API
-      - Contour Gateway API
-      - Contour Kubernetes Ingress API
-      - Contour ExtensionService API
-      - Contour Configuration API
+  - name: Kubernetes API server limits
+    scope: cluster
+    metric: varies
+    limit: governed by kube-apiserver
+    notes: Contour CRDs are read and written via the cluster's kube-apiserver, so the effective limits
+      are whatever the operator's APIServer configures (e.g. priority and fairness, max-mutating-requests-inflight).
+  - name: Local (per-vhost) rate limiting
+    scope: vhost
+    metric: requests_per_second
+    limit: operator-configured
+    notes: Configured on HTTPProxy via spec.virtualhost.rateLimitPolicy.local; uses Envoy's token-bucket
+      filter. Numeric values are set per deployment.
+  - name: Global rate limiting
+    scope: descriptor
+    metric: requests_per_second
+    limit: operator-configured
+    notes: Delegated to an external rate-limit service (e.g. Envoy ratelimit) configured via ExtensionService
+      and HTTPProxy rate-limit descriptors.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Operator-configured, not hosted
+    description: Contour does not enforce per-second limits on its own control-plane APIs. Rate limits
+      are configured by the operator on the data path (Envoy) and apply to ingress HTTP traffic, not
+      to the Contour CRD API.
+  - name: Local vs Global
+    description: Local rate limiting runs in each Envoy proxy with no external dependency; global rate
+      limiting consults a shared rate-limit service so multiple Envoys can share a budget.
+  - name: Backoff and 429
+    description: When an operator-configured limit is hit, Envoy returns HTTP 429; clients should honor
+      the Retry-After header if the rate-limit service emits one.
+notes: Contour is an open-source ingress controller, not a hosted API platform. There are no upstream
+  per-second request limits on a public Contour API. Reconciled is false because there is no provider-published
+  rate-limit document to reconcile against; this artifact captures Contour's own rate-limiting features
+  rather than rate limits applied to Contour's APIs.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
