@@ -123,7 +123,7 @@ apis:
 common:
   - type: Website
     url: https://projectcontour.io/
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/contour-context.jsonld
   - type: JSONSchema
     url: json-schema/contour-httpproxy-schema.json
@@ -137,11 +137,11 @@ common:
     url: capabilities/manage-httpproxy-routing.yml
   - type: Capability
     url: capabilities/configure-gateway-api-routing.yml
-  - type: Getting Started
+  - type: GettingStarted
     url: https://projectcontour.io/getting-started/
   - type: Documentation
     url: https://projectcontour.io/docs/main/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/projectcontour
   - type: GitHubRepository
     url: https://github.com/projectcontour/contour
@@ -151,7 +151,7 @@ common:
     url: https://projectcontour.io/community/
   - type: Resources
     url: https://projectcontour.io/resources/
-  - type: Change Log
+  - type: ChangeLog
     url: https://github.com/projectcontour/contour/releases
   - type: Issue Tracker
     url: https://github.com/projectcontour/contour/issues
