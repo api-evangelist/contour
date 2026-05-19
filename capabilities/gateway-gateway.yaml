@@ -1,0 +1,194 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contour Gateway API — Gateway
+  description: 'Contour Gateway API — Gateway. 5 operations. Lead operation: Contour List Gateway resources in a namespace.
+    Self-contained Naftiko capability covering one Contour business surface.'
+  tags:
+  - Contour
+  - Gateway
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTOUR_API_KEY: CONTOUR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: gateway-gateway
+    baseUri: https://{kubernetes-api-server}
+    description: Contour Gateway API — Gateway business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-gateway.networking.k8s.io-v1-namespaces-namespace-gateways
+      path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways
+      operations:
+      - name: listnamespacedgateway
+        method: GET
+        description: Contour List Gateway resources in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacedgateway
+        method: POST
+        description: Contour Create a Gateway resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: apis-gateway.networking.k8s.io-v1-namespaces-namespace-gateways-name
+      path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}
+      operations:
+      - name: readnamespacedgateway
+        method: GET
+        description: Contour Get a specific Gateway resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacenamespacedgateway
+        method: PUT
+        description: Contour Replace a Gateway resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletenamespacedgateway
+        method: DELETE
+        description: Contour Delete a Gateway resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: gateway-gateway-rest
+    port: 8080
+    description: REST adapter for Contour Gateway API — Gateway. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/apis/gateway-networking-k8s-io/v1/namespaces/{namespace}/gateways
+      name: apis-gateway-networking-k8s-io-v1-namespaces-namespace-gateways
+      description: REST surface for apis-gateway.networking.k8s.io-v1-namespaces-namespace-gateways.
+      operations:
+      - method: GET
+        name: listnamespacedgateway
+        description: Contour List Gateway resources in a namespace
+        call: gateway-gateway.listnamespacedgateway
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnamespacedgateway
+        description: Contour Create a Gateway resource
+        call: gateway-gateway.createnamespacedgateway
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apis/gateway-networking-k8s-io/v1/namespaces/{namespace}/gateways/{name}
+      name: apis-gateway-networking-k8s-io-v1-namespaces-namespace-gateways-name
+      description: REST surface for apis-gateway.networking.k8s.io-v1-namespaces-namespace-gateways-name.
+      operations:
+      - method: GET
+        name: readnamespacedgateway
+        description: Contour Get a specific Gateway resource
+        call: gateway-gateway.readnamespacedgateway
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacenamespacedgateway
+        description: Contour Replace a Gateway resource
+        call: gateway-gateway.replacenamespacedgateway
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletenamespacedgateway
+        description: Contour Delete a Gateway resource
+        call: gateway-gateway.deletenamespacedgateway
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gateway-gateway-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contour Gateway API — Gateway. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: contour-list-gateway-resources-namespace
+      description: Contour List Gateway resources in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gateway-gateway.listnamespacedgateway
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: contour-create-gateway-resource
+      description: Contour Create a Gateway resource
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gateway-gateway.createnamespacedgateway
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: contour-get-specific-gateway-resource
+      description: Contour Get a specific Gateway resource
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gateway-gateway.readnamespacedgateway
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: contour-replace-gateway-resource
+      description: Contour Replace a Gateway resource
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: gateway-gateway.replacenamespacedgateway
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: contour-delete-gateway-resource
+      description: Contour Delete a Gateway resource
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: gateway-gateway.deletenamespacedgateway
+      outputParameters:
+      - type: object
+        mapping: $.

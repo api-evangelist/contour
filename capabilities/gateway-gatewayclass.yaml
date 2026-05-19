@@ -1,0 +1,99 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contour Gateway API — GatewayClass
+  description: 'Contour Gateway API — GatewayClass. 2 operations. Lead operation: Contour List GatewayClass resources. Self-contained
+    Naftiko capability covering one Contour business surface.'
+  tags:
+  - Contour
+  - GatewayClass
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTOUR_API_KEY: CONTOUR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: gateway-gatewayclass
+    baseUri: https://{kubernetes-api-server}
+    description: Contour Gateway API — GatewayClass business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-gateway.networking.k8s.io-v1-gatewayclasses
+      path: /apis/gateway.networking.k8s.io/v1/gatewayclasses
+      operations:
+      - name: listgatewayclass
+        method: GET
+        description: Contour List GatewayClass resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: apis-gateway.networking.k8s.io-v1-gatewayclasses-name
+      path: /apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}
+      operations:
+      - name: readgatewayclass
+        method: GET
+        description: Contour Get a specific GatewayClass
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: gateway-gatewayclass-rest
+    port: 8080
+    description: REST adapter for Contour Gateway API — GatewayClass. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/apis/gateway-networking-k8s-io/v1/gatewayclasses
+      name: apis-gateway-networking-k8s-io-v1-gatewayclasses
+      description: REST surface for apis-gateway.networking.k8s.io-v1-gatewayclasses.
+      operations:
+      - method: GET
+        name: listgatewayclass
+        description: Contour List GatewayClass resources
+        call: gateway-gatewayclass.listgatewayclass
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apis/gateway-networking-k8s-io/v1/gatewayclasses/{name}
+      name: apis-gateway-networking-k8s-io-v1-gatewayclasses-name
+      description: REST surface for apis-gateway.networking.k8s.io-v1-gatewayclasses-name.
+      operations:
+      - method: GET
+        name: readgatewayclass
+        description: Contour Get a specific GatewayClass
+        call: gateway-gatewayclass.readgatewayclass
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gateway-gatewayclass-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contour Gateway API — GatewayClass. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: contour-list-gatewayclass-resources
+      description: Contour List GatewayClass resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gateway-gatewayclass.listgatewayclass
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: contour-get-specific-gatewayclass
+      description: Contour Get a specific GatewayClass
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gateway-gatewayclass.readgatewayclass
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contour Gateway API — TLSRoute
+  description: 'Contour Gateway API — TLSRoute. 2 operations. Lead operation: Contour List TLSRoute resources in a namespace.
+    Self-contained Naftiko capability covering one Contour business surface.'
+  tags:
+  - Contour
+  - TLSRoute
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTOUR_API_KEY: CONTOUR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: gateway-tlsroute
+    baseUri: https://{kubernetes-api-server}
+    description: Contour Gateway API — TLSRoute business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-gateway.networking.k8s.io-v1alpha2-namespaces-namespace-tlsroutes
+      path: /apis/gateway.networking.k8s.io/v1alpha2/namespaces/{namespace}/tlsroutes
+      operations:
+      - name: listnamespacedtlsroute
+        method: GET
+        description: Contour List TLSRoute resources in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacedtlsroute
+        method: POST
+        description: Contour Create a TLSRoute resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: gateway-tlsroute-rest
+    port: 8080
+    description: REST adapter for Contour Gateway API — TLSRoute. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/apis/gateway-networking-k8s-io/v1alpha2/namespaces/{namespace}/tlsroutes
+      name: apis-gateway-networking-k8s-io-v1alpha2-namespaces-namespace-tlsroutes
+      description: REST surface for apis-gateway.networking.k8s.io-v1alpha2-namespaces-namespace-tlsroutes.
+      operations:
+      - method: GET
+        name: listnamespacedtlsroute
+        description: Contour List TLSRoute resources in a namespace
+        call: gateway-tlsroute.listnamespacedtlsroute
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnamespacedtlsroute
+        description: Contour Create a TLSRoute resource
+        call: gateway-tlsroute.createnamespacedtlsroute
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gateway-tlsroute-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contour Gateway API — TLSRoute. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: contour-list-tlsroute-resources-namespace
+      description: Contour List TLSRoute resources in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gateway-tlsroute.listnamespacedtlsroute
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: contour-create-tlsroute-resource
+      description: Contour Create a TLSRoute resource
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gateway-tlsroute.createnamespacedtlsroute
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
