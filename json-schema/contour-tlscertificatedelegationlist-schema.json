@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TLSCertificateDelegationList",
+  "title": "TLSCertificateDelegationList",
+  "type": "object",
+  "description": "List of TLSCertificateDelegation resources.",
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TLSCertificateDelegation"
+      }
+    }
+  }
+}

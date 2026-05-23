@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPProxyStatus",
+  "title": "HTTPProxyStatus",
+  "type": "object",
+  "description": "Observed status of the HTTPProxy resource as reported by Contour.",
+  "properties": {
+    "currentStatus": {
+      "type": "string",
+      "description": "Current processing status of the HTTPProxy. Valid statuses are 'valid', 'invalid', and 'orphaned'.",
+      "enum": [
+        "valid",
+        "invalid",
+        "orphaned"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the current status."
+    },
+    "loadBalancer": {
+      "type": "object",
+      "description": "LoadBalancer ingress endpoints assigned to this HTTPProxy."
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Detailed condition information for this HTTPProxy.",
+      "items": {
+        "$ref": "#/components/schemas/DetailedCondition"
+      }
+    }
+  }
+}

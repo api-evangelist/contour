@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RateLimitPolicy",
+  "title": "RateLimitPolicy",
+  "type": "object",
+  "description": "Rate limiting configuration applied to this route or virtual host.",
+  "properties": {
+    "local": {
+      "type": "object",
+      "description": "Local rate limiting using Envoy's built-in token bucket algorithm.",
+      "properties": {
+        "requests": {
+          "type": "integer",
+          "description": "Maximum number of requests per unit."
+        },
+        "unit": {
+          "type": "string",
+          "description": "Time unit for the rate limit.",
+          "enum": [
+            "second",
+            "minute",
+            "hour"
+          ]
+        },
+        "burst": {
+          "type": "integer",
+          "description": "Maximum number of burst requests above the rate limit."
+        }
+      }
+    },
+    "global": {
+      "type": "object",
+      "description": "Global rate limiting via an external rate limit service.",
+      "properties": {
+        "descriptors": {
+          "type": "array",
+          "description": "Descriptors sent to the rate limit service.",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

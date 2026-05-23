@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPRouteList",
+  "title": "HTTPRouteList",
+  "type": "object",
+  "description": "List of HTTPRoute resources.",
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/HTTPRoute"
+      }
+    }
+  }
+}

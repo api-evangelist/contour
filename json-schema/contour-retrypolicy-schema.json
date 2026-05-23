@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RetryPolicy",
+  "title": "RetryPolicy",
+  "type": "object",
+  "description": "Retry configuration for failed upstream requests.",
+  "properties": {
+    "count": {
+      "type": "integer",
+      "description": "Number of retry attempts.",
+      "minimum": 0
+    },
+    "perTryTimeout": {
+      "type": "string",
+      "description": "Timeout per retry attempt as a duration string."
+    },
+    "retriableStatusCodes": {
+      "type": "array",
+      "description": "HTTP status codes that trigger a retry.",
+      "items": {
+        "type": "integer"
+      }
+    }
+  }
+}

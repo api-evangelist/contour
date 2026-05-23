@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TCPProxy",
+  "title": "TCPProxy",
+  "type": "object",
+  "description": "TCP proxy configuration for passthrough TLS or TCP routing.",
+  "properties": {
+    "services": {
+      "type": "array",
+      "description": "Backend services for TCP proxying.",
+      "items": {
+        "$ref": "#/components/schemas/Service"
+      }
+    },
+    "include": {
+      "$ref": "#/components/schemas/Include"
+    }
+  }
+}

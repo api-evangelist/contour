@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AuthorizationServer",
+  "title": "AuthorizationServer",
+  "type": "object",
+  "description": "External authorization server configuration for the virtual host.",
+  "properties": {
+    "extensionRef": {
+      "type": "object",
+      "description": "Reference to an ExtensionService providing authorization.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the ExtensionService resource."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace of the ExtensionService resource."
+        }
+      }
+    },
+    "authPolicy": {
+      "type": "object",
+      "description": "Authorization policy settings.",
+      "properties": {
+        "disabled": {
+          "type": "boolean"
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

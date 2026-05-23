@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HeaderMatchCondition",
+  "title": "HeaderMatchCondition",
+  "type": "object",
+  "description": "A condition matching on HTTP request headers.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "HTTP header name to match."
+    },
+    "present": {
+      "type": "boolean",
+      "description": "If true, the header must be present."
+    },
+    "contains": {
+      "type": "string",
+      "description": "Value the header must contain."
+    },
+    "notcontains": {
+      "type": "string",
+      "description": "Value the header must not contain."
+    },
+    "exact": {
+      "type": "string",
+      "description": "Exact value the header must equal."
+    },
+    "notexact": {
+      "type": "string",
+      "description": "Value the header must not equal."
+    }
+  }
+}

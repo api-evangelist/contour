@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPRoute",
+  "title": "HTTPRoute",
+  "type": "object",
+  "description": "Namespace-scoped resource defining HTTP/HTTPS routing rules that attach to one or more Gateways. Supports matching on host, path, headers, query parameters, and HTTP method.",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "enum": [
+        "gateway.networking.k8s.io/v1"
+      ]
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "HTTPRoute"
+      ]
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "type": "object",
+      "description": "HTTPRoute specification.",
+      "properties": {
+        "parentRefs": {
+          "type": "array",
+          "description": "References to the Gateways this route attaches to.",
+          "items": {
+            "$ref": "#/components/schemas/ParentReference"
+          }
+        },
+        "hostnames": {
+          "type": "array",
+          "description": "Hostnames this route should match. Requests with matching Host headers are routed according to this HTTPRoute.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rules": {
+          "type": "array",
+          "description": "List of routing rules.",
+          "items": {
+            "$ref": "#/components/schemas/HTTPRouteRule"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Status conditions for the route as reported by the controller.",
+      "properties": {
+        "parents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "parentRef": {
+                "$ref": "#/components/schemas/ParentReference"
+              },
+              "conditions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Condition"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

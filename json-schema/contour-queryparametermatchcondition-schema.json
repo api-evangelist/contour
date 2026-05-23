@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/QueryParameterMatchCondition",
+  "title": "QueryParameterMatchCondition",
+  "type": "object",
+  "description": "A condition matching on HTTP query parameters.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Query parameter name to match."
+    },
+    "exact": {
+      "type": "string",
+      "description": "Exact value the query parameter must equal."
+    },
+    "prefix": {
+      "type": "string",
+      "description": "Prefix value the query parameter must start with."
+    },
+    "suffix": {
+      "type": "string",
+      "description": "Suffix value the query parameter must end with."
+    },
+    "contains": {
+      "type": "string",
+      "description": "Value the query parameter must contain."
+    },
+    "present": {
+      "type": "boolean",
+      "description": "If true, the query parameter must be present."
+    }
+  }
+}

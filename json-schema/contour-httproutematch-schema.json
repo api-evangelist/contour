@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPRouteMatch",
+  "title": "HTTPRouteMatch",
+  "type": "object",
+  "description": "Criteria for matching an HTTP request to this routing rule.",
+  "properties": {
+    "path": {
+      "type": "object",
+      "description": "Path match criteria.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Exact",
+            "PathPrefix",
+            "RegularExpression"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "headers": {
+      "type": "array",
+      "description": "Header match criteria.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Exact",
+              "RegularExpression"
+            ]
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "queryParams": {
+      "type": "array",
+      "description": "Query parameter match criteria.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Exact",
+              "RegularExpression"
+            ]
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "method": {
+      "type": "string",
+      "description": "HTTP method to match.",
+      "enum": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS",
+        "CONNECT",
+        "TRACE"
+      ]
+    }
+  }
+}

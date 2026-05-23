@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPBackendRef",
+  "title": "HTTPBackendRef",
+  "type": "object",
+  "description": "A backend service to route matching requests to.",
+  "required": [
+    "name",
+    "port"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the Kubernetes Service."
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Namespace of the Service. Defaults to the route's namespace."
+    },
+    "port": {
+      "type": "integer",
+      "description": "Port number on the Service.",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "weight": {
+      "type": "integer",
+      "description": "Relative weight for traffic distribution among backends.",
+      "minimum": 0
+    },
+    "filters": {
+      "type": "array",
+      "description": "Filters applied specifically to traffic routed to this backend.",
+      "items": {
+        "$ref": "#/components/schemas/HTTPRouteFilter"
+      }
+    }
+  }
+}

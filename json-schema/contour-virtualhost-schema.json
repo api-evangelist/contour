@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VirtualHost",
+  "title": "VirtualHost",
+  "type": "object",
+  "description": "Defines the virtual host for this HTTPProxy, including its FQDN and TLS configuration. Only present on root HTTPProxy resources.",
+  "required": [
+    "fqdn"
+  ],
+  "properties": {
+    "fqdn": {
+      "type": "string",
+      "description": "Fully qualified domain name of the virtual host.",
+      "example": "app.example.com"
+    },
+    "tls": {
+      "$ref": "#/components/schemas/TLS"
+    },
+    "rateLimitPolicy": {
+      "$ref": "#/components/schemas/RateLimitPolicy"
+    },
+    "corsPolicy": {
+      "$ref": "#/components/schemas/CORSPolicy"
+    },
+    "authorization": {
+      "$ref": "#/components/schemas/AuthorizationServer"
+    }
+  }
+}

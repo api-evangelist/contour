@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DetailedCondition",
+  "title": "DetailedCondition",
+  "type": "object",
+  "description": "Detailed condition providing status information about the HTTPProxy.",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of the condition."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the condition.",
+      "enum": [
+        "True",
+        "False",
+        "Unknown"
+      ]
+    },
+    "observedGeneration": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Generation of the resource when this condition was set."
+    },
+    "lastTransitionTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time when the condition last changed."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Short reason code for the condition."
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable details about the condition."
+    },
+    "errors": {
+      "type": "array",
+      "description": "List of error sub-conditions.",
+      "items": {
+        "$ref": "#/components/schemas/SubCondition"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "description": "List of warning sub-conditions.",
+      "items": {
+        "$ref": "#/components/schemas/SubCondition"
+      }
+    }
+  }
+}

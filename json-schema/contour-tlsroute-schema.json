@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TLSRoute",
+  "title": "TLSRoute",
+  "type": "object",
+  "description": "Namespace-scoped resource defining TLS routing rules for passthrough connections, routing based on SNI hostname to backend services.",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "enum": [
+        "gateway.networking.k8s.io/v1alpha2"
+      ]
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "TLSRoute"
+      ]
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "parentRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ParentReference"
+          }
+        },
+        "hostnames": {
+          "type": "array",
+          "description": "SNI hostnames this route matches.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rules": {
+          "type": "array",
+          "description": "TLS routing rules.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "backendRefs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "namespace": {
+                      "type": "string"
+                    },
+                    "port": {
+                      "type": "integer"
+                    },
+                    "weight": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "properties": {
+        "parents": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

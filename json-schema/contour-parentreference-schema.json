@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ParentReference",
+  "title": "ParentReference",
+  "type": "object",
+  "description": "A reference to a parent resource (typically a Gateway) to attach to.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "group": {
+      "type": "string",
+      "description": "API group of the parent resource."
+    },
+    "kind": {
+      "type": "string",
+      "description": "Kind of the parent resource."
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Namespace of the parent resource."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the parent resource."
+    },
+    "sectionName": {
+      "type": "string",
+      "description": "Name of a specific listener section within the parent."
+    },
+    "port": {
+      "type": "integer",
+      "description": "Port of a specific listener within the parent."
+    }
+  }
+}

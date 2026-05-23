@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Status",
+  "title": "Status",
+  "type": "object",
+  "description": "Standard Kubernetes Status response for error conditions.",
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "Status"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable description of the error."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Machine-readable reason for the error."
+    },
+    "code": {
+      "type": "integer",
+      "description": "HTTP status code."
+    }
+  }
+}

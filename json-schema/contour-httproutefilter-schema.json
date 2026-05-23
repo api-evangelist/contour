@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPRouteFilter",
+  "title": "HTTPRouteFilter",
+  "type": "object",
+  "description": "A filter applied to requests matching this route rule.",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of filter to apply.",
+      "enum": [
+        "RequestHeaderModifier",
+        "ResponseHeaderModifier",
+        "RequestRedirect",
+        "URLRewrite",
+        "RequestMirror",
+        "ExtensionRef"
+      ]
+    },
+    "requestHeaderModifier": {
+      "type": "object",
+      "description": "Modifies request headers before forwarding.",
+      "properties": {
+        "set": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "add": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "remove": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "requestRedirect": {
+      "type": "object",
+      "description": "Redirects the request to a different URL.",
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "enum": [
+            "http",
+            "https"
+          ]
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "path": {
+          "type": "object"
+        },
+        "port": {
+          "type": "integer"
+        },
+        "statusCode": {
+          "type": "integer",
+          "enum": [
+            301,
+            302
+          ]
+        }
+      }
+    }
+  }
+}

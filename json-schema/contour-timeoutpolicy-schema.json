@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TimeoutPolicy",
+  "title": "TimeoutPolicy",
+  "type": "object",
+  "description": "Timeout configuration for requests on this route.",
+  "properties": {
+    "response": {
+      "type": "string",
+      "description": "Timeout for a complete response from the backend."
+    },
+    "idle": {
+      "type": "string",
+      "description": "Timeout for idle connections."
+    },
+    "idleConnection": {
+      "type": "string",
+      "description": "Timeout for idle backend connections."
+    }
+  }
+}

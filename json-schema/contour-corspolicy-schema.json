@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CORSPolicy",
+  "title": "CORSPolicy",
+  "type": "object",
+  "description": "CORS policy configuration for the virtual host.",
+  "properties": {
+    "allowCredentials": {
+      "type": "boolean",
+      "description": "Whether to allow credentials in cross-origin requests."
+    },
+    "allowOrigin": {
+      "type": "array",
+      "description": "Allowed origins for CORS requests.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowMethods": {
+      "type": "array",
+      "description": "Allowed HTTP methods for CORS requests.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowHeaders": {
+      "type": "array",
+      "description": "Allowed request headers for CORS requests.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "exposeHeaders": {
+      "type": "array",
+      "description": "Response headers to expose to browser clients.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "maxAge": {
+      "type": "string",
+      "description": "Duration to cache preflight responses."
+    }
+  }
+}

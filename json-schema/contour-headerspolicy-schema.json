@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HeadersPolicy",
+  "title": "HeadersPolicy",
+  "type": "object",
+  "description": "Policy for manipulating HTTP request or response headers.",
+  "properties": {
+    "set": {
+      "type": "array",
+      "description": "Headers to set on requests or responses.",
+      "items": {
+        "$ref": "#/components/schemas/HeaderValue"
+      }
+    },
+    "remove": {
+      "type": "array",
+      "description": "Header names to remove from requests or responses.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubCondition",
+  "title": "SubCondition",
+  "type": "object",
+  "description": "A sub-condition providing additional detail about an error or warning.",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of the sub-condition."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the sub-condition."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Short reason code."
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable details."
+    }
+  }
+}

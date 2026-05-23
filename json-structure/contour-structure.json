@@ -1,0 +1,284 @@
+{
+  "provider": "Contour",
+  "providerId": "contour",
+  "kind": "json-structure",
+  "description": "Structural overview of the Contour API surface; extracted from openapi/.",
+  "schemaCount": 18,
+  "operationCount": 14,
+  "schemas": [
+    {
+      "name": "GatewayClass",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ]
+    },
+    {
+      "name": "GatewayClassList",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Gateway",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ]
+    },
+    {
+      "name": "Listener",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "name",
+        "port",
+        "protocol"
+      ]
+    },
+    {
+      "name": "ListenerStatus",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "GatewayList",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "HTTPRoute",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ]
+    },
+    {
+      "name": "HTTPRouteRule",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "HTTPRouteMatch",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "HTTPRouteFilter",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "name": "HTTPBackendRef",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "name",
+        "port"
+      ]
+    },
+    {
+      "name": "HTTPRouteList",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "TLSRoute",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ]
+    },
+    {
+      "name": "TLSRouteList",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ParentReference",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "SecretObjectReference",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "Condition",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "type",
+        "status"
+      ]
+    },
+    {
+      "name": "ObjectMeta",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "name"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/gatewayclasses",
+      "operationId": "listGatewayClass",
+      "summary": "Contour List GatewayClass resources",
+      "tags": [
+        "GatewayClass"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}",
+      "operationId": "readGatewayClass",
+      "summary": "Contour Get a specific GatewayClass",
+      "tags": [
+        "GatewayClass"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways",
+      "operationId": "listNamespacedGateway",
+      "summary": "Contour List Gateway resources in a namespace",
+      "tags": [
+        "Gateway"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways",
+      "operationId": "createNamespacedGateway",
+      "summary": "Contour Create a Gateway resource",
+      "tags": [
+        "Gateway"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}",
+      "operationId": "readNamespacedGateway",
+      "summary": "Contour Get a specific Gateway resource",
+      "tags": [
+        "Gateway"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}",
+      "operationId": "replaceNamespacedGateway",
+      "summary": "Contour Replace a Gateway resource",
+      "tags": [
+        "Gateway"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}",
+      "operationId": "deleteNamespacedGateway",
+      "summary": "Contour Delete a Gateway resource",
+      "tags": [
+        "Gateway"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes",
+      "operationId": "listNamespacedHTTPRoute",
+      "summary": "Contour List HTTPRoute resources in a namespace",
+      "tags": [
+        "HTTPRoute"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes",
+      "operationId": "createNamespacedHTTPRoute",
+      "summary": "Contour Create an HTTPRoute resource",
+      "tags": [
+        "HTTPRoute"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}",
+      "operationId": "readNamespacedHTTPRoute",
+      "summary": "Contour Get a specific HTTPRoute resource",
+      "tags": [
+        "HTTPRoute"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}",
+      "operationId": "replaceNamespacedHTTPRoute",
+      "summary": "Contour Replace an HTTPRoute resource",
+      "tags": [
+        "HTTPRoute"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}",
+      "operationId": "deleteNamespacedHTTPRoute",
+      "summary": "Contour Delete an HTTPRoute resource",
+      "tags": [
+        "HTTPRoute"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1alpha2/namespaces/{namespace}/tlsroutes",
+      "operationId": "listNamespacedTLSRoute",
+      "summary": "Contour List TLSRoute resources in a namespace",
+      "tags": [
+        "TLSRoute"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/gateway.networking.k8s.io/v1alpha2/namespaces/{namespace}/tlsroutes",
+      "operationId": "createNamespacedTLSRoute",
+      "summary": "Contour Create a TLSRoute resource",
+      "tags": [
+        "TLSRoute"
+      ]
+    }
+  ]
+}

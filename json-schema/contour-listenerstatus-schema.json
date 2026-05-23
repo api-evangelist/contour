@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ListenerStatus",
+  "title": "ListenerStatus",
+  "type": "object",
+  "description": "Status of a Gateway listener.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the listener."
+    },
+    "supportedKinds": {
+      "type": "array",
+      "description": "Route kinds supported by this listener.",
+      "items": {
+        "type": "object"
+      }
+    },
+    "attachedRoutes": {
+      "type": "integer",
+      "description": "Number of routes currently attached to this listener."
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Condition"
+      }
+    }
+  }
+}

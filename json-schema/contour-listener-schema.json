@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Listener",
+  "title": "Listener",
+  "type": "object",
+  "description": "A listener on the Gateway accepting inbound connections.",
+  "required": [
+    "name",
+    "port",
+    "protocol"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique name for this listener within the Gateway."
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Hostname that this listener is bound to. Requests with matching SNI or Host header are routed to this listener."
+    },
+    "port": {
+      "type": "integer",
+      "description": "Network port number the listener binds to.",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "protocol": {
+      "type": "string",
+      "description": "Network protocol the listener accepts.",
+      "enum": [
+        "HTTP",
+        "HTTPS",
+        "TLS",
+        "TCP"
+      ]
+    },
+    "tls": {
+      "type": "object",
+      "description": "TLS configuration for HTTPS and TLS listeners.",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "Terminate",
+            "Passthrough"
+          ]
+        },
+        "certificateRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/SecretObjectReference"
+          }
+        }
+      }
+    },
+    "allowedRoutes": {
+      "type": "object",
+      "description": "Defines which routes are allowed to attach to this listener.",
+      "properties": {
+        "namespaces": {
+          "type": "object",
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "All",
+                "Same",
+                "Selector"
+              ]
+            },
+            "selector": {
+              "type": "object"
+            }
+          }
+        },
+        "kinds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "group": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

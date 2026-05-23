@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Gateway",
+  "title": "Gateway",
+  "type": "object",
+  "description": "Namespace-scoped resource describing a network infrastructure instance with one or more listeners for handling inbound traffic.",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "enum": [
+        "gateway.networking.k8s.io/v1"
+      ]
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "Gateway"
+      ]
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "type": "object",
+      "description": "Gateway specification.",
+      "required": [
+        "gatewayClassName"
+      ],
+      "properties": {
+        "gatewayClassName": {
+          "type": "string",
+          "description": "Name of the GatewayClass this Gateway belongs to."
+        },
+        "listeners": {
+          "type": "array",
+          "description": "List of listeners for accepting inbound traffic.",
+          "items": {
+            "$ref": "#/components/schemas/Listener"
+          }
+        },
+        "addresses": {
+          "type": "array",
+          "description": "Requested network addresses for the Gateway.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "IPAddress",
+                  "Hostname"
+                ]
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Status of the Gateway as reported by the controller.",
+      "properties": {
+        "addresses": {
+          "type": "array",
+          "description": "Network addresses assigned to the Gateway.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Condition"
+          }
+        },
+        "listeners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ListenerStatus"
+          }
+        }
+      }
+    }
+  }
+}

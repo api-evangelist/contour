@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Condition",
+  "title": "Condition",
+  "type": "object",
+  "description": "A standard Kubernetes condition indicating the state of a resource.",
+  "required": [
+    "type",
+    "status"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of the condition."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "True",
+        "False",
+        "Unknown"
+      ],
+      "description": "Status of the condition."
+    },
+    "observedGeneration": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "lastTransitionTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time when this condition last changed."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Short reason code for the condition."
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable details about this condition."
+    }
+  }
+}

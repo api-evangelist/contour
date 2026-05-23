@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TLSCertificateDelegation",
+  "title": "TLSCertificateDelegation",
+  "type": "object",
+  "description": "Contour TLSCertificateDelegation resource granting other namespaces permission to reference TLS certificates from this namespace in their HTTPProxy resources.",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "enum": [
+        "projectcontour.io/v1"
+      ]
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "TLSCertificateDelegation"
+      ]
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "type": "object",
+      "description": "Specification for the delegation.",
+      "properties": {
+        "delegations": {
+          "type": "array",
+          "description": "List of delegations granting certificate access to namespaces.",
+          "items": {
+            "type": "object",
+            "required": [
+              "secretName",
+              "targetNamespaces"
+            ],
+            "properties": {
+              "secretName": {
+                "type": "string",
+                "description": "Name of the Kubernetes Secret containing the TLS certificate."
+              },
+              "targetNamespaces": {
+                "type": "array",
+                "description": "Namespaces permitted to reference this certificate. Use '*' to allow all namespaces.",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

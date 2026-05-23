@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Route",
+  "title": "Route",
+  "type": "object",
+  "description": "A single routing rule mapping request conditions to backend services.",
+  "properties": {
+    "conditions": {
+      "type": "array",
+      "description": "Match conditions for this route.",
+      "items": {
+        "$ref": "#/components/schemas/MatchCondition"
+      }
+    },
+    "services": {
+      "type": "array",
+      "description": "Backend services to route matching requests to.",
+      "items": {
+        "$ref": "#/components/schemas/Service"
+      }
+    },
+    "enableWebsockets": {
+      "type": "boolean",
+      "description": "If true, upgrades HTTP connections to WebSocket connections."
+    },
+    "permitInsecure": {
+      "type": "boolean",
+      "description": "If true, allows this route to respond to non-TLS requests when the parent virtual host has TLS enabled."
+    },
+    "retryPolicy": {
+      "$ref": "#/components/schemas/RetryPolicy"
+    },
+    "timeoutPolicy": {
+      "$ref": "#/components/schemas/TimeoutPolicy"
+    },
+    "rateLimitPolicy": {
+      "$ref": "#/components/schemas/RateLimitPolicy"
+    },
+    "requestHeadersPolicy": {
+      "$ref": "#/components/schemas/HeadersPolicy"
+    },
+    "responseHeadersPolicy": {
+      "$ref": "#/components/schemas/HeadersPolicy"
+    }
+  }
+}

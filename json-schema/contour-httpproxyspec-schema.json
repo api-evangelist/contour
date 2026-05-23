@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPProxySpec",
+  "title": "HTTPProxySpec",
+  "type": "object",
+  "description": "Specification for the HTTPProxy defining routing behavior.",
+  "properties": {
+    "virtualhost": {
+      "$ref": "#/components/schemas/VirtualHost"
+    },
+    "includes": {
+      "type": "array",
+      "description": "List of HTTPProxy resources from the same or other namespaces to include as sub-routes under this proxy.",
+      "items": {
+        "$ref": "#/components/schemas/Include"
+      }
+    },
+    "routes": {
+      "type": "array",
+      "description": "List of routing rules for this HTTPProxy.",
+      "items": {
+        "$ref": "#/components/schemas/Route"
+      }
+    },
+    "tcpproxy": {
+      "$ref": "#/components/schemas/TCPProxy"
+    },
+    "ingressClassName": {
+      "type": "string",
+      "description": "Name of the IngressClass to use for this HTTPProxy."
+    }
+  }
+}

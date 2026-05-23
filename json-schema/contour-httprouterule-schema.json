@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPRouteRule",
+  "title": "HTTPRouteRule",
+  "type": "object",
+  "description": "A single routing rule within an HTTPRoute.",
+  "properties": {
+    "matches": {
+      "type": "array",
+      "description": "List of match criteria; request must match at least one.",
+      "items": {
+        "$ref": "#/components/schemas/HTTPRouteMatch"
+      }
+    },
+    "filters": {
+      "type": "array",
+      "description": "List of filters applied to matching requests.",
+      "items": {
+        "$ref": "#/components/schemas/HTTPRouteFilter"
+      }
+    },
+    "backendRefs": {
+      "type": "array",
+      "description": "Backend services to route matching requests to.",
+      "items": {
+        "$ref": "#/components/schemas/HTTPBackendRef"
+      }
+    },
+    "timeouts": {
+      "type": "object",
+      "description": "Timeout configuration for this rule.",
+      "properties": {
+        "request": {
+          "type": "string",
+          "description": "Timeout for a complete HTTP request."
+        },
+        "backendRequest": {
+          "type": "string",
+          "description": "Timeout for a request to the backend."
+        }
+      }
+    }
+  }
+}

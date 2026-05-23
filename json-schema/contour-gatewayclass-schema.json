@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GatewayClass",
+  "title": "GatewayClass",
+  "type": "object",
+  "description": "Cluster-scoped resource associating a controller with Gateways of a given class. Contour registers a GatewayClass pointing to itself.",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "enum": [
+        "gateway.networking.k8s.io/v1"
+      ]
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "GatewayClass"
+      ]
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "type": "object",
+      "description": "GatewayClass specification.",
+      "required": [
+        "controllerName"
+      ],
+      "properties": {
+        "controllerName": {
+          "type": "string",
+          "description": "Name of the controller responsible for managing Gateways of this class. For Contour, this is 'projectcontour.io/contour'.",
+          "example": "projectcontour.io/contour"
+        },
+        "parametersRef": {
+          "type": "object",
+          "description": "Reference to a resource providing configuration for this class.",
+          "properties": {
+            "group": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "namespace": {
+              "type": "string"
+            }
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the GatewayClass."
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Status conditions reported by the controller.",
+      "properties": {
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Condition"
+          }
+        }
+      }
+    }
+  }
+}

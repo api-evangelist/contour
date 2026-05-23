@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Include",
+  "title": "Include",
+  "type": "object",
+  "description": "Reference to another HTTPProxy resource to include as child routes, optionally in another namespace.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the HTTPProxy resource to include."
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Namespace of the included HTTPProxy. Defaults to the current namespace."
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Conditions that must match for this include to apply.",
+      "items": {
+        "$ref": "#/components/schemas/MatchCondition"
+      }
+    }
+  }
+}
