@@ -117,6 +117,8 @@ apis:
       - type: Reference
         url: https://projectcontour.io/docs/main/config/api-reference.html
 common:
+  - type: AgenticAccess
+    url: agentic-access/contour-agentic-access.yml
   - type: DomainSecurity
     url: security/contour-domain-security.yml
   - type: Website

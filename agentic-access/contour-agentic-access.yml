@@ -1,0 +1,318 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/contour-gateway-openapi.yml, openapi/contour-httpproxy-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 23
+  by_action_class:
+    connected: 11
+    acting: 12
+  by_consequence:
+    read: 11
+    write: 12
+  human_in_the_loop_required: 0
+operations:
+- path: /apis/gateway.networking.k8s.io/v1/gatewayclasses
+  method: get
+  operationId: listGatewayClass
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}
+  method: get
+  operationId: readGatewayClass
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways
+  method: get
+  operationId: listNamespacedGateway
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways
+  method: post
+  operationId: createNamespacedGateway
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}
+  method: get
+  operationId: readNamespacedGateway
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}
+  method: put
+  operationId: replaceNamespacedGateway
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}
+  method: delete
+  operationId: deleteNamespacedGateway
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes
+  method: get
+  operationId: listNamespacedHTTPRoute
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes
+  method: post
+  operationId: createNamespacedHTTPRoute
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}
+  method: get
+  operationId: readNamespacedHTTPRoute
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}
+  method: put
+  operationId: replaceNamespacedHTTPRoute
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}
+  method: delete
+  operationId: deleteNamespacedHTTPRoute
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1alpha2/namespaces/{namespace}/tlsroutes
+  method: get
+  operationId: listNamespacedTLSRoute
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1alpha2/namespaces/{namespace}/tlsroutes
+  method: post
+  operationId: createNamespacedTLSRoute
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies
+  method: get
+  operationId: listNamespacedHTTPProxy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies
+  method: post
+  operationId: createNamespacedHTTPProxy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies/{name}
+  method: get
+  operationId: readNamespacedHTTPProxy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies/{name}
+  method: put
+  operationId: replaceNamespacedHTTPProxy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies/{name}
+  method: patch
+  operationId: patchNamespacedHTTPProxy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/projectcontour.io/v1/namespaces/{namespace}/httpproxies/{name}
+  method: delete
+  operationId: deleteNamespacedHTTPProxy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/projectcontour.io/v1/httpproxies
+  method: get
+  operationId: listHTTPProxyAllNamespaces
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/projectcontour.io/v1/namespaces/{namespace}/tlscertificatedelegations
+  method: get
+  operationId: listNamespacedTLSCertificateDelegation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/projectcontour.io/v1/namespaces/{namespace}/tlscertificatedelegations
+  method: post
+  operationId: createNamespacedTLSCertificateDelegation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
