@@ -1,0 +1,216 @@
+openapi: 3.1.0
+info:
+  title: Contour Gateway TLSRoute API
+  description: Contour's implementation of the Kubernetes Gateway API, providing support for GatewayClass, Gateway, HTTPRoute, TLSRoute, and related resources. The Gateway API is the next-generation Kubernetes ingress standard, and Contour implements it alongside the legacy Ingress and HTTPProxy resources. All resources are managed through the Kubernetes API server using standard Kubernetes CRD patterns.
+  version: 1.30.0
+  contact:
+    name: Contour Community
+    url: https://projectcontour.io/community/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://{kubernetes-api-server}
+  description: Kubernetes API server
+  variables:
+    kubernetes-api-server:
+      default: localhost:6443
+      description: Address of the Kubernetes API server
+tags:
+- name: TLSRoute
+  description: Namespace-scoped resources that define TLS routing rules for routing TLS connections based on SNI hostname to backend services.
+paths:
+  /apis/gateway.networking.k8s.io/v1alpha2/namespaces/{namespace}/tlsroutes:
+    get:
+      operationId: listNamespacedTLSRoute
+      summary: Contour List TLSRoute resources in a namespace
+      description: Returns all TLSRoute resources in the specified namespace. TLSRoutes define routing rules for TLS connections, routing based on SNI hostnames to backend services.
+      tags:
+      - TLSRoute
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/labelSelector'
+      responses:
+        '200':
+          description: List of TLSRoute resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSRouteList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedTLSRoute
+      summary: Contour Create a TLSRoute resource
+      description: Creates a new TLSRoute resource that defines TLS passthrough routing rules attaching to a Gateway listener.
+      tags:
+      - TLSRoute
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TLSRoute'
+      responses:
+        '201':
+          description: TLSRoute created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSRoute'
+        '400':
+          description: Invalid TLSRoute specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+components:
+  schemas:
+    TLSRouteList:
+      type: object
+      description: List of TLSRoute resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TLSRoute'
+    ParentReference:
+      type: object
+      description: A reference to a parent resource (typically a Gateway) to attach to.
+      required:
+      - name
+      properties:
+        group:
+          type: string
+          description: API group of the parent resource.
+        kind:
+          type: string
+          description: Kind of the parent resource.
+        namespace:
+          type: string
+          description: Namespace of the parent resource.
+        name:
+          type: string
+          description: Name of the parent resource.
+        sectionName:
+          type: string
+          description: Name of a specific listener section within the parent.
+        port:
+          type: integer
+          description: Port of a specific listener within the parent.
+    TLSRoute:
+      type: object
+      description: Namespace-scoped resource defining TLS routing rules for passthrough connections, routing based on SNI hostname to backend services.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          enum:
+          - gateway.networking.k8s.io/v1alpha2
+        kind:
+          type: string
+          enum:
+          - TLSRoute
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          properties:
+            parentRefs:
+              type: array
+              items:
+                $ref: '#/components/schemas/ParentReference'
+            hostnames:
+              type: array
+              description: SNI hostnames this route matches.
+              items:
+                type: string
+            rules:
+              type: array
+              description: TLS routing rules.
+              items:
+                type: object
+                properties:
+                  backendRefs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        namespace:
+                          type: string
+                        port:
+                          type: integer
+                        weight:
+                          type: integer
+        status:
+          type: object
+          properties:
+            parents:
+              type: array
+              items:
+                type: object
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Labels for organizing and selecting resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for non-identifying metadata.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        generation:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        creationTimestamp:
+          type: string
+          format: date-time
+  parameters:
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Label selector to filter resources.
+      schema:
+        type: string
+externalDocs:
+  description: Contour Gateway API Documentation
+  url: https://projectcontour.io/docs/1.30/config/gateway-api/

@@ -1,0 +1,495 @@
+openapi: 3.1.0
+info:
+  title: Contour Gateway HTTPRoute API
+  description: Contour's implementation of the Kubernetes Gateway API, providing support for GatewayClass, Gateway, HTTPRoute, TLSRoute, and related resources. The Gateway API is the next-generation Kubernetes ingress standard, and Contour implements it alongside the legacy Ingress and HTTPProxy resources. All resources are managed through the Kubernetes API server using standard Kubernetes CRD patterns.
+  version: 1.30.0
+  contact:
+    name: Contour Community
+    url: https://projectcontour.io/community/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://{kubernetes-api-server}
+  description: Kubernetes API server
+  variables:
+    kubernetes-api-server:
+      default: localhost:6443
+      description: Address of the Kubernetes API server
+tags:
+- name: HTTPRoute
+  description: Namespace-scoped resources that define HTTP routing rules, mapping HTTP/HTTPS requests to backend Kubernetes services based on host, path, headers, and other criteria.
+paths:
+  /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes:
+    get:
+      operationId: listNamespacedHTTPRoute
+      summary: Contour List HTTPRoute resources in a namespace
+      description: Returns all HTTPRoute resources in the specified namespace. HTTPRoutes define routing rules for HTTP and HTTPS traffic, attaching to one or more Gateways.
+      tags:
+      - HTTPRoute
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/labelSelector'
+      responses:
+        '200':
+          description: List of HTTPRoute resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRouteList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedHTTPRoute
+      summary: Contour Create an HTTPRoute resource
+      description: Creates a new HTTPRoute resource that defines HTTP traffic routing rules and attaches them to a Gateway. The route can match on host, path, headers, query parameters, and HTTP method.
+      tags:
+      - HTTPRoute
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HTTPRoute'
+      responses:
+        '201':
+          description: HTTPRoute created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRoute'
+        '400':
+          description: Invalid HTTPRoute specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}:
+    get:
+      operationId: readNamespacedHTTPRoute
+      summary: Contour Get a specific HTTPRoute resource
+      description: Returns the specified HTTPRoute resource, including its routing rules and current status conditions.
+      tags:
+      - HTTPRoute
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: HTTPRoute resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRoute'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: HTTPRoute not found
+    put:
+      operationId: replaceNamespacedHTTPRoute
+      summary: Contour Replace an HTTPRoute resource
+      description: Replaces the entire HTTPRoute resource with the provided specification.
+      tags:
+      - HTTPRoute
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HTTPRoute'
+      responses:
+        '200':
+          description: HTTPRoute updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRoute'
+        '400':
+          description: Invalid specification
+        '401':
+          description: Unauthorized
+        '404':
+          description: HTTPRoute not found
+    delete:
+      operationId: deleteNamespacedHTTPRoute
+      summary: Contour Delete an HTTPRoute resource
+      description: Deletes the specified HTTPRoute resource. Contour will remove the associated routing rules from the Envoy configuration.
+      tags:
+      - HTTPRoute
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: HTTPRoute deleted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: HTTPRoute not found
+components:
+  schemas:
+    HTTPRouteList:
+      type: object
+      description: List of HTTPRoute resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPRoute'
+    HTTPRouteRule:
+      type: object
+      description: A single routing rule within an HTTPRoute.
+      properties:
+        matches:
+          type: array
+          description: List of match criteria; request must match at least one.
+          items:
+            $ref: '#/components/schemas/HTTPRouteMatch'
+        filters:
+          type: array
+          description: List of filters applied to matching requests.
+          items:
+            $ref: '#/components/schemas/HTTPRouteFilter'
+        backendRefs:
+          type: array
+          description: Backend services to route matching requests to.
+          items:
+            $ref: '#/components/schemas/HTTPBackendRef'
+        timeouts:
+          type: object
+          description: Timeout configuration for this rule.
+          properties:
+            request:
+              type: string
+              description: Timeout for a complete HTTP request.
+            backendRequest:
+              type: string
+              description: Timeout for a request to the backend.
+    HTTPRouteMatch:
+      type: object
+      description: Criteria for matching an HTTP request to this routing rule.
+      properties:
+        path:
+          type: object
+          description: Path match criteria.
+          properties:
+            type:
+              type: string
+              enum:
+              - Exact
+              - PathPrefix
+              - RegularExpression
+            value:
+              type: string
+        headers:
+          type: array
+          description: Header match criteria.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                - Exact
+                - RegularExpression
+              value:
+                type: string
+        queryParams:
+          type: array
+          description: Query parameter match criteria.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                - Exact
+                - RegularExpression
+              value:
+                type: string
+        method:
+          type: string
+          description: HTTP method to match.
+          enum:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - HEAD
+          - OPTIONS
+          - CONNECT
+          - TRACE
+    Condition:
+      type: object
+      description: A standard Kubernetes condition indicating the state of a resource.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of the condition.
+        status:
+          type: string
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+          description: Status of the condition.
+        observedGeneration:
+          type: integer
+          format: int64
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when this condition last changed.
+        reason:
+          type: string
+          description: Short reason code for the condition.
+        message:
+          type: string
+          description: Human-readable details about this condition.
+    ParentReference:
+      type: object
+      description: A reference to a parent resource (typically a Gateway) to attach to.
+      required:
+      - name
+      properties:
+        group:
+          type: string
+          description: API group of the parent resource.
+        kind:
+          type: string
+          description: Kind of the parent resource.
+        namespace:
+          type: string
+          description: Namespace of the parent resource.
+        name:
+          type: string
+          description: Name of the parent resource.
+        sectionName:
+          type: string
+          description: Name of a specific listener section within the parent.
+        port:
+          type: integer
+          description: Port of a specific listener within the parent.
+    HTTPBackendRef:
+      type: object
+      description: A backend service to route matching requests to.
+      required:
+      - name
+      - port
+      properties:
+        name:
+          type: string
+          description: Name of the Kubernetes Service.
+        namespace:
+          type: string
+          description: Namespace of the Service. Defaults to the route's namespace.
+        port:
+          type: integer
+          description: Port number on the Service.
+          minimum: 1
+          maximum: 65535
+        weight:
+          type: integer
+          description: Relative weight for traffic distribution among backends.
+          minimum: 0
+        filters:
+          type: array
+          description: Filters applied specifically to traffic routed to this backend.
+          items:
+            $ref: '#/components/schemas/HTTPRouteFilter'
+    HTTPRoute:
+      type: object
+      description: Namespace-scoped resource defining HTTP/HTTPS routing rules that attach to one or more Gateways. Supports matching on host, path, headers, query parameters, and HTTP method.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          enum:
+          - gateway.networking.k8s.io/v1
+        kind:
+          type: string
+          enum:
+          - HTTPRoute
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: HTTPRoute specification.
+          properties:
+            parentRefs:
+              type: array
+              description: References to the Gateways this route attaches to.
+              items:
+                $ref: '#/components/schemas/ParentReference'
+            hostnames:
+              type: array
+              description: Hostnames this route should match. Requests with matching Host headers are routed according to this HTTPRoute.
+              items:
+                type: string
+            rules:
+              type: array
+              description: List of routing rules.
+              items:
+                $ref: '#/components/schemas/HTTPRouteRule'
+        status:
+          type: object
+          description: Status conditions for the route as reported by the controller.
+          properties:
+            parents:
+              type: array
+              items:
+                type: object
+                properties:
+                  parentRef:
+                    $ref: '#/components/schemas/ParentReference'
+                  conditions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Condition'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Labels for organizing and selecting resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for non-identifying metadata.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        generation:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        creationTimestamp:
+          type: string
+          format: date-time
+    HTTPRouteFilter:
+      type: object
+      description: A filter applied to requests matching this route rule.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: Type of filter to apply.
+          enum:
+          - RequestHeaderModifier
+          - ResponseHeaderModifier
+          - RequestRedirect
+          - URLRewrite
+          - RequestMirror
+          - ExtensionRef
+        requestHeaderModifier:
+          type: object
+          description: Modifies request headers before forwarding.
+          properties:
+            set:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
+            add:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
+            remove:
+              type: array
+              items:
+                type: string
+        requestRedirect:
+          type: object
+          description: Redirects the request to a different URL.
+          properties:
+            scheme:
+              type: string
+              enum:
+              - http
+              - https
+            hostname:
+              type: string
+            path:
+              type: object
+            port:
+              type: integer
+            statusCode:
+              type: integer
+              enum:
+              - 301
+              - 302
+  parameters:
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
+externalDocs:
+  description: Contour Gateway API Documentation
+  url: https://projectcontour.io/docs/1.30/config/gateway-api/

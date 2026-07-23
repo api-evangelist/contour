@@ -1,0 +1,172 @@
+openapi: 3.1.0
+info:
+  title: Contour Gateway TLSCertificateDelegation API
+  description: Contour's implementation of the Kubernetes Gateway API, providing support for GatewayClass, Gateway, HTTPRoute, TLSRoute, and related resources. The Gateway API is the next-generation Kubernetes ingress standard, and Contour implements it alongside the legacy Ingress and HTTPProxy resources. All resources are managed through the Kubernetes API server using standard Kubernetes CRD patterns.
+  version: 1.30.0
+  contact:
+    name: Contour Community
+    url: https://projectcontour.io/community/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://{kubernetes-api-server}
+  description: Kubernetes API server
+  variables:
+    kubernetes-api-server:
+      default: localhost:6443
+      description: Address of the Kubernetes API server
+tags:
+- name: TLSCertificateDelegation
+  description: Operations for managing TLSCertificateDelegation resources that allow certificates in one namespace to be used by HTTPProxy resources in other namespaces.
+paths:
+  /apis/projectcontour.io/v1/namespaces/{namespace}/tlscertificatedelegations:
+    get:
+      operationId: listNamespacedTLSCertificateDelegation
+      summary: Contour List TLSCertificateDelegation resources
+      description: Returns all TLSCertificateDelegation resources in the specified namespace. These resources allow TLS certificates to be delegated for use by HTTPProxy resources in other namespaces.
+      tags:
+      - TLSCertificateDelegation
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      responses:
+        '200':
+          description: List of TLSCertificateDelegation resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSCertificateDelegationList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedTLSCertificateDelegation
+      summary: Contour Create a TLSCertificateDelegation resource
+      description: Creates a TLSCertificateDelegation resource that grants specified target namespaces permission to reference TLS certificates from this namespace in their HTTPProxy resources.
+      tags:
+      - TLSCertificateDelegation
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TLSCertificateDelegation'
+      responses:
+        '201':
+          description: TLSCertificateDelegation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSCertificateDelegation'
+        '400':
+          description: Invalid specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+components:
+  schemas:
+    TLSCertificateDelegation:
+      type: object
+      description: Contour TLSCertificateDelegation resource granting other namespaces permission to reference TLS certificates from this namespace in their HTTPProxy resources.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          enum:
+          - projectcontour.io/v1
+        kind:
+          type: string
+          enum:
+          - TLSCertificateDelegation
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: Specification for the delegation.
+          properties:
+            delegations:
+              type: array
+              description: List of delegations granting certificate access to namespaces.
+              items:
+                type: object
+                required:
+                - secretName
+                - targetNamespaces
+                properties:
+                  secretName:
+                    type: string
+                    description: Name of the Kubernetes Secret containing the TLS certificate.
+                  targetNamespaces:
+                    type: array
+                    description: Namespaces permitted to reference this certificate. Use '*' to allow all namespaces.
+                    items:
+                      type: string
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within the namespace.
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of string keys and values for organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of non-identifying metadata for the resource.
+        resourceVersion:
+          type: string
+          description: An opaque value representing the internal version of the resource, used for optimistic concurrency control.
+        generation:
+          type: integer
+          format: int64
+          description: Sequence number representing the generation of the desired state.
+        uid:
+          type: string
+          description: Unique identifier assigned by the Kubernetes system.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created.
+    TLSCertificateDelegationList:
+      type: object
+      description: List of TLSCertificateDelegation resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          type: object
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TLSCertificateDelegation'
+  parameters:
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
+externalDocs:
+  description: Contour Gateway API Documentation
+  url: https://projectcontour.io/docs/1.30/config/gateway-api/
