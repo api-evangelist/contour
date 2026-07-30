@@ -1,3 +1,16 @@
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/contour.png
 name: Contour
 description: >-
   A Kubernetes ingress controller using Envoy proxy that provides dynamic configuration updates and advanced routing
@@ -12,110 +25,186 @@ tags:
 created: '2025-01-01'
 modified: '2026-05-19'
 apis:
-  - aid: contour:contour-httpproxy-api
-    name: Contour HTTPProxy API
-    description: >-
-      Kubernetes Custom Resource Definition that extends the standard Ingress API with advanced routing, multi-team
-      support, TLS delegation, and weighted load balancing across multiple backend services. HTTPProxy is Contour's
-      primary ingress configuration resource and supports inclusion of routing configuration across namespaces.
-    humanURL: https://projectcontour.io/docs/main/config/api/
-    baseURL: https://projectcontour.io
-    tags:
-      - Custom Resource
-      - HTTPProxy
-      - Ingress
-      - Kubernetes
-      - Routing
-    properties:
-      - type: Documentation
-        url: https://projectcontour.io/docs/main/config/api/
-      - type: Reference
-        url: https://projectcontour.io/docs/main/config/api-reference.html
-      - type: OpenAPI
-        url: openapi/contour-httpproxy-openapi.yml
-      - type: JSONSchema
-        url: json-schema/contour-httpproxy-schema.json
-  - aid: contour:contour-gateway-api
-    name: Contour Gateway API
-    description: >-
-      Contour's implementation of the Kubernetes Gateway API, supporting HTTPRoute and TLSRoute resources for defining
-      ingress traffic routing rules. Gateway API is the next-generation Kubernetes ingress standard and Contour provides
-      support for GatewayClass, Gateway, HTTPRoute, and related resources.
-    humanURL: https://projectcontour.io/docs/1.30/config/gateway-api/
-    baseURL: https://projectcontour.io
-    tags:
-      - Gateway API
-      - Ingress
-      - Kubernetes
-      - Networking
-      - Routing
-    properties:
-      - type: Documentation
-        url: https://projectcontour.io/docs/1.30/config/gateway-api/
-      - type: Reference
-        url: https://projectcontour.io/docs/main/config/api-reference.html
-      - type: OpenAPI
-        url: openapi/contour-gateway-openapi.yml
-  - aid: contour:contour-kubernetes-ingress-api
-    name: Contour Kubernetes Ingress API
-    description: >-
-      Contour's support for the standard Kubernetes Ingress v1 resource, enabling basic ingress use cases such as
-      host-based and path-based routing to backend services. Contour watches Ingress v1 resources and translates them
-      into Envoy proxy configuration, with support for IngressClass selection and Contour-specific annotations for
-      extended configuration.
-    humanURL: https://projectcontour.io/docs/main/config/ingress/
-    baseURL: https://projectcontour.io
-    tags:
-      - Ingress
-      - Kubernetes
-      - Networking
-      - Routing
-      - Standard API
-    properties:
-      - type: Documentation
-        url: https://projectcontour.io/docs/main/config/ingress/
-      - type: Reference
-        url: https://projectcontour.io/docs/main/config/annotations/
-  - aid: contour:contour-extensionservice-api
-    name: Contour ExtensionService API
-    description: >-
-      Kubernetes Custom Resource Definition for binding gRPC-based extension services to the Contour API.
-      ExtensionService resources allow external components to implement Contour API features such as external
-      authorization and rate limiting by registering a network service that Contour will route to via Envoy's gRPC
-      extension protocol (v3).
-    humanURL: https://projectcontour.io/docs/main/config/api/
-    baseURL: https://projectcontour.io
-    tags:
-      - Authorization
-      - Custom Resource
-      - Extension Service
-      - gRPC
-      - Kubernetes
-    properties:
-      - type: Documentation
-        url: https://projectcontour.io/docs/main/config/api/
-      - type: Reference
-        url: https://projectcontour.io/docs/main/config/api-reference.html
-  - aid: contour:contour-configuration-api
-    name: Contour Configuration API
-    description: >-
-      Contour's ContourConfiguration Custom Resource Definition (v1alpha1) that provides cluster-scoped configuration of
-      a Contour instance, including ingress settings, TLS defaults, timeouts, and feature gates. This API allows
-      operators to declaratively manage Contour's runtime behavior through Kubernetes resources instead of command-line
-      flags or static config files.
-    humanURL: https://projectcontour.io/docs/main/config/api/
-    baseURL: https://projectcontour.io
-    tags:
-      - Configuration
-      - Custom Resource
-      - Kubernetes
-      - Networking
-      - Operator
-    properties:
-      - type: Documentation
-        url: https://projectcontour.io/docs/main/config/api/
-      - type: Reference
-        url: https://projectcontour.io/docs/main/config/api-reference.html
+- aid: contour:contour-kubernetes-ingress-api
+  name: Contour Kubernetes Ingress API
+  description: >-
+    Contour's support for the standard Kubernetes Ingress v1 resource, enabling basic ingress use cases
+    such as host-based and path-based routing to backend services. Contour watches Ingress v1 resources
+    and translates them into Envoy proxy configuration, with support for IngressClass selection and Contour-specific
+    annotations for extended configuration.
+  humanURL: https://projectcontour.io/docs/main/config/ingress/
+  baseURL: https://projectcontour.io
+  tags:
+  - Ingress
+  - Kubernetes
+  - Networking
+  - Routing
+  - Standard API
+  properties:
+  - type: Documentation
+    url: https://projectcontour.io/docs/main/config/ingress/
+  - type: Reference
+    url: https://projectcontour.io/docs/main/config/annotations/
+- aid: contour:contour-extensionservice-api
+  name: Contour ExtensionService API
+  description: >-
+    Kubernetes Custom Resource Definition for binding gRPC-based extension services to the Contour API.
+    ExtensionService resources allow external components to implement Contour API features such as external
+    authorization and rate limiting by registering a network service that Contour will route to via Envoy's
+    gRPC extension protocol (v3).
+  humanURL: https://projectcontour.io/docs/main/config/api/
+  baseURL: https://projectcontour.io
+  tags:
+  - Authorization
+  - Custom Resource
+  - Extension Service
+  - gRPC
+  - Kubernetes
+  properties:
+  - type: Documentation
+    url: https://projectcontour.io/docs/main/config/api/
+  - type: Reference
+    url: https://projectcontour.io/docs/main/config/api-reference.html
+- aid: contour:contour-configuration-api
+  name: Contour Configuration API
+  description: >-
+    Contour's ContourConfiguration Custom Resource Definition (v1alpha1) that provides cluster-scoped
+    configuration of a Contour instance, including ingress settings, TLS defaults, timeouts, and feature
+    gates. This API allows operators to declaratively manage Contour's runtime behavior through Kubernetes
+    resources instead of command-line flags or static config files.
+  humanURL: https://projectcontour.io/docs/main/config/api/
+  baseURL: https://projectcontour.io
+  tags:
+  - Configuration
+  - Custom Resource
+  - Kubernetes
+  - Networking
+  - Operator
+  properties:
+  - type: Documentation
+    url: https://projectcontour.io/docs/main/config/api/
+  - type: Reference
+    url: https://projectcontour.io/docs/main/config/api-reference.html
+- aid: contour:contour-gateway-api
+  name: Contour Gateway API
+  description: >-
+    Namespace-scoped resources that describe network infrastructure instances that route traffic. Each
+    Gateway is associated with a GatewayClass and defines listeners for inbound traffic.
+  humanURL: https://projectcontour.io/docs/main/config/api/
+  baseURL: https://projectcontour.io
+  tags:
+  - Gateway
+  properties:
+  - type: OpenAPI
+    url: openapi/contour-gateway-api-openapi.yml
+  - type: Documentation
+    url: https://projectcontour.io/docs/main/config/api/
+  - type: Reference
+    url: https://projectcontour.io/docs/main/config/api-reference.html
+  - type: JSONSchema
+    url: json-schema/contour-httpproxy-schema.json
+  - type: Documentation
+    url: https://projectcontour.io/docs/1.30/config/gateway-api/
+- aid: contour:contour-gatewayclass-api
+  name: Contour GatewayClass API
+  description: >-
+    Cluster-scoped resources that define the controller responsible for managing Gateways of a particular
+    class. GatewayClass is analogous to IngressClass in the legacy Ingress API.
+  humanURL: https://projectcontour.io/docs/main/config/api/
+  baseURL: https://projectcontour.io
+  tags:
+  - GatewayClass
+  properties:
+  - type: OpenAPI
+    url: openapi/contour-gatewayclass-api-openapi.yml
+  - type: Documentation
+    url: https://projectcontour.io/docs/main/config/api/
+  - type: Reference
+    url: https://projectcontour.io/docs/main/config/api-reference.html
+  - type: JSONSchema
+    url: json-schema/contour-httpproxy-schema.json
+  - type: Documentation
+    url: https://projectcontour.io/docs/1.30/config/gateway-api/
+- aid: contour:contour-httpproxy-api
+  name: Contour HTTPProxy API
+  description: >-
+    Operations for managing Contour HTTPProxy custom resources in a Kubernetes cluster. HTTPProxy resources
+    define ingress routing rules for HTTP and HTTPS traffic.
+  humanURL: https://projectcontour.io/docs/main/config/api/
+  baseURL: https://projectcontour.io
+  tags:
+  - HTTPProxy
+  properties:
+  - type: OpenAPI
+    url: openapi/contour-httpproxy-api-openapi.yml
+  - type: Documentation
+    url: https://projectcontour.io/docs/main/config/api/
+  - type: Reference
+    url: https://projectcontour.io/docs/main/config/api-reference.html
+  - type: JSONSchema
+    url: json-schema/contour-httpproxy-schema.json
+  - type: Documentation
+    url: https://projectcontour.io/docs/1.30/config/gateway-api/
+- aid: contour:contour-httproute-api
+  name: Contour HTTPRoute API
+  description: >-
+    Namespace-scoped resources that define HTTP routing rules, mapping HTTP/HTTPS requests to backend
+    Kubernetes services based on host, path, headers, and other criteria.
+  humanURL: https://projectcontour.io/docs/main/config/api/
+  baseURL: https://projectcontour.io
+  tags:
+  - HTTPRoute
+  properties:
+  - type: OpenAPI
+    url: openapi/contour-httproute-api-openapi.yml
+  - type: Documentation
+    url: https://projectcontour.io/docs/main/config/api/
+  - type: Reference
+    url: https://projectcontour.io/docs/main/config/api-reference.html
+  - type: JSONSchema
+    url: json-schema/contour-httpproxy-schema.json
+  - type: Documentation
+    url: https://projectcontour.io/docs/1.30/config/gateway-api/
+- aid: contour:contour-tlscertificatedelegation-api
+  name: Contour TLSCertificateDelegation API
+  description: >-
+    Operations for managing TLSCertificateDelegation resources that allow certificates in one namespace
+    to be used by HTTPProxy resources in other namespaces.
+  humanURL: https://projectcontour.io/docs/main/config/api/
+  baseURL: https://projectcontour.io
+  tags:
+  - TLSCertificateDelegation
+  properties:
+  - type: OpenAPI
+    url: openapi/contour-tlscertificatedelegation-api-openapi.yml
+  - type: Documentation
+    url: https://projectcontour.io/docs/main/config/api/
+  - type: Reference
+    url: https://projectcontour.io/docs/main/config/api-reference.html
+  - type: JSONSchema
+    url: json-schema/contour-httpproxy-schema.json
+  - type: Documentation
+    url: https://projectcontour.io/docs/1.30/config/gateway-api/
+- aid: contour:contour-tlsroute-api
+  name: Contour TLSRoute API
+  description: >-
+    Namespace-scoped resources that define TLS routing rules for routing TLS connections based on SNI
+    hostname to backend services.
+  humanURL: https://projectcontour.io/docs/main/config/api/
+  baseURL: https://projectcontour.io
+  tags:
+  - TLSRoute
+  properties:
+  - type: OpenAPI
+    url: openapi/contour-tlsroute-api-openapi.yml
+  - type: Documentation
+    url: https://projectcontour.io/docs/main/config/api/
+  - type: Reference
+    url: https://projectcontour.io/docs/main/config/api-reference.html
+  - type: JSONSchema
+    url: json-schema/contour-httpproxy-schema.json
+  - type: Documentation
+    url: https://projectcontour.io/docs/1.30/config/gateway-api/
 common:
   - type: AgenticAccess
     url: agentic-access/contour-agentic-access.yml
