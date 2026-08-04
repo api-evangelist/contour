@@ -1,0 +1,24 @@
+{
+  "provider": "contour",
+  "sources": [
+    "contour-gateway-api-openapi.yml",
+    "contour-gatewayclass-api-openapi.yml",
+    "contour-httpproxy-api-openapi.yml",
+    "contour-httproute-api-openapi.yml",
+    "contour-tlscertificatedelegation-api-openapi.yml",
+    "contour-tlsroute-api-openapi.yml"
+  ],
+  "outputs": [
+    "contour-gateway-api-openapi.yml",
+    "contour-gatewayclass-api-openapi.yml",
+    "contour-httpproxy-api-openapi.yml",
+    "contour-httproute-api-openapi.yml",
+    "contour-tlscertificatedelegation-api-openapi.yml",
+    "contour-tlsroute-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
