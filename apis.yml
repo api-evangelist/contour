@@ -206,6 +206,15 @@ apis:
   - type: Documentation
     url: https://projectcontour.io/docs/1.30/config/gateway-api/
 common:
+  - type: SecurityPolicy
+    url: https://github.com/projectcontour/contour/blob/main/SECURITY.md
+  - type: CodeOfConduct
+    url: https://github.com/projectcontour/contour/blob/main/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/projectcontour/contour/blob/main/CONTRIBUTING.md
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/projectcontour/contour/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/contour-agentic-access.yml
   - type: DomainSecurity
@@ -222,10 +231,6 @@ common:
     url: rules/contour-httpproxy-rules.yml
   - type: SpectralRules
     url: rules/contour-gateway-rules.yml
-  - type: Capability
-    url: capabilities/manage-httpproxy-routing.yml
-  - type: Capability
-    url: capabilities/configure-gateway-api-routing.yml
   - type: GettingStarted
     url: https://projectcontour.io/getting-started/
   - type: Documentation
