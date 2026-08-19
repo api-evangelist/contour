@@ -1,0 +1,496 @@
+{
+  "item": [
+    {
+      "id": "946bcf33-ac8e-4210-81d0-3c004faf6627",
+      "name": "GatewayClass",
+      "description": {
+        "content": "Cluster-scoped resources that define the controller responsible for managing Gateways of a particular class. GatewayClass is analogous to IngressClass in the legacy Ingress API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a4e28dcf-bd44-4db1-9d0d-871b5e458b51",
+          "name": "Contour List GatewayClass resources",
+          "request": {
+            "name": "Contour List GatewayClass resources",
+            "description": {
+              "content": "Returns all GatewayClass resources in the cluster. GatewayClasses are cluster-scoped and define which controller (such as Contour) manages Gateways of that class. Contour registers a GatewayClass for itself during installation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "gateway.networking.k8s.io",
+                "v1",
+                "gatewayclasses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "Label selector to filter resources."
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldSelector",
+                  "value": "<string>",
+                  "description": "Field selector to filter resources."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "458072db-966f-42c2-8519-d17adce168fd",
+              "name": "List of GatewayClass resources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "gatewayclasses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"items\": [\n    {\n      \"apiVersion\": \"gateway.networking.k8s.io/v1\",\n      \"kind\": \"GatewayClass\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 5116,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1961-02-07T22:34:37.506Z\"\n      },\n      \"spec\": {\n        \"controllerName\": \"projectcontour.io/contour\",\n        \"parametersRef\": {\n          \"group\": \"string\",\n          \"kind\": \"string\",\n          \"name\": \"string\",\n          \"namespace\": \"string\"\n        },\n        \"description\": \"string\"\n      },\n      \"status\": {\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 6874,\n            \"lastTransitionTime\": \"1972-10-19T10:37:08.917Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 1171,\n            \"lastTransitionTime\": \"1954-10-06T03:25:03.232Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"gateway.networking.k8s.io/v1\",\n      \"kind\": \"GatewayClass\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\",\n          \"key_4\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 6841,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1959-06-14T07:07:06.382Z\"\n      },\n      \"spec\": {\n        \"controllerName\": \"projectcontour.io/contour\",\n        \"parametersRef\": {\n          \"group\": \"string\",\n          \"kind\": \"string\",\n          \"name\": \"string\",\n          \"namespace\": \"string\"\n        },\n        \"description\": \"string\"\n      },\n      \"status\": {\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 3709,\n            \"lastTransitionTime\": \"1953-03-30T13:47:21.291Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 4546,\n            \"lastTransitionTime\": \"1963-05-20T21:53:54.372Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f52509f4-3740-4e0f-853e-3dc09cb633cf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "gatewayclasses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f3af1889-9fe7-4914-bace-3f154cf3dc6e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "gatewayclasses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2d61cb9-17ce-4ec9-8311-daa700d15422",
+          "name": "Contour Get a specific GatewayClass",
+          "request": {
+            "name": "Contour Get a specific GatewayClass",
+            "description": {
+              "content": "Returns the specified GatewayClass resource including its controller reference, parameters, and current acceptance status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "gateway.networking.k8s.io",
+                "v1",
+                "gatewayclasses",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef94e4fb-24ab-4800-8866-98a9217d0fa7",
+              "name": "GatewayClass resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "gatewayclasses",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.networking.k8s.io/v1\",\n  \"kind\": \"GatewayClass\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 9231,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1973-02-19T17:18:08.380Z\"\n  },\n  \"spec\": {\n    \"controllerName\": \"projectcontour.io/contour\",\n    \"parametersRef\": {\n      \"group\": \"string\",\n      \"kind\": \"string\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"description\": \"string\"\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 3301,\n        \"lastTransitionTime\": \"2026-03-09T16:15:16.966Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 9232,\n        \"lastTransitionTime\": \"1989-02-03T00:31:30.730Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e3e817c-7f06-4b8d-8909-2e8b2eb0b29a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "gatewayclasses",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e4b828c3-94a7-4470-906b-6bf4ea89dc33",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "gatewayclasses",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bdf38e2c-630f-4257-94ff-4564a6c2a866",
+              "name": "GatewayClass not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "gatewayclasses",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Address of the Kubernetes API server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost:6443",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ff3504e1-fbc3-44ee-8456-1a6a6c7c2f4c",
+    "name": "Contour Gateway GatewayClass API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contour's implementation of the Kubernetes Gateway API, providing support for GatewayClass, Gateway, HTTPRoute, TLSRoute, and related resources. The Gateway API is the next-generation Kubernetes ingress standard, and Contour implements it alongside the legacy Ingress and HTTPProxy resources. All resources are managed through the Kubernetes API server using standard Kubernetes CRD patterns.\n\nContact Support:\n Name: Contour Community",
+      "type": "text/plain"
+    }
+  }
+}

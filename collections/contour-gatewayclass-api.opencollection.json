@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contour Gateway GatewayClass API",
+    "version": "1.30.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GatewayClass",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Contour List GatewayClass resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.networking.k8s.io/v1/gatewayclasses",
+            "params": [
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "Label selector to filter resources."
+              },
+              {
+                "name": "fieldSelector",
+                "value": "",
+                "type": "query",
+                "description": "Field selector to filter resources."
+              }
+            ]
+          },
+          "docs": "Returns all GatewayClass resources in the cluster. GatewayClasses are cluster-scoped and define which controller (such as Contour) manages Gateways of that class. Contour registers a GatewayClass for itself during installation."
+        },
+        {
+          "info": {
+            "name": "Contour Get a specific GatewayClass",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.networking.k8s.io/v1/gatewayclasses/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Returns the specified GatewayClass resource including its controller reference, parameters, and current acceptance status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

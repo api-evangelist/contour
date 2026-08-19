@@ -1,0 +1,542 @@
+{
+  "item": [
+    {
+      "id": "0a1af4e9-469f-4825-80b4-46f4df669b1f",
+      "name": "TLSCertificateDelegation",
+      "description": {
+        "content": "Operations for managing TLSCertificateDelegation resources that allow certificates in one namespace to be used by HTTPProxy resources in other namespaces.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d7214abe-b3a2-4ebb-b313-6dc4ae19dd14",
+          "name": "Contour List TLSCertificateDelegation resources",
+          "request": {
+            "name": "Contour List TLSCertificateDelegation resources",
+            "description": {
+              "content": "Returns all TLSCertificateDelegation resources in the specified namespace. These resources allow TLS certificates to be delegated for use by HTTPProxy resources in other namespaces.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "projectcontour.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "tlscertificatedelegations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d9b7a46f-13b3-439d-a2d9-c1ee14466ed0",
+              "name": "List of TLSCertificateDelegation resources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "projectcontour.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscertificatedelegations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {},\n  \"items\": [\n    {\n      \"apiVersion\": \"projectcontour.io/v1\",\n      \"kind\": \"TLSCertificateDelegation\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 7188,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1961-12-22T10:55:09.127Z\"\n      },\n      \"spec\": {\n        \"delegations\": [\n          {\n            \"secretName\": \"string\",\n            \"targetNamespaces\": [\n              \"string\",\n              \"string\"\n            ]\n          },\n          {\n            \"secretName\": \"string\",\n            \"targetNamespaces\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"projectcontour.io/v1\",\n      \"kind\": \"TLSCertificateDelegation\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 4588,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1996-04-03T07:35:29.671Z\"\n      },\n      \"spec\": {\n        \"delegations\": [\n          {\n            \"secretName\": \"string\",\n            \"targetNamespaces\": [\n              \"string\",\n              \"string\"\n            ]\n          },\n          {\n            \"secretName\": \"string\",\n            \"targetNamespaces\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25d90319-01c6-451b-824f-3ef1c1c2343e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "projectcontour.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscertificatedelegations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "96a27335-4cfc-48b7-b7b3-3cba77edf4cd",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "projectcontour.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscertificatedelegations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23b92376-4a33-40fc-896e-9a90c1c50955",
+          "name": "Contour Create a TLSCertificateDelegation resource",
+          "request": {
+            "name": "Contour Create a TLSCertificateDelegation resource",
+            "description": {
+              "content": "Creates a TLSCertificateDelegation resource that grants specified target namespaces permission to reference TLS certificates from this namespace in their HTTPProxy resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "projectcontour.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "tlscertificatedelegations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"delegations\": [\n      {\n        \"secretName\": \"<string>\",\n        \"targetNamespaces\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"secretName\": \"<string>\",\n        \"targetNamespaces\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3b6b8ff7-6715-4506-9e73-64f0e1c0b02d",
+              "name": "TLSCertificateDelegation created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "projectcontour.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscertificatedelegations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2609,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2025-02-09T02:35:10.327Z\"\n  },\n  \"spec\": {\n    \"delegations\": [\n      {\n        \"secretName\": \"<string>\",\n        \"targetNamespaces\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"secretName\": \"<string>\",\n        \"targetNamespaces\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"projectcontour.io/v1\",\n  \"kind\": \"TLSCertificateDelegation\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 7960,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2021-08-04T14:11:52.134Z\"\n  },\n  \"spec\": {\n    \"delegations\": [\n      {\n        \"secretName\": \"string\",\n        \"targetNamespaces\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"secretName\": \"string\",\n        \"targetNamespaces\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a05cc6e5-aeb0-44de-87c4-91c11b13d6eb",
+              "name": "Invalid specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "projectcontour.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscertificatedelegations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2609,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2025-02-09T02:35:10.327Z\"\n  },\n  \"spec\": {\n    \"delegations\": [\n      {\n        \"secretName\": \"<string>\",\n        \"targetNamespaces\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"secretName\": \"<string>\",\n        \"targetNamespaces\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e4cf3429-3ae6-4967-bdd6-7a1f15b12f6a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "projectcontour.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscertificatedelegations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2609,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2025-02-09T02:35:10.327Z\"\n  },\n  \"spec\": {\n    \"delegations\": [\n      {\n        \"secretName\": \"<string>\",\n        \"targetNamespaces\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"secretName\": \"<string>\",\n        \"targetNamespaces\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cd0bdf3e-ae0a-4cea-b4df-67d057d7b061",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "projectcontour.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscertificatedelegations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2609,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2025-02-09T02:35:10.327Z\"\n  },\n  \"spec\": {\n    \"delegations\": [\n      {\n        \"secretName\": \"<string>\",\n        \"targetNamespaces\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"secretName\": \"<string>\",\n        \"targetNamespaces\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Address of the Kubernetes API server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost:6443",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4e2b8941-b7b5-4386-8742-81077a78e46b",
+    "name": "Contour Gateway TLSCertificateDelegation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contour's implementation of the Kubernetes Gateway API, providing support for GatewayClass, Gateway, HTTPRoute, TLSRoute, and related resources. The Gateway API is the next-generation Kubernetes ingress standard, and Contour implements it alongside the legacy Ingress and HTTPProxy resources. All resources are managed through the Kubernetes API server using standard Kubernetes CRD patterns.\n\nContact Support:\n Name: Contour Community",
+      "type": "text/plain"
+    }
+  }
+}

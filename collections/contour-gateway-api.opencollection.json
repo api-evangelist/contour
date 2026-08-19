@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contour Gateway API",
+    "version": "1.30.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Gateway",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Contour List Gateway resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.networking.k8s.io/v1/namespaces/:namespace/gateways",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "Label selector to filter resources."
+              }
+            ]
+          },
+          "docs": "Returns all Gateway resources in the specified namespace. Each Gateway describes network infrastructure with one or more listeners for inbound traffic, associated with a GatewayClass."
+        },
+        {
+          "info": {
+            "name": "Contour Create a Gateway resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/gateway.networking.k8s.io/v1/namespaces/:namespace/gateways",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Gateway resource in the specified namespace. Contour will provision an Envoy instance to handle traffic according to the Gateway's listener configuration."
+        },
+        {
+          "info": {
+            "name": "Contour Get a specific Gateway resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.networking.k8s.io/v1/namespaces/:namespace/gateways/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Returns the specified Gateway resource, including its listeners, addresses, and current status as reported by the Contour controller."
+        },
+        {
+          "info": {
+            "name": "Contour Replace a Gateway resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{kubernetes-api-server}/apis/gateway.networking.k8s.io/v1/namespaces/:namespace/gateways/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the entire Gateway resource with the provided specification."
+        },
+        {
+          "info": {
+            "name": "Contour Delete a Gateway resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/gateway.networking.k8s.io/v1/namespaces/:namespace/gateways/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Deletes the specified Gateway resource. Contour will decommission the associated Envoy infrastructure."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

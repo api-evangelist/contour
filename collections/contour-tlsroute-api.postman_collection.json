@@ -1,0 +1,564 @@
+{
+  "item": [
+    {
+      "id": "27313f5e-6ac5-4070-b597-8d137b2b127c",
+      "name": "TLSRoute",
+      "description": {
+        "content": "Namespace-scoped resources that define TLS routing rules for routing TLS connections based on SNI hostname to backend services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f2d9eee7-4071-4c77-a4e6-4f42c63d5566",
+          "name": "Contour List TLSRoute resources in a namespace",
+          "request": {
+            "name": "Contour List TLSRoute resources in a namespace",
+            "description": {
+              "content": "Returns all TLSRoute resources in the specified namespace. TLSRoutes define routing rules for TLS connections, routing based on SNI hostnames to backend services.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "gateway.networking.k8s.io",
+                "v1alpha2",
+                "namespaces",
+                ":namespace",
+                "tlsroutes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "Label selector to filter resources."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd4c9661-45e9-43ac-9b73-cbc2677b29b6",
+              "name": "List of TLSRoute resources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1alpha2",
+                    "namespaces",
+                    ":namespace",
+                    "tlsroutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"items\": [\n    {\n      \"apiVersion\": \"gateway.networking.k8s.io/v1alpha2\",\n      \"kind\": \"TLSRoute\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 9535,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1982-12-20T09:46:46.304Z\"\n      },\n      \"spec\": {\n        \"parentRefs\": [\n          {\n            \"name\": \"string\",\n            \"group\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\",\n            \"port\": 2974\n          },\n          {\n            \"name\": \"string\",\n            \"group\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\",\n            \"port\": 3115\n          }\n        ],\n        \"hostnames\": [\n          \"string\",\n          \"string\"\n        ],\n        \"rules\": [\n          {\n            \"backendRefs\": [\n              {\n                \"name\": \"string\",\n                \"namespace\": \"string\",\n                \"port\": 9258,\n                \"weight\": 7130\n              },\n              {\n                \"name\": \"string\",\n                \"namespace\": \"string\",\n                \"port\": 5428,\n                \"weight\": 255\n              }\n            ]\n          },\n          {\n            \"backendRefs\": [\n              {\n                \"name\": \"string\",\n                \"namespace\": \"string\",\n                \"port\": 7101,\n                \"weight\": 5468\n              },\n              {\n                \"name\": \"string\",\n                \"namespace\": \"string\",\n                \"port\": 3174,\n                \"weight\": 3769\n              }\n            ]\n          }\n        ]\n      },\n      \"status\": {}\n    },\n    {\n      \"apiVersion\": \"gateway.networking.k8s.io/v1alpha2\",\n      \"kind\": \"TLSRoute\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 3491,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1966-02-16T23:32:39.437Z\"\n      },\n      \"spec\": {\n        \"parentRefs\": [\n          {\n            \"name\": \"string\",\n            \"group\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\",\n            \"port\": 6190\n          },\n          {\n            \"name\": \"string\",\n            \"group\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\",\n            \"port\": 4613\n          }\n        ],\n        \"hostnames\": [\n          \"string\",\n          \"string\"\n        ],\n        \"rules\": [\n          {\n            \"backendRefs\": [\n              {\n                \"name\": \"string\",\n                \"namespace\": \"string\",\n                \"port\": 2042,\n                \"weight\": 6320\n              },\n              {\n                \"name\": \"string\",\n                \"namespace\": \"string\",\n                \"port\": 2474,\n                \"weight\": 2225\n              }\n            ]\n          },\n          {\n            \"backendRefs\": [\n              {\n                \"name\": \"string\",\n                \"namespace\": \"string\",\n                \"port\": 8339,\n                \"weight\": 7041\n              },\n              {\n                \"name\": \"string\",\n                \"namespace\": \"string\",\n                \"port\": 1146,\n                \"weight\": 4413\n              }\n            ]\n          }\n        ]\n      },\n      \"status\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65b1b1f9-2428-4d1a-b5e2-16235cd27ddc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1alpha2",
+                    "namespaces",
+                    ":namespace",
+                    "tlsroutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8ea47505-caa6-4293-9d30-dc7d076fa177",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1alpha2",
+                    "namespaces",
+                    ":namespace",
+                    "tlsroutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "715d0eef-9c6e-4532-84e3-9c2a31903bd2",
+          "name": "Contour Create a TLSRoute resource",
+          "request": {
+            "name": "Contour Create a TLSRoute resource",
+            "description": {
+              "content": "Creates a new TLSRoute resource that defines TLS passthrough routing rules attaching to a Gateway listener.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "gateway.networking.k8s.io",
+                "v1alpha2",
+                "namespaces",
+                ":namespace",
+                "tlsroutes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"parentRefs\": [\n      {\n        \"name\": \"<string>\",\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"sectionName\": \"<string>\",\n        \"port\": \"<integer>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"sectionName\": \"<string>\",\n        \"port\": \"<integer>\"\n      }\n    ],\n    \"hostnames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rules\": [\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          }\n        ]\n      },\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"parents\": [\n      \"<object>\",\n      \"<object>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7a8a8f5c-72a6-4478-81dd-6cfec78b7ce6",
+              "name": "TLSRoute created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1alpha2",
+                    "namespaces",
+                    ":namespace",
+                    "tlsroutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 4068,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1949-08-30T08:09:31.599Z\"\n  },\n  \"spec\": {\n    \"parentRefs\": [\n      {\n        \"name\": \"string\",\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\",\n        \"port\": 8181\n      },\n      {\n        \"name\": \"string\",\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\",\n        \"port\": 7962\n      }\n    ],\n    \"hostnames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rules\": [\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          }\n        ]\n      },\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"parents\": [\n      \"<object>\",\n      \"<object>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.networking.k8s.io/v1alpha2\",\n  \"kind\": \"TLSRoute\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 3824,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1954-04-29T09:22:23.577Z\"\n  },\n  \"spec\": {\n    \"parentRefs\": [\n      {\n        \"name\": \"string\",\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\",\n        \"port\": 5276\n      },\n      {\n        \"name\": \"string\",\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\",\n        \"port\": 4076\n      }\n    ],\n    \"hostnames\": [\n      \"string\",\n      \"string\"\n    ],\n    \"rules\": [\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"string\",\n            \"namespace\": \"string\",\n            \"port\": 9133,\n            \"weight\": 957\n          },\n          {\n            \"name\": \"string\",\n            \"namespace\": \"string\",\n            \"port\": 781,\n            \"weight\": 6278\n          }\n        ]\n      },\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"string\",\n            \"namespace\": \"string\",\n            \"port\": 8594,\n            \"weight\": 8256\n          },\n          {\n            \"name\": \"string\",\n            \"namespace\": \"string\",\n            \"port\": 3408,\n            \"weight\": 7854\n          }\n        ]\n      }\n    ]\n  },\n  \"status\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3354e1d-eca7-4dd8-8283-c43b86198d66",
+              "name": "Invalid TLSRoute specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1alpha2",
+                    "namespaces",
+                    ":namespace",
+                    "tlsroutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 4068,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1949-08-30T08:09:31.599Z\"\n  },\n  \"spec\": {\n    \"parentRefs\": [\n      {\n        \"name\": \"string\",\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\",\n        \"port\": 8181\n      },\n      {\n        \"name\": \"string\",\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\",\n        \"port\": 7962\n      }\n    ],\n    \"hostnames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rules\": [\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          }\n        ]\n      },\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"parents\": [\n      \"<object>\",\n      \"<object>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1a70a144-86c8-4eea-9b82-9a750e7a48de",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1alpha2",
+                    "namespaces",
+                    ":namespace",
+                    "tlsroutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 4068,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1949-08-30T08:09:31.599Z\"\n  },\n  \"spec\": {\n    \"parentRefs\": [\n      {\n        \"name\": \"string\",\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\",\n        \"port\": 8181\n      },\n      {\n        \"name\": \"string\",\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\",\n        \"port\": 7962\n      }\n    ],\n    \"hostnames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rules\": [\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          }\n        ]\n      },\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"parents\": [\n      \"<object>\",\n      \"<object>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e08f164d-2dd3-488c-9cae-86c6bec43101",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1alpha2",
+                    "namespaces",
+                    ":namespace",
+                    "tlsroutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 4068,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1949-08-30T08:09:31.599Z\"\n  },\n  \"spec\": {\n    \"parentRefs\": [\n      {\n        \"name\": \"string\",\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\",\n        \"port\": 8181\n      },\n      {\n        \"name\": \"string\",\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\",\n        \"port\": 7962\n      }\n    ],\n    \"hostnames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rules\": [\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          }\n        ]\n      },\n      {\n        \"backendRefs\": [\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"namespace\": \"<string>\",\n            \"port\": \"<integer>\",\n            \"weight\": \"<integer>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"parents\": [\n      \"<object>\",\n      \"<object>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Address of the Kubernetes API server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost:6443",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cc0c883c-eac6-41ea-a246-75922ac9adc5",
+    "name": "Contour Gateway TLSRoute API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contour's implementation of the Kubernetes Gateway API, providing support for GatewayClass, Gateway, HTTPRoute, TLSRoute, and related resources. The Gateway API is the next-generation Kubernetes ingress standard, and Contour implements it alongside the legacy Ingress and HTTPProxy resources. All resources are managed through the Kubernetes API server using standard Kubernetes CRD patterns.\n\nContact Support:\n Name: Contour Community",
+      "type": "text/plain"
+    }
+  }
+}

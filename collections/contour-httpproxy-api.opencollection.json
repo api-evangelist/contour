@@ -1,0 +1,229 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contour Gateway HTTPProxy API",
+    "version": "1.30.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "HTTPProxy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Contour List HTTPProxy resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/projectcontour.io/v1/namespaces/:namespace/httpproxies",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "fieldSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their fields."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns a list of all HTTPProxy custom resources in the specified Kubernetes namespace. Results can be filtered using label selectors and field selectors."
+        },
+        {
+          "info": {
+            "name": "Contour Create an HTTPProxy resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/projectcontour.io/v1/namespaces/:namespace/httpproxies",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new HTTPProxy custom resource in the specified namespace. The HTTPProxy defines virtual hosts, routing rules, TLS configuration, and load balancing behavior for inbound HTTP/HTTPS traffic."
+        },
+        {
+          "info": {
+            "name": "Contour Get a specific HTTPProxy resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/projectcontour.io/v1/namespaces/:namespace/httpproxies/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Returns the specified HTTPProxy custom resource from the given namespace, including its current status, observed generation, and condition information."
+        },
+        {
+          "info": {
+            "name": "Contour Replace an HTTPProxy resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{kubernetes-api-server}/apis/projectcontour.io/v1/namespaces/:namespace/httpproxies/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the entire HTTPProxy resource with the provided specification. The resourceVersion in the metadata must match the current version to prevent conflicting updates."
+        },
+        {
+          "info": {
+            "name": "Contour Partially update an HTTPProxy resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{kubernetes-api-server}/apis/projectcontour.io/v1/namespaces/:namespace/httpproxies/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the specified HTTPProxy resource using JSON Merge Patch or Strategic Merge Patch format."
+        },
+        {
+          "info": {
+            "name": "Contour Delete an HTTPProxy resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/projectcontour.io/v1/namespaces/:namespace/httpproxies/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Deletes the specified HTTPProxy resource from the namespace. Contour will stop configuring Envoy for the routes defined in this resource."
+        },
+        {
+          "info": {
+            "name": "Contour List HTTPProxy resources across all namespaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/projectcontour.io/v1/httpproxies",
+            "params": [
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "fieldSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their fields."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns all HTTPProxy custom resources across all namespaces in the cluster. Useful for cluster-wide visibility into all ingress configurations managed by Contour."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

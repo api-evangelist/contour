@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contour Gateway TLSRoute API",
+    "version": "1.30.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TLSRoute",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Contour List TLSRoute resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.networking.k8s.io/v1alpha2/namespaces/:namespace/tlsroutes",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "Label selector to filter resources."
+              }
+            ]
+          },
+          "docs": "Returns all TLSRoute resources in the specified namespace. TLSRoutes define routing rules for TLS connections, routing based on SNI hostnames to backend services."
+        },
+        {
+          "info": {
+            "name": "Contour Create a TLSRoute resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/gateway.networking.k8s.io/v1alpha2/namespaces/:namespace/tlsroutes",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new TLSRoute resource that defines TLS passthrough routing rules attaching to a Gateway listener."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contour Gateway TLSCertificateDelegation API",
+    "version": "1.30.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TLSCertificateDelegation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Contour List TLSCertificateDelegation resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/projectcontour.io/v1/namespaces/:namespace/tlscertificatedelegations",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ]
+          },
+          "docs": "Returns all TLSCertificateDelegation resources in the specified namespace. These resources allow TLS certificates to be delegated for use by HTTPProxy resources in other namespaces."
+        },
+        {
+          "info": {
+            "name": "Contour Create a TLSCertificateDelegation resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/projectcontour.io/v1/namespaces/:namespace/tlscertificatedelegations",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a TLSCertificateDelegation resource that grants specified target namespaces permission to reference TLS certificates from this namespace in their HTTPProxy resources."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

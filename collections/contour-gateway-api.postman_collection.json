@@ -1,0 +1,1529 @@
+{
+  "item": [
+    {
+      "id": "17b9f37e-f75d-44b0-a26f-9775d0f24760",
+      "name": "Gateway",
+      "description": {
+        "content": "Namespace-scoped resources that describe network infrastructure instances that route traffic. Each Gateway is associated with a GatewayClass and defines listeners for inbound traffic.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fb0d0a05-650e-4207-9cc0-92744a176984",
+          "name": "Contour List Gateway resources in a namespace",
+          "request": {
+            "name": "Contour List Gateway resources in a namespace",
+            "description": {
+              "content": "Returns all Gateway resources in the specified namespace. Each Gateway describes network infrastructure with one or more listeners for inbound traffic, associated with a GatewayClass.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "gateway.networking.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "gateways"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "Label selector to filter resources."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8311d4ca-7aa1-4fd7-891f-91bfcc5bac16",
+              "name": "List of Gateway resources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"items\": [\n    {\n      \"apiVersion\": \"gateway.networking.k8s.io/v1\",\n      \"kind\": \"Gateway\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 3844,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1972-12-15T05:39:08.343Z\"\n      },\n      \"spec\": {\n        \"gatewayClassName\": \"string\",\n        \"listeners\": [\n          {\n            \"name\": \"string\",\n            \"port\": 64506,\n            \"protocol\": \"TCP\",\n            \"hostname\": \"string\",\n            \"tls\": {\n              \"mode\": \"Passthrough\",\n              \"certificateRefs\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            },\n            \"allowedRoutes\": {\n              \"namespaces\": {\n                \"from\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"selector\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"kinds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          },\n          {\n            \"name\": \"string\",\n            \"port\": 20292,\n            \"protocol\": \"HTTP\",\n            \"hostname\": \"string\",\n            \"tls\": {\n              \"mode\": \"Terminate\",\n              \"certificateRefs\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            },\n            \"allowedRoutes\": {\n              \"namespaces\": {\n                \"from\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"selector\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"kinds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          }\n        ],\n        \"addresses\": [\n          {\n            \"type\": \"Hostname\",\n            \"value\": \"string\"\n          },\n          {\n            \"type\": \"Hostname\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      \"status\": {\n        \"addresses\": [\n          {\n            \"type\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"observedGeneration\": 7439,\n            \"lastTransitionTime\": \"1999-05-11T21:28:05.227Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 4557,\n            \"lastTransitionTime\": \"2015-08-17T21:56:18.097Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ],\n        \"listeners\": [\n          {\n            \"name\": \"string\",\n            \"attachedRoutes\": 9005,\n            \"conditions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"name\": \"string\",\n            \"attachedRoutes\": 3714,\n            \"conditions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"gateway.networking.k8s.io/v1\",\n      \"kind\": \"Gateway\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 4779,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1953-11-21T07:58:46.130Z\"\n      },\n      \"spec\": {\n        \"gatewayClassName\": \"string\",\n        \"listeners\": [\n          {\n            \"name\": \"string\",\n            \"port\": 17360,\n            \"protocol\": \"TCP\",\n            \"hostname\": \"string\",\n            \"tls\": {\n              \"mode\": \"Terminate\",\n              \"certificateRefs\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            },\n            \"allowedRoutes\": {\n              \"namespaces\": {\n                \"from\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"selector\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"kinds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          },\n          {\n            \"name\": \"string\",\n            \"port\": 56548,\n            \"protocol\": \"HTTPS\",\n            \"hostname\": \"string\",\n            \"tls\": {\n              \"mode\": \"Passthrough\",\n              \"certificateRefs\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            },\n            \"allowedRoutes\": {\n              \"namespaces\": {\n                \"from\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"selector\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"kinds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          }\n        ],\n        \"addresses\": [\n          {\n            \"type\": \"Hostname\",\n            \"value\": \"string\"\n          },\n          {\n            \"type\": \"IPAddress\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      \"status\": {\n        \"addresses\": [\n          {\n            \"type\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 5963,\n            \"lastTransitionTime\": \"1956-11-28T07:35:58.314Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 3149,\n            \"lastTransitionTime\": \"1954-04-20T21:53:12.432Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ],\n        \"listeners\": [\n          {\n            \"name\": \"string\",\n            \"attachedRoutes\": 2460,\n            \"conditions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"name\": \"string\",\n            \"attachedRoutes\": 2164,\n            \"conditions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "330c5f58-e0c2-45cf-b688-36417f1763f8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "38fccd03-3205-4602-bf5a-28cf962bf0fd",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "749d2cc9-3823-4e9a-8399-2512fe0e4e9a",
+          "name": "Contour Create a Gateway resource",
+          "request": {
+            "name": "Contour Create a Gateway resource",
+            "description": {
+              "content": "Creates a new Gateway resource in the specified namespace. Contour will provision an Envoy instance to handle traffic according to the Gateway's listener configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "gateway.networking.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "gateways"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"<string>\",\n        \"port\": \"<integer>\",\n        \"protocol\": \"<string>\",\n        \"hostname\": \"<string>\",\n        \"tls\": {\n          \"mode\": \"<string>\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"<string>\",\n              \"group\": \"<string>\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"<string>\"\n            },\n            {\n              \"name\": \"<string>\",\n              \"group\": \"<string>\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"<string>\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"<string>\",\n            \"selector\": \"<object>\"\n          },\n          \"kinds\": [\n            {\n              \"group\": \"<string>\",\n              \"kind\": \"<string>\"\n            },\n            {\n              \"group\": \"<string>\",\n              \"kind\": \"<string>\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"<string>\",\n        \"port\": \"<integer>\",\n        \"protocol\": \"<string>\",\n        \"hostname\": \"<string>\",\n        \"tls\": {\n          \"mode\": \"<string>\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"<string>\",\n              \"group\": \"<string>\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"<string>\"\n            },\n            {\n              \"name\": \"<string>\",\n              \"group\": \"<string>\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"<string>\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"<string>\",\n            \"selector\": \"<object>\"\n          },\n          \"kinds\": [\n            {\n              \"group\": \"<string>\",\n              \"kind\": \"<string>\"\n            },\n            {\n              \"group\": \"<string>\",\n              \"kind\": \"<string>\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"observedGeneration\": \"<long>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"observedGeneration\": \"<long>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"<string>\",\n        \"supportedKinds\": [\n          \"<object>\",\n          \"<object>\"\n        ],\n        \"attachedRoutes\": \"<integer>\",\n        \"conditions\": [\n          {\n            \"type\": \"<string>\",\n            \"status\": \"<string>\",\n            \"observedGeneration\": \"<long>\",\n            \"lastTransitionTime\": \"<dateTime>\",\n            \"reason\": \"<string>\",\n            \"message\": \"<string>\"\n          },\n          {\n            \"type\": \"<string>\",\n            \"status\": \"<string>\",\n            \"observedGeneration\": \"<long>\",\n            \"lastTransitionTime\": \"<dateTime>\",\n            \"reason\": \"<string>\",\n            \"message\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"supportedKinds\": [\n          \"<object>\",\n          \"<object>\"\n        ],\n        \"attachedRoutes\": \"<integer>\",\n        \"conditions\": [\n          {\n            \"type\": \"<string>\",\n            \"status\": \"<string>\",\n            \"observedGeneration\": \"<long>\",\n            \"lastTransitionTime\": \"<dateTime>\",\n            \"reason\": \"<string>\",\n            \"message\": \"<string>\"\n          },\n          {\n            \"type\": \"<string>\",\n            \"status\": \"<string>\",\n            \"observedGeneration\": \"<long>\",\n            \"lastTransitionTime\": \"<dateTime>\",\n            \"reason\": \"<string>\",\n            \"message\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b60869df-1d51-4897-98cf-f525639c6f5a",
+              "name": "Gateway created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 3549,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1989-09-11T19:26:59.355Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 16523,\n        \"protocol\": \"TLS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Selector\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 62876,\n        \"protocol\": \"HTTPS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Same\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5549,\n        \"lastTransitionTime\": \"1953-11-05T04:12:55.255Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 3151,\n        \"lastTransitionTime\": \"1979-03-08T23:44:07.839Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 4920,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 6628,\n            \"lastTransitionTime\": \"1973-12-25T18:01:56.444Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8383,\n            \"lastTransitionTime\": \"2008-02-18T05:24:58.885Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 9459,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9105,\n            \"lastTransitionTime\": \"2003-02-18T07:51:31.948Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 7189,\n            \"lastTransitionTime\": \"1994-10-15T18:56:47.389Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.networking.k8s.io/v1\",\n  \"kind\": \"Gateway\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 9885,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2024-07-01T00:29:11.328Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"string\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 49358,\n        \"protocol\": \"TCP\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"All\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 45066,\n        \"protocol\": \"TCP\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"All\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"Hostname\",\n        \"value\": \"string\"\n      },\n      {\n        \"type\": \"IPAddress\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 6251,\n        \"lastTransitionTime\": \"1980-12-05T07:23:20.746Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 6825,\n        \"lastTransitionTime\": \"1960-10-25T12:16:41.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 6493,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"observedGeneration\": 2960,\n            \"lastTransitionTime\": \"1981-07-07T00:19:13.301Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8994,\n            \"lastTransitionTime\": \"2011-08-15T01:09:20.338Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 7873,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 1741,\n            \"lastTransitionTime\": \"2015-08-31T08:37:22.039Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 1071,\n            \"lastTransitionTime\": \"1952-10-19T08:37:37.103Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2043d507-7c2c-4747-bdc6-ddd3904bd6fa",
+              "name": "Invalid Gateway specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 3549,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1989-09-11T19:26:59.355Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 16523,\n        \"protocol\": \"TLS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Selector\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 62876,\n        \"protocol\": \"HTTPS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Same\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5549,\n        \"lastTransitionTime\": \"1953-11-05T04:12:55.255Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 3151,\n        \"lastTransitionTime\": \"1979-03-08T23:44:07.839Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 4920,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 6628,\n            \"lastTransitionTime\": \"1973-12-25T18:01:56.444Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8383,\n            \"lastTransitionTime\": \"2008-02-18T05:24:58.885Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 9459,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9105,\n            \"lastTransitionTime\": \"2003-02-18T07:51:31.948Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 7189,\n            \"lastTransitionTime\": \"1994-10-15T18:56:47.389Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3c7b4670-fac1-4d4d-ac17-8d817d6dff82",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 3549,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1989-09-11T19:26:59.355Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 16523,\n        \"protocol\": \"TLS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Selector\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 62876,\n        \"protocol\": \"HTTPS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Same\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5549,\n        \"lastTransitionTime\": \"1953-11-05T04:12:55.255Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 3151,\n        \"lastTransitionTime\": \"1979-03-08T23:44:07.839Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 4920,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 6628,\n            \"lastTransitionTime\": \"1973-12-25T18:01:56.444Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8383,\n            \"lastTransitionTime\": \"2008-02-18T05:24:58.885Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 9459,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9105,\n            \"lastTransitionTime\": \"2003-02-18T07:51:31.948Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 7189,\n            \"lastTransitionTime\": \"1994-10-15T18:56:47.389Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3b99ce5f-fbea-4457-96c6-38d739db4e26",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 3549,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1989-09-11T19:26:59.355Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 16523,\n        \"protocol\": \"TLS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Selector\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 62876,\n        \"protocol\": \"HTTPS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Same\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5549,\n        \"lastTransitionTime\": \"1953-11-05T04:12:55.255Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 3151,\n        \"lastTransitionTime\": \"1979-03-08T23:44:07.839Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 4920,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 6628,\n            \"lastTransitionTime\": \"1973-12-25T18:01:56.444Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8383,\n            \"lastTransitionTime\": \"2008-02-18T05:24:58.885Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 9459,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9105,\n            \"lastTransitionTime\": \"2003-02-18T07:51:31.948Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 7189,\n            \"lastTransitionTime\": \"1994-10-15T18:56:47.389Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "698a8a62-3a61-472b-9db8-613ea6cd5a40",
+              "name": "Gateway with this name already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 3549,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1989-09-11T19:26:59.355Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 16523,\n        \"protocol\": \"TLS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Selector\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 62876,\n        \"protocol\": \"HTTPS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Same\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5549,\n        \"lastTransitionTime\": \"1953-11-05T04:12:55.255Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 3151,\n        \"lastTransitionTime\": \"1979-03-08T23:44:07.839Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 4920,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 6628,\n            \"lastTransitionTime\": \"1973-12-25T18:01:56.444Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8383,\n            \"lastTransitionTime\": \"2008-02-18T05:24:58.885Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 9459,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9105,\n            \"lastTransitionTime\": \"2003-02-18T07:51:31.948Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 7189,\n            \"lastTransitionTime\": \"1994-10-15T18:56:47.389Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1198beb4-5a1b-406c-b5b2-7f9722397916",
+          "name": "Contour Get a specific Gateway resource",
+          "request": {
+            "name": "Contour Get a specific Gateway resource",
+            "description": {
+              "content": "Returns the specified Gateway resource, including its listeners, addresses, and current status as reported by the Contour controller.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "gateway.networking.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "gateways",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d8f60b6f-b476-4f9f-a4d0-2456812114fc",
+              "name": "Gateway resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.networking.k8s.io/v1\",\n  \"kind\": \"Gateway\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 9885,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2024-07-01T00:29:11.328Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"string\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 49358,\n        \"protocol\": \"TCP\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"All\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 45066,\n        \"protocol\": \"TCP\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"All\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"Hostname\",\n        \"value\": \"string\"\n      },\n      {\n        \"type\": \"IPAddress\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 6251,\n        \"lastTransitionTime\": \"1980-12-05T07:23:20.746Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 6825,\n        \"lastTransitionTime\": \"1960-10-25T12:16:41.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 6493,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"observedGeneration\": 2960,\n            \"lastTransitionTime\": \"1981-07-07T00:19:13.301Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8994,\n            \"lastTransitionTime\": \"2011-08-15T01:09:20.338Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 7873,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 1741,\n            \"lastTransitionTime\": \"2015-08-31T08:37:22.039Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 1071,\n            \"lastTransitionTime\": \"1952-10-19T08:37:37.103Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90a035bc-aa0d-403a-aa8c-07026a8c8b8c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "71f738c8-df06-4e82-a914-ec3e8b5e1f71",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "44b79b0c-5cc1-4c43-91bb-a0d6745832f3",
+              "name": "Gateway not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e236bfb-0674-4998-8977-9e868e733ab7",
+          "name": "Contour Replace a Gateway resource",
+          "request": {
+            "name": "Contour Replace a Gateway resource",
+            "description": {
+              "content": "Replaces the entire Gateway resource with the provided specification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "gateway.networking.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "gateways",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"<string>\",\n        \"port\": \"<integer>\",\n        \"protocol\": \"<string>\",\n        \"hostname\": \"<string>\",\n        \"tls\": {\n          \"mode\": \"<string>\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"<string>\",\n              \"group\": \"<string>\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"<string>\"\n            },\n            {\n              \"name\": \"<string>\",\n              \"group\": \"<string>\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"<string>\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"<string>\",\n            \"selector\": \"<object>\"\n          },\n          \"kinds\": [\n            {\n              \"group\": \"<string>\",\n              \"kind\": \"<string>\"\n            },\n            {\n              \"group\": \"<string>\",\n              \"kind\": \"<string>\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"<string>\",\n        \"port\": \"<integer>\",\n        \"protocol\": \"<string>\",\n        \"hostname\": \"<string>\",\n        \"tls\": {\n          \"mode\": \"<string>\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"<string>\",\n              \"group\": \"<string>\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"<string>\"\n            },\n            {\n              \"name\": \"<string>\",\n              \"group\": \"<string>\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"<string>\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"<string>\",\n            \"selector\": \"<object>\"\n          },\n          \"kinds\": [\n            {\n              \"group\": \"<string>\",\n              \"kind\": \"<string>\"\n            },\n            {\n              \"group\": \"<string>\",\n              \"kind\": \"<string>\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"observedGeneration\": \"<long>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"observedGeneration\": \"<long>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"<string>\",\n        \"supportedKinds\": [\n          \"<object>\",\n          \"<object>\"\n        ],\n        \"attachedRoutes\": \"<integer>\",\n        \"conditions\": [\n          {\n            \"type\": \"<string>\",\n            \"status\": \"<string>\",\n            \"observedGeneration\": \"<long>\",\n            \"lastTransitionTime\": \"<dateTime>\",\n            \"reason\": \"<string>\",\n            \"message\": \"<string>\"\n          },\n          {\n            \"type\": \"<string>\",\n            \"status\": \"<string>\",\n            \"observedGeneration\": \"<long>\",\n            \"lastTransitionTime\": \"<dateTime>\",\n            \"reason\": \"<string>\",\n            \"message\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"supportedKinds\": [\n          \"<object>\",\n          \"<object>\"\n        ],\n        \"attachedRoutes\": \"<integer>\",\n        \"conditions\": [\n          {\n            \"type\": \"<string>\",\n            \"status\": \"<string>\",\n            \"observedGeneration\": \"<long>\",\n            \"lastTransitionTime\": \"<dateTime>\",\n            \"reason\": \"<string>\",\n            \"message\": \"<string>\"\n          },\n          {\n            \"type\": \"<string>\",\n            \"status\": \"<string>\",\n            \"observedGeneration\": \"<long>\",\n            \"lastTransitionTime\": \"<dateTime>\",\n            \"reason\": \"<string>\",\n            \"message\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f54a8f3d-1218-4b75-8890-ba1fc0285535",
+              "name": "Gateway updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 3549,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1989-09-11T19:26:59.355Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 16523,\n        \"protocol\": \"TLS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Selector\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 62876,\n        \"protocol\": \"HTTPS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Same\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5549,\n        \"lastTransitionTime\": \"1953-11-05T04:12:55.255Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 3151,\n        \"lastTransitionTime\": \"1979-03-08T23:44:07.839Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 4920,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 6628,\n            \"lastTransitionTime\": \"1973-12-25T18:01:56.444Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8383,\n            \"lastTransitionTime\": \"2008-02-18T05:24:58.885Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 9459,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9105,\n            \"lastTransitionTime\": \"2003-02-18T07:51:31.948Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 7189,\n            \"lastTransitionTime\": \"1994-10-15T18:56:47.389Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.networking.k8s.io/v1\",\n  \"kind\": \"Gateway\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 9885,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2024-07-01T00:29:11.328Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"string\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 49358,\n        \"protocol\": \"TCP\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"All\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 45066,\n        \"protocol\": \"TCP\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"All\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"Hostname\",\n        \"value\": \"string\"\n      },\n      {\n        \"type\": \"IPAddress\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 6251,\n        \"lastTransitionTime\": \"1980-12-05T07:23:20.746Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 6825,\n        \"lastTransitionTime\": \"1960-10-25T12:16:41.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 6493,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"observedGeneration\": 2960,\n            \"lastTransitionTime\": \"1981-07-07T00:19:13.301Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8994,\n            \"lastTransitionTime\": \"2011-08-15T01:09:20.338Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 7873,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 1741,\n            \"lastTransitionTime\": \"2015-08-31T08:37:22.039Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 1071,\n            \"lastTransitionTime\": \"1952-10-19T08:37:37.103Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "edc9f491-975d-41fa-8b8e-ec2aeb844601",
+              "name": "Invalid specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 3549,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1989-09-11T19:26:59.355Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 16523,\n        \"protocol\": \"TLS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Selector\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 62876,\n        \"protocol\": \"HTTPS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Same\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5549,\n        \"lastTransitionTime\": \"1953-11-05T04:12:55.255Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 3151,\n        \"lastTransitionTime\": \"1979-03-08T23:44:07.839Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 4920,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 6628,\n            \"lastTransitionTime\": \"1973-12-25T18:01:56.444Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8383,\n            \"lastTransitionTime\": \"2008-02-18T05:24:58.885Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 9459,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9105,\n            \"lastTransitionTime\": \"2003-02-18T07:51:31.948Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 7189,\n            \"lastTransitionTime\": \"1994-10-15T18:56:47.389Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0235ba2d-c821-43af-927d-33f50432f38d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 3549,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1989-09-11T19:26:59.355Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 16523,\n        \"protocol\": \"TLS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Selector\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 62876,\n        \"protocol\": \"HTTPS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Same\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5549,\n        \"lastTransitionTime\": \"1953-11-05T04:12:55.255Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 3151,\n        \"lastTransitionTime\": \"1979-03-08T23:44:07.839Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 4920,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 6628,\n            \"lastTransitionTime\": \"1973-12-25T18:01:56.444Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8383,\n            \"lastTransitionTime\": \"2008-02-18T05:24:58.885Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 9459,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9105,\n            \"lastTransitionTime\": \"2003-02-18T07:51:31.948Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 7189,\n            \"lastTransitionTime\": \"1994-10-15T18:56:47.389Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dd3c9455-c19a-45f5-9626-ae00302684c5",
+              "name": "Gateway not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 3549,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1989-09-11T19:26:59.355Z\"\n  },\n  \"spec\": {\n    \"gatewayClassName\": \"<string>\",\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"port\": 16523,\n        \"protocol\": \"TLS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Terminate\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Selector\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"port\": 62876,\n        \"protocol\": \"HTTPS\",\n        \"hostname\": \"string\",\n        \"tls\": {\n          \"mode\": \"Passthrough\",\n          \"certificateRefs\": [\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"group\": \"string\",\n              \"kind\": \"Secret\",\n              \"namespace\": \"string\"\n            }\n          ]\n        },\n        \"allowedRoutes\": {\n          \"namespaces\": {\n            \"from\": \"Same\",\n            \"selector\": {}\n          },\n          \"kinds\": [\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            },\n            {\n              \"group\": \"string\",\n              \"kind\": \"string\"\n            }\n          ]\n        }\n      }\n    ],\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"status\": {\n    \"addresses\": [\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5549,\n        \"lastTransitionTime\": \"1953-11-05T04:12:55.255Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 3151,\n        \"lastTransitionTime\": \"1979-03-08T23:44:07.839Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ],\n    \"listeners\": [\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 4920,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 6628,\n            \"lastTransitionTime\": \"1973-12-25T18:01:56.444Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8383,\n            \"lastTransitionTime\": \"2008-02-18T05:24:58.885Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"attachedRoutes\": 9459,\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9105,\n            \"lastTransitionTime\": \"2003-02-18T07:51:31.948Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 7189,\n            \"lastTransitionTime\": \"1994-10-15T18:56:47.389Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a07c691c-1a69-4a83-8322-517ea11922f1",
+          "name": "Contour Delete a Gateway resource",
+          "request": {
+            "name": "Contour Delete a Gateway resource",
+            "description": {
+              "content": "Deletes the specified Gateway resource. Contour will decommission the associated Envoy infrastructure.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "gateway.networking.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "gateways",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19e10ed1-8d11-4f83-8622-ab2e52914247",
+              "name": "Gateway deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d18a7ca8-78c0-41ca-a4ad-8cb03ddb56d5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a6d9eae9-8c4c-4b73-93e1-e1eabd6c824c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "70177c2b-4b2e-4bd3-aa19-7db8c5ead3a2",
+              "name": "Gateway not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "gateway.networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "gateways",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Address of the Kubernetes API server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost:6443",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "50c317e4-5178-4680-a89a-296b3b521739",
+    "name": "Contour Gateway API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contour's implementation of the Kubernetes Gateway API, providing support for GatewayClass, Gateway, HTTPRoute, TLSRoute, and related resources. The Gateway API is the next-generation Kubernetes ingress standard, and Contour implements it alongside the legacy Ingress and HTTPProxy resources. All resources are managed through the Kubernetes API server using standard Kubernetes CRD patterns.\n\nContact Support:\n Name: Contour Community",
+      "type": "text/plain"
+    }
+  }
+}
