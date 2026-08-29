@@ -222,6 +222,9 @@ apis:
   - type: Documentation
     url: https://projectcontour.io/docs/1.30/config/gateway-api/
 common:
+  - type: CapabilityMap
+    url: capabilities/contour-capability-edges.yml
+    name: Contour Business Capability Map
   - type: SecurityPolicy
     url: https://github.com/projectcontour/contour/blob/main/SECURITY.md
   - type: CodeOfConduct

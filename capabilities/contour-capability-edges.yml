@@ -1,0 +1,44 @@
+slug: contour
+provider: Contour
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Gateway
+  spec_file: contour-gateway-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: '"Contour Create a Gateway resource" under /apis/gateway.networking.k8s.io — "Kubernetes ingress
+    controller using Envoy proxy"'
+  reason: Manages Kubernetes Gateway CRDs controlling external access/routing to cluster services — IT
+    infrastructure (network) management for a devtool, not telecom network operations.
+- tag: HTTPProxy
+  spec_file: contour-httpproxy-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: '"Contour Create an HTTPProxy resource", schemas VirtualHost, RateLimitPolicy, CORSPolicy,
+    TCPProxy'
+  reason: CRD-based configuration of HTTP routing, virtual hosts and rate limits for the Envoy-based ingress
+    — cloud/network infrastructure management.
+- tag: HTTPRoute
+  spec_file: contour-httproute-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: '"Contour Create an HTTPRoute resource", schemas HTTPRouteMatch, HTTPRouteRule, HTTPBackendRef'
+  reason: Manages Kubernetes HTTPRoute resources defining request routing to backends — IT infrastructure
+    networking configuration.
