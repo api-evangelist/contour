@@ -147,7 +147,7 @@ apis:
   humanURL: https://projectcontour.io/docs/main/config/api/
   baseURL: https://projectcontour.io
   tags:
-  - HTTPProxy
+  - HTTP Proxy
   tags_raw:
   - HTTPProxy
   properties:
