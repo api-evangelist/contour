@@ -107,6 +107,8 @@ apis:
   humanURL: https://projectcontour.io/docs/main/config/api/
   baseURL: https://projectcontour.io
   tags:
+  - Gateways
+  tags_raw:
   - Gateway
   properties:
   - type: OpenAPI
