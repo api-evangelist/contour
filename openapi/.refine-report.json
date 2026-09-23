@@ -1,24 +1,32 @@
 {
   "provider": "contour",
   "sources": [
-    "contour-gateway-api-openapi.yml",
-    "contour-gatewayclass-api-openapi.yml",
-    "contour-httpproxy-api-openapi.yml",
-    "contour-httproute-api-openapi.yml",
-    "contour-tlscertificatedelegation-api-openapi.yml",
-    "contour-tlsroute-api-openapi.yml"
+    "_original/contour-gateway-openapi.yml",
+    "_original/contour-httpproxy-openapi.yml"
   ],
   "outputs": [
     "contour-gateway-api-openapi.yml",
     "contour-gatewayclass-api-openapi.yml",
-    "contour-httpproxy-api-openapi.yml",
     "contour-httproute-api-openapi.yml",
-    "contour-tlscertificatedelegation-api-openapi.yml",
-    "contour-tlsroute-api-openapi.yml"
+    "contour-tlsroute-api-openapi.yml",
+    "contour-httpproxy-api-openapi.yml",
+    "contour-tlscertificatedelegation-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "contour-gateway-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "contour-httpproxy-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "contour-gateway-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "contour-gatewayclass-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "contour-httpproxy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "contour-httproute-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "contour-tlscertificatedelegation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "contour-tlsroute-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

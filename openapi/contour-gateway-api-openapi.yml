@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Contour Gateway API
   description: Contour's implementation of the Kubernetes Gateway API, providing support for GatewayClass, Gateway, HTTPRoute, TLSRoute, and related resources. The Gateway API is the next-generation Kubernetes ingress standard, and Contour implements it alongside the legacy Ingress and HTTPProxy resources. All resources are managed through the Kubernetes API server using standard Kubernetes CRD patterns.
@@ -140,23 +140,29 @@ paths:
         '404':
           description: Gateway not found
 components:
+  parameters:
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
   schemas:
-    SecretObjectReference:
-      type: object
-      description: A reference to a Kubernetes Secret containing a TLS certificate.
-      required:
-      - name
-      properties:
-        group:
-          type: string
-        kind:
-          type: string
-          default: Secret
-        namespace:
-          type: string
-        name:
-          type: string
-          description: Name of the Secret.
     Gateway:
       type: object
       description: Namespace-scoped resource describing a network infrastructure instance with one or more listeners for handling inbound traffic.
@@ -289,67 +295,22 @@ components:
                     type: string
                   kind:
                     type: string
-    ListenerStatus:
+    SecretObjectReference:
       type: object
-      description: Status of a Gateway listener.
-      properties:
-        name:
-          type: string
-          description: Name of the listener.
-        supportedKinds:
-          type: array
-          description: Route kinds supported by this listener.
-          items:
-            type: object
-        attachedRoutes:
-          type: integer
-          description: Number of routes currently attached to this listener.
-        conditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Condition'
-    Condition:
-      type: object
-      description: A standard Kubernetes condition indicating the state of a resource.
+      description: A reference to a Kubernetes Secret containing a TLS certificate.
       required:
-      - type
-      - status
+      - name
       properties:
-        type:
-          type: string
-          description: Type of the condition.
-        status:
-          type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-          description: Status of the condition.
-        observedGeneration:
-          type: integer
-          format: int64
-        lastTransitionTime:
-          type: string
-          format: date-time
-          description: Time when this condition last changed.
-        reason:
-          type: string
-          description: Short reason code for the condition.
-        message:
-          type: string
-          description: Human-readable details about this condition.
-    GatewayList:
-      type: object
-      description: List of Gateway resources.
-      properties:
-        apiVersion:
+        group:
           type: string
         kind:
           type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Gateway'
+          default: Secret
+        namespace:
+          type: string
+        name:
+          type: string
+          description: Name of the Secret.
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -383,28 +344,67 @@ components:
         creationTimestamp:
           type: string
           format: date-time
-  parameters:
-    name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
-      schema:
-        type: string
+    GatewayList:
+      type: object
+      description: List of Gateway resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gateway'
+    Condition:
+      type: object
+      description: A standard Kubernetes condition indicating the state of a resource.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of the condition.
+        status:
+          type: string
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+          description: Status of the condition.
+        observedGeneration:
+          type: integer
+          format: int64
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when this condition last changed.
+        reason:
+          type: string
+          description: Short reason code for the condition.
+        message:
+          type: string
+          description: Human-readable details about this condition.
+    ListenerStatus:
+      type: object
+      description: Status of a Gateway listener.
+      properties:
+        name:
+          type: string
+          description: Name of the listener.
+        supportedKinds:
+          type: array
+          description: Route kinds supported by this listener.
+          items:
+            type: object
+        attachedRoutes:
+          type: integer
+          description: Number of routes currently attached to this listener.
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition'
 externalDocs:
   description: Contour Gateway API Documentation
   url: https://projectcontour.io/docs/1.30/config/gateway-api/

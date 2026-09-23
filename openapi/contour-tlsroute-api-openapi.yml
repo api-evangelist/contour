@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Contour Gateway TLSRoute API
+  title: Contour Gateway TLS Route API
   description: Contour's implementation of the Kubernetes Gateway API, providing support for GatewayClass, Gateway, HTTPRoute, TLSRoute, and related resources. The Gateway API is the next-generation Kubernetes ingress standard, and Contour implements it alongside the legacy Ingress and HTTPProxy resources. All resources are managed through the Kubernetes API server using standard Kubernetes CRD patterns.
   version: 1.30.0
   contact:
@@ -82,30 +82,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TLSRoute'
-    ParentReference:
-      type: object
-      description: A reference to a parent resource (typically a Gateway) to attach to.
-      required:
-      - name
-      properties:
-        group:
-          type: string
-          description: API group of the parent resource.
-        kind:
-          type: string
-          description: Kind of the parent resource.
-        namespace:
-          type: string
-          description: Namespace of the parent resource.
-        name:
-          type: string
-          description: Name of the parent resource.
-        sectionName:
-          type: string
-          description: Name of a specific listener section within the parent.
-        port:
-          type: integer
-          description: Port of a specific listener within the parent.
     TLSRoute:
       type: object
       description: Namespace-scoped resource defining TLS routing rules for passthrough connections, routing based on SNI hostname to backend services.
@@ -196,19 +172,43 @@ components:
         creationTimestamp:
           type: string
           format: date-time
+    ParentReference:
+      type: object
+      description: A reference to a parent resource (typically a Gateway) to attach to.
+      required:
+      - name
+      properties:
+        group:
+          type: string
+          description: API group of the parent resource.
+        kind:
+          type: string
+          description: Kind of the parent resource.
+        namespace:
+          type: string
+          description: Namespace of the parent resource.
+        name:
+          type: string
+          description: Name of the parent resource.
+        sectionName:
+          type: string
+          description: Name of a specific listener section within the parent.
+        port:
+          type: integer
+          description: Port of a specific listener within the parent.
   parameters:
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
-      schema:
-        type: string
     labelSelector:
       name: labelSelector
       in: query
       required: false
       description: Label selector to filter resources.
+      schema:
+        type: string
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
       schema:
         type: string
 externalDocs:
