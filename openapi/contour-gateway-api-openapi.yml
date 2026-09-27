@@ -140,28 +140,6 @@ paths:
         '404':
           description: Gateway not found
 components:
-  parameters:
-    name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
-      schema:
-        type: string
   schemas:
     Gateway:
       type: object
@@ -231,6 +209,74 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ListenerStatus'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Labels for organizing and selecting resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for non-identifying metadata.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        generation:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        creationTimestamp:
+          type: string
+          format: date-time
+    SecretObjectReference:
+      type: object
+      description: A reference to a Kubernetes Secret containing a TLS certificate.
+      required:
+      - name
+      properties:
+        group:
+          type: string
+        kind:
+          type: string
+          default: Secret
+        namespace:
+          type: string
+        name:
+          type: string
+          description: Name of the Secret.
+    ListenerStatus:
+      type: object
+      description: Status of a Gateway listener.
+      properties:
+        name:
+          type: string
+          description: Name of the listener.
+        supportedKinds:
+          type: array
+          description: Route kinds supported by this listener.
+          items:
+            type: object
+        attachedRoutes:
+          type: integer
+          description: Number of routes currently attached to this listener.
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition'
     Listener:
       type: object
       description: A listener on the Gateway accepting inbound connections.
@@ -295,67 +341,6 @@ components:
                     type: string
                   kind:
                     type: string
-    SecretObjectReference:
-      type: object
-      description: A reference to a Kubernetes Secret containing a TLS certificate.
-      required:
-      - name
-      properties:
-        group:
-          type: string
-        kind:
-          type: string
-          default: Secret
-        namespace:
-          type: string
-        name:
-          type: string
-          description: Name of the Secret.
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name of the resource.
-        namespace:
-          type: string
-          description: Namespace the resource belongs to.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Labels for organizing and selecting resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Annotations for non-identifying metadata.
-        resourceVersion:
-          type: string
-          description: Internal version for optimistic concurrency.
-        generation:
-          type: integer
-          format: int64
-        uid:
-          type: string
-        creationTimestamp:
-          type: string
-          format: date-time
-    GatewayList:
-      type: object
-      description: List of Gateway resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Gateway'
     Condition:
       type: object
       description: A standard Kubernetes condition indicating the state of a resource.
@@ -386,25 +371,40 @@ components:
         message:
           type: string
           description: Human-readable details about this condition.
-    ListenerStatus:
+    GatewayList:
       type: object
-      description: Status of a Gateway listener.
+      description: List of Gateway resources.
       properties:
-        name:
+        apiVersion:
           type: string
-          description: Name of the listener.
-        supportedKinds:
-          type: array
-          description: Route kinds supported by this listener.
-          items:
-            type: object
-        attachedRoutes:
-          type: integer
-          description: Number of routes currently attached to this listener.
-        conditions:
+        kind:
+          type: string
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/Condition'
+            $ref: '#/components/schemas/Gateway'
+  parameters:
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
 externalDocs:
   description: Contour Gateway API Documentation
   url: https://projectcontour.io/docs/1.30/config/gateway-api/

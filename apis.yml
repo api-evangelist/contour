@@ -47,7 +47,6 @@ apis:
     and translates them into Envoy proxy configuration, with support for IngressClass selection and Contour-specific
     annotations for extended configuration.
   humanURL: https://projectcontour.io/docs/main/config/ingress/
-  baseURL: https://projectcontour.io
   tags:
   - Ingress
   - Kubernetes
@@ -67,7 +66,6 @@ apis:
     authorization and rate limiting by registering a network service that Contour will route to via Envoy's
     gRPC extension protocol (v3).
   humanURL: https://projectcontour.io/docs/main/config/api/
-  baseURL: https://projectcontour.io
   tags:
   - Authorization
   - Custom Resource
@@ -87,7 +85,6 @@ apis:
     gates. This API allows operators to declaratively manage Contour's runtime behavior through Kubernetes
     resources instead of command-line flags or static config files.
   humanURL: https://projectcontour.io/docs/main/config/api/
-  baseURL: https://projectcontour.io
   tags:
   - Configuration
   - Custom Resource
@@ -105,7 +102,6 @@ apis:
     Namespace-scoped resources that describe network infrastructure instances that route traffic. Each
     Gateway is associated with a GatewayClass and defines listeners for inbound traffic.
   humanURL: https://projectcontour.io/docs/main/config/api/
-  baseURL: https://projectcontour.io
   tags:
   - Gateways
   tags_raw:
@@ -127,7 +123,6 @@ apis:
     Cluster-scoped resources that define the controller responsible for managing Gateways of a particular
     class. GatewayClass is analogous to IngressClass in the legacy Ingress API.
   humanURL: https://projectcontour.io/docs/main/config/api/
-  baseURL: https://projectcontour.io
   tags:
   - GatewayClass
   properties:
@@ -147,7 +142,6 @@ apis:
     Operations for managing Contour HTTPProxy custom resources in a Kubernetes cluster. HTTPProxy resources
     define ingress routing rules for HTTP and HTTPS traffic.
   humanURL: https://projectcontour.io/docs/main/config/api/
-  baseURL: https://projectcontour.io
   tags:
   - HTTP Proxy
   tags_raw:
@@ -169,7 +163,6 @@ apis:
     Namespace-scoped resources that define HTTP routing rules, mapping HTTP/HTTPS requests to backend
     Kubernetes services based on host, path, headers, and other criteria.
   humanURL: https://projectcontour.io/docs/main/config/api/
-  baseURL: https://projectcontour.io
   tags:
   - HTTPRoute
   properties:
@@ -189,7 +182,6 @@ apis:
     Operations for managing TLSCertificateDelegation resources that allow certificates in one namespace
     to be used by HTTPProxy resources in other namespaces.
   humanURL: https://projectcontour.io/docs/main/config/api/
-  baseURL: https://projectcontour.io
   tags:
   - TLSCertificateDelegation
   properties:
@@ -209,7 +201,6 @@ apis:
     Namespace-scoped resources that define TLS routing rules for routing TLS connections based on SNI
     hostname to backend services.
   humanURL: https://projectcontour.io/docs/main/config/api/
-  baseURL: https://projectcontour.io
   tags:
   - TLSRoute
   properties:

@@ -64,28 +64,6 @@ paths:
         '404':
           description: GatewayClass not found
 components:
-  parameters:
-    name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    fieldSelector:
-      name: fieldSelector
-      in: query
-      required: false
-      description: Field selector to filter resources.
-      schema:
-        type: string
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Label selector to filter resources.
-      schema:
-        type: string
   schemas:
     ObjectMeta:
       type: object
@@ -214,6 +192,28 @@ components:
         message:
           type: string
           description: Human-readable details about this condition.
+  parameters:
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    fieldSelector:
+      name: fieldSelector
+      in: query
+      required: false
+      description: Field selector to filter resources.
+      schema:
+        type: string
 externalDocs:
   description: Contour Gateway API Documentation
   url: https://projectcontour.io/docs/1.30/config/gateway-api/

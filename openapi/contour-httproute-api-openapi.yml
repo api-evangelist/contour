@@ -138,28 +138,6 @@ paths:
         '404':
           description: HTTPRoute not found
 components:
-  parameters:
-    name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
-      schema:
-        type: string
   schemas:
     HTTPBackendRef:
       type: object
@@ -188,6 +166,98 @@ components:
           description: Filters applied specifically to traffic routed to this backend.
           items:
             $ref: '#/components/schemas/HTTPRouteFilter'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Labels for organizing and selecting resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for non-identifying metadata.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        generation:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        creationTimestamp:
+          type: string
+          format: date-time
+    HTTPRouteMatch:
+      type: object
+      description: Criteria for matching an HTTP request to this routing rule.
+      properties:
+        path:
+          type: object
+          description: Path match criteria.
+          properties:
+            type:
+              type: string
+              enum:
+              - Exact
+              - PathPrefix
+              - RegularExpression
+            value:
+              type: string
+        headers:
+          type: array
+          description: Header match criteria.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                - Exact
+                - RegularExpression
+              value:
+                type: string
+        queryParams:
+          type: array
+          description: Query parameter match criteria.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                - Exact
+                - RegularExpression
+              value:
+                type: string
+        method:
+          type: string
+          description: HTTP method to match.
+          enum:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - HEAD
+          - OPTIONS
+          - CONNECT
+          - TRACE
     HTTPRouteFilter:
       type: object
       description: A filter applied to requests matching this route rule.
@@ -250,39 +320,47 @@ components:
               enum:
               - 301
               - 302
-    ObjectMeta:
+    HTTPRouteList:
       type: object
-      description: Standard Kubernetes object metadata.
-      required:
-      - name
+      description: List of HTTPRoute resources.
       properties:
-        name:
+        apiVersion:
           type: string
-          description: Name of the resource.
-        namespace:
+        kind:
           type: string
-          description: Namespace the resource belongs to.
-        labels:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPRoute'
+    HTTPRouteRule:
+      type: object
+      description: A single routing rule within an HTTPRoute.
+      properties:
+        matches:
+          type: array
+          description: List of match criteria; request must match at least one.
+          items:
+            $ref: '#/components/schemas/HTTPRouteMatch'
+        filters:
+          type: array
+          description: List of filters applied to matching requests.
+          items:
+            $ref: '#/components/schemas/HTTPRouteFilter'
+        backendRefs:
+          type: array
+          description: Backend services to route matching requests to.
+          items:
+            $ref: '#/components/schemas/HTTPBackendRef'
+        timeouts:
           type: object
-          additionalProperties:
-            type: string
-          description: Labels for organizing and selecting resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Annotations for non-identifying metadata.
-        resourceVersion:
-          type: string
-          description: Internal version for optimistic concurrency.
-        generation:
-          type: integer
-          format: int64
-        uid:
-          type: string
-        creationTimestamp:
-          type: string
-          format: date-time
+          description: Timeout configuration for this rule.
+          properties:
+            request:
+              type: string
+              description: Timeout for a complete HTTP request.
+            backendRequest:
+              type: string
+              description: Timeout for a request to the backend.
     ParentReference:
       type: object
       description: A reference to a parent resource (typically a Gateway) to attach to.
@@ -307,18 +385,6 @@ components:
         port:
           type: integer
           description: Port of a specific listener within the parent.
-    HTTPRouteList:
-      type: object
-      description: List of HTTPRoute resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPRoute'
     HTTPRoute:
       type: object
       description: Namespace-scoped resource defining HTTP/HTTPS routing rules that attach to one or more Gateways. Supports matching on host, path, headers, query parameters, and HTTP method.
@@ -372,94 +438,6 @@ components:
                     type: array
                     items:
                       $ref: '#/components/schemas/Condition'
-    HTTPRouteRule:
-      type: object
-      description: A single routing rule within an HTTPRoute.
-      properties:
-        matches:
-          type: array
-          description: List of match criteria; request must match at least one.
-          items:
-            $ref: '#/components/schemas/HTTPRouteMatch'
-        filters:
-          type: array
-          description: List of filters applied to matching requests.
-          items:
-            $ref: '#/components/schemas/HTTPRouteFilter'
-        backendRefs:
-          type: array
-          description: Backend services to route matching requests to.
-          items:
-            $ref: '#/components/schemas/HTTPBackendRef'
-        timeouts:
-          type: object
-          description: Timeout configuration for this rule.
-          properties:
-            request:
-              type: string
-              description: Timeout for a complete HTTP request.
-            backendRequest:
-              type: string
-              description: Timeout for a request to the backend.
-    HTTPRouteMatch:
-      type: object
-      description: Criteria for matching an HTTP request to this routing rule.
-      properties:
-        path:
-          type: object
-          description: Path match criteria.
-          properties:
-            type:
-              type: string
-              enum:
-              - Exact
-              - PathPrefix
-              - RegularExpression
-            value:
-              type: string
-        headers:
-          type: array
-          description: Header match criteria.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              type:
-                type: string
-                enum:
-                - Exact
-                - RegularExpression
-              value:
-                type: string
-        queryParams:
-          type: array
-          description: Query parameter match criteria.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              type:
-                type: string
-                enum:
-                - Exact
-                - RegularExpression
-              value:
-                type: string
-        method:
-          type: string
-          description: HTTP method to match.
-          enum:
-          - GET
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-          - HEAD
-          - OPTIONS
-          - CONNECT
-          - TRACE
     Condition:
       type: object
       description: A standard Kubernetes condition indicating the state of a resource.
@@ -490,6 +468,28 @@ components:
         message:
           type: string
           description: Human-readable details about this condition.
+  parameters:
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
 externalDocs:
   description: Contour Gateway API Documentation
   url: https://projectcontour.io/docs/1.30/config/gateway-api/
