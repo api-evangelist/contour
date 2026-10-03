@@ -141,6 +141,64 @@ paths:
           description: Gateway not found
 components:
   schemas:
+    Condition:
+      type: object
+      description: A standard Kubernetes condition indicating the state of a resource.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of the condition.
+        status:
+          type: string
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+          description: Status of the condition.
+        observedGeneration:
+          type: integer
+          format: int64
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when this condition last changed.
+        reason:
+          type: string
+          description: Short reason code for the condition.
+        message:
+          type: string
+          description: Human-readable details about this condition.
+    GatewayList:
+      type: object
+      description: List of Gateway resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gateway'
+    SecretObjectReference:
+      type: object
+      description: A reference to a Kubernetes Secret containing a TLS certificate.
+      required:
+      - name
+      properties:
+        group:
+          type: string
+        kind:
+          type: string
+          default: Secret
+        namespace:
+          type: string
+        name:
+          type: string
+          description: Name of the Secret.
     Gateway:
       type: object
       description: Namespace-scoped resource describing a network infrastructure instance with one or more listeners for handling inbound traffic.
@@ -242,41 +300,6 @@ components:
         creationTimestamp:
           type: string
           format: date-time
-    SecretObjectReference:
-      type: object
-      description: A reference to a Kubernetes Secret containing a TLS certificate.
-      required:
-      - name
-      properties:
-        group:
-          type: string
-        kind:
-          type: string
-          default: Secret
-        namespace:
-          type: string
-        name:
-          type: string
-          description: Name of the Secret.
-    ListenerStatus:
-      type: object
-      description: Status of a Gateway listener.
-      properties:
-        name:
-          type: string
-          description: Name of the listener.
-        supportedKinds:
-          type: array
-          description: Route kinds supported by this listener.
-          items:
-            type: object
-        attachedRoutes:
-          type: integer
-          description: Number of routes currently attached to this listener.
-        conditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Condition'
     Listener:
       type: object
       description: A listener on the Gateway accepting inbound connections.
@@ -341,48 +364,25 @@ components:
                     type: string
                   kind:
                     type: string
-    Condition:
+    ListenerStatus:
       type: object
-      description: A standard Kubernetes condition indicating the state of a resource.
-      required:
-      - type
-      - status
+      description: Status of a Gateway listener.
       properties:
-        type:
+        name:
           type: string
-          description: Type of the condition.
-        status:
-          type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-          description: Status of the condition.
-        observedGeneration:
+          description: Name of the listener.
+        supportedKinds:
+          type: array
+          description: Route kinds supported by this listener.
+          items:
+            type: object
+        attachedRoutes:
           type: integer
-          format: int64
-        lastTransitionTime:
-          type: string
-          format: date-time
-          description: Time when this condition last changed.
-        reason:
-          type: string
-          description: Short reason code for the condition.
-        message:
-          type: string
-          description: Human-readable details about this condition.
-    GatewayList:
-      type: object
-      description: List of Gateway resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        items:
+          description: Number of routes currently attached to this listener.
+        conditions:
           type: array
           items:
-            $ref: '#/components/schemas/Gateway'
+            $ref: '#/components/schemas/Condition'
   parameters:
     name:
       name: name

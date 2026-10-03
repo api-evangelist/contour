@@ -139,66 +139,88 @@ paths:
           description: HTTPRoute not found
 components:
   schemas:
-    HTTPBackendRef:
+    HTTPRoute:
       type: object
-      description: A backend service to route matching requests to.
+      description: Namespace-scoped resource defining HTTP/HTTPS routing rules that attach to one or more Gateways. Supports matching on host, path, headers, query parameters, and HTTP method.
       required:
-      - name
-      - port
+      - apiVersion
+      - kind
+      - metadata
+      - spec
       properties:
-        name:
+        apiVersion:
           type: string
-          description: Name of the Kubernetes Service.
-        namespace:
+          enum:
+          - gateway.networking.k8s.io/v1
+        kind:
           type: string
-          description: Namespace of the Service. Defaults to the route's namespace.
-        port:
-          type: integer
-          description: Port number on the Service.
-          minimum: 1
-          maximum: 65535
-        weight:
-          type: integer
-          description: Relative weight for traffic distribution among backends.
-          minimum: 0
+          enum:
+          - HTTPRoute
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: HTTPRoute specification.
+          properties:
+            parentRefs:
+              type: array
+              description: References to the Gateways this route attaches to.
+              items:
+                $ref: '#/components/schemas/ParentReference'
+            hostnames:
+              type: array
+              description: Hostnames this route should match. Requests with matching Host headers are routed according to this HTTPRoute.
+              items:
+                type: string
+            rules:
+              type: array
+              description: List of routing rules.
+              items:
+                $ref: '#/components/schemas/HTTPRouteRule'
+        status:
+          type: object
+          description: Status conditions for the route as reported by the controller.
+          properties:
+            parents:
+              type: array
+              items:
+                type: object
+                properties:
+                  parentRef:
+                    $ref: '#/components/schemas/ParentReference'
+                  conditions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Condition'
+    HTTPRouteRule:
+      type: object
+      description: A single routing rule within an HTTPRoute.
+      properties:
+        matches:
+          type: array
+          description: List of match criteria; request must match at least one.
+          items:
+            $ref: '#/components/schemas/HTTPRouteMatch'
         filters:
           type: array
-          description: Filters applied specifically to traffic routed to this backend.
+          description: List of filters applied to matching requests.
           items:
             $ref: '#/components/schemas/HTTPRouteFilter'
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name of the resource.
-        namespace:
-          type: string
-          description: Namespace the resource belongs to.
-        labels:
+        backendRefs:
+          type: array
+          description: Backend services to route matching requests to.
+          items:
+            $ref: '#/components/schemas/HTTPBackendRef'
+        timeouts:
           type: object
-          additionalProperties:
-            type: string
-          description: Labels for organizing and selecting resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Annotations for non-identifying metadata.
-        resourceVersion:
-          type: string
-          description: Internal version for optimistic concurrency.
-        generation:
-          type: integer
-          format: int64
-        uid:
-          type: string
-        creationTimestamp:
-          type: string
-          format: date-time
+          description: Timeout configuration for this rule.
+          properties:
+            request:
+              type: string
+              description: Timeout for a complete HTTP request.
+            backendRequest:
+              type: string
+              description: Timeout for a request to the backend.
     HTTPRouteMatch:
       type: object
       description: Criteria for matching an HTTP request to this routing rule.
@@ -258,6 +280,75 @@ components:
           - OPTIONS
           - CONNECT
           - TRACE
+    Condition:
+      type: object
+      description: A standard Kubernetes condition indicating the state of a resource.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of the condition.
+        status:
+          type: string
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+          description: Status of the condition.
+        observedGeneration:
+          type: integer
+          format: int64
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when this condition last changed.
+        reason:
+          type: string
+          description: Short reason code for the condition.
+        message:
+          type: string
+          description: Human-readable details about this condition.
+    HTTPRouteList:
+      type: object
+      description: List of HTTPRoute resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPRoute'
+    HTTPBackendRef:
+      type: object
+      description: A backend service to route matching requests to.
+      required:
+      - name
+      - port
+      properties:
+        name:
+          type: string
+          description: Name of the Kubernetes Service.
+        namespace:
+          type: string
+          description: Namespace of the Service. Defaults to the route's namespace.
+        port:
+          type: integer
+          description: Port number on the Service.
+          minimum: 1
+          maximum: 65535
+        weight:
+          type: integer
+          description: Relative weight for traffic distribution among backends.
+          minimum: 0
+        filters:
+          type: array
+          description: Filters applied specifically to traffic routed to this backend.
+          items:
+            $ref: '#/components/schemas/HTTPRouteFilter'
     HTTPRouteFilter:
       type: object
       description: A filter applied to requests matching this route rule.
@@ -320,47 +411,39 @@ components:
               enum:
               - 301
               - 302
-    HTTPRouteList:
+    ObjectMeta:
       type: object
-      description: List of HTTPRoute resources.
+      description: Standard Kubernetes object metadata.
+      required:
+      - name
       properties:
-        apiVersion:
+        name:
           type: string
-        kind:
+          description: Name of the resource.
+        namespace:
           type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPRoute'
-    HTTPRouteRule:
-      type: object
-      description: A single routing rule within an HTTPRoute.
-      properties:
-        matches:
-          type: array
-          description: List of match criteria; request must match at least one.
-          items:
-            $ref: '#/components/schemas/HTTPRouteMatch'
-        filters:
-          type: array
-          description: List of filters applied to matching requests.
-          items:
-            $ref: '#/components/schemas/HTTPRouteFilter'
-        backendRefs:
-          type: array
-          description: Backend services to route matching requests to.
-          items:
-            $ref: '#/components/schemas/HTTPBackendRef'
-        timeouts:
+          description: Namespace the resource belongs to.
+        labels:
           type: object
-          description: Timeout configuration for this rule.
-          properties:
-            request:
-              type: string
-              description: Timeout for a complete HTTP request.
-            backendRequest:
-              type: string
-              description: Timeout for a request to the backend.
+          additionalProperties:
+            type: string
+          description: Labels for organizing and selecting resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for non-identifying metadata.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        generation:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        creationTimestamp:
+          type: string
+          format: date-time
     ParentReference:
       type: object
       description: A reference to a parent resource (typically a Gateway) to attach to.
@@ -385,102 +468,19 @@ components:
         port:
           type: integer
           description: Port of a specific listener within the parent.
-    HTTPRoute:
-      type: object
-      description: Namespace-scoped resource defining HTTP/HTTPS routing rules that attach to one or more Gateways. Supports matching on host, path, headers, query parameters, and HTTP method.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          enum:
-          - gateway.networking.k8s.io/v1
-        kind:
-          type: string
-          enum:
-          - HTTPRoute
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          type: object
-          description: HTTPRoute specification.
-          properties:
-            parentRefs:
-              type: array
-              description: References to the Gateways this route attaches to.
-              items:
-                $ref: '#/components/schemas/ParentReference'
-            hostnames:
-              type: array
-              description: Hostnames this route should match. Requests with matching Host headers are routed according to this HTTPRoute.
-              items:
-                type: string
-            rules:
-              type: array
-              description: List of routing rules.
-              items:
-                $ref: '#/components/schemas/HTTPRouteRule'
-        status:
-          type: object
-          description: Status conditions for the route as reported by the controller.
-          properties:
-            parents:
-              type: array
-              items:
-                type: object
-                properties:
-                  parentRef:
-                    $ref: '#/components/schemas/ParentReference'
-                  conditions:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Condition'
-    Condition:
-      type: object
-      description: A standard Kubernetes condition indicating the state of a resource.
-      required:
-      - type
-      - status
-      properties:
-        type:
-          type: string
-          description: Type of the condition.
-        status:
-          type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-          description: Status of the condition.
-        observedGeneration:
-          type: integer
-          format: int64
-        lastTransitionTime:
-          type: string
-          format: date-time
-          description: Time when this condition last changed.
-        reason:
-          type: string
-          description: Short reason code for the condition.
-        message:
-          type: string
-          description: Human-readable details about this condition.
   parameters:
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Label selector to filter resources.
-      schema:
-        type: string
     name:
       name: name
       in: path
       required: true
       description: The name of the resource.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Label selector to filter resources.
       schema:
         type: string
     namespace:

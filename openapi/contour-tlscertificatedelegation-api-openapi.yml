@@ -68,6 +68,14 @@ paths:
         '403':
           description: Forbidden
 components:
+  parameters:
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
   schemas:
     TLSCertificateDelegation:
       type: object
@@ -159,14 +167,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the resource was created.
-  parameters:
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
-      schema:
-        type: string
 externalDocs:
   description: Contour HTTPProxy Documentation
   url: https://projectcontour.io/docs/main/config/api/

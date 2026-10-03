@@ -207,69 +207,186 @@ paths:
         '403':
           description: Forbidden
 components:
-  parameters:
-    continueToken:
-      name: continue
-      in: query
-      required: false
-      description: A continuation token for paginating through large result sets, returned from a previous list call.
-      schema:
-        type: string
-    fieldSelector:
-      name: fieldSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their fields.
-      schema:
-        type: string
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
-      schema:
-        type: integer
-        minimum: 1
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
-      schema:
-        type: string
-    name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
   schemas:
-    VirtualHost:
+    AuthorizationServer:
       type: object
-      description: Defines the virtual host for this HTTPProxy, including its FQDN and TLS configuration. Only present on root HTTPProxy resources.
-      required:
-      - fqdn
+      description: External authorization server configuration for the virtual host.
       properties:
-        fqdn:
+        extensionRef:
+          type: object
+          description: Reference to an ExtensionService providing authorization.
+          properties:
+            name:
+              type: string
+              description: Name of the ExtensionService resource.
+            namespace:
+              type: string
+              description: Namespace of the ExtensionService resource.
+        authPolicy:
+          type: object
+          description: Authorization policy settings.
+          properties:
+            disabled:
+              type: boolean
+            context:
+              type: object
+              additionalProperties:
+                type: string
+    DetailedCondition:
+      type: object
+      description: Detailed condition providing status information about the HTTPProxy.
+      properties:
+        type:
           type: string
-          description: Fully qualified domain name of the virtual host.
-          example: app.example.com
-        tls:
-          $ref: '#/components/schemas/TLS'
+          description: Type of the condition.
+        status:
+          type: string
+          description: Status of the condition.
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+        observedGeneration:
+          type: integer
+          format: int64
+          description: Generation of the resource when this condition was set.
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when the condition last changed.
+        reason:
+          type: string
+          description: Short reason code for the condition.
+        message:
+          type: string
+          description: Human-readable details about the condition.
+        errors:
+          type: array
+          description: List of error sub-conditions.
+          items:
+            $ref: '#/components/schemas/SubCondition'
+        warnings:
+          type: array
+          description: List of warning sub-conditions.
+          items:
+            $ref: '#/components/schemas/SubCondition'
+    SubCondition:
+      type: object
+      description: A sub-condition providing additional detail about an error or warning.
+      properties:
+        type:
+          type: string
+          description: Type of the sub-condition.
+        status:
+          type: string
+          description: Status of the sub-condition.
+        reason:
+          type: string
+          description: Short reason code.
+        message:
+          type: string
+          description: Human-readable details.
+    Route:
+      type: object
+      description: A single routing rule mapping request conditions to backend services.
+      properties:
+        conditions:
+          type: array
+          description: Match conditions for this route.
+          items:
+            $ref: '#/components/schemas/MatchCondition'
+        services:
+          type: array
+          description: Backend services to route matching requests to.
+          items:
+            $ref: '#/components/schemas/Service'
+        enableWebsockets:
+          type: boolean
+          description: If true, upgrades HTTP connections to WebSocket connections.
+        permitInsecure:
+          type: boolean
+          description: If true, allows this route to respond to non-TLS requests when the parent virtual host has TLS enabled.
+        retryPolicy:
+          $ref: '#/components/schemas/RetryPolicy'
+        timeoutPolicy:
+          $ref: '#/components/schemas/TimeoutPolicy'
         rateLimitPolicy:
           $ref: '#/components/schemas/RateLimitPolicy'
-        corsPolicy:
-          $ref: '#/components/schemas/CORSPolicy'
-        authorization:
-          $ref: '#/components/schemas/AuthorizationServer'
+        requestHeadersPolicy:
+          $ref: '#/components/schemas/HeadersPolicy'
+        responseHeadersPolicy:
+          $ref: '#/components/schemas/HeadersPolicy'
+    HTTPProxyList:
+      type: object
+      description: List of HTTPProxy resources.
+      required:
+      - apiVersion
+      - kind
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - HTTPProxyList
+        metadata:
+          type: object
+          properties:
+            resourceVersion:
+              type: string
+            continue:
+              type: string
+        items:
+          type: array
+          description: List of HTTPProxy resources.
+          items:
+            $ref: '#/components/schemas/HTTPProxy'
+    HeaderMatchCondition:
+      type: object
+      description: A condition matching on HTTP request headers.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: HTTP header name to match.
+        present:
+          type: boolean
+          description: If true, the header must be present.
+        contains:
+          type: string
+          description: Value the header must contain.
+        notcontains:
+          type: string
+          description: Value the header must not contain.
+        exact:
+          type: string
+          description: Exact value the header must equal.
+        notexact:
+          type: string
+          description: Value the header must not equal.
+    HTTPProxySpec:
+      type: object
+      description: Specification for the HTTPProxy defining routing behavior.
+      properties:
+        virtualhost:
+          $ref: '#/components/schemas/VirtualHost'
+        includes:
+          type: array
+          description: List of HTTPProxy resources from the same or other namespaces to include as sub-routes under this proxy.
+          items:
+            $ref: '#/components/schemas/Include'
+        routes:
+          type: array
+          description: List of routing rules for this HTTPProxy.
+          items:
+            $ref: '#/components/schemas/Route'
+        tcpproxy:
+          $ref: '#/components/schemas/TCPProxy'
+        ingressClassName:
+          type: string
+          description: Name of the IngressClass to use for this HTTPProxy.
     RateLimitPolicy:
       type: object
       description: Rate limiting configuration applied to this route or virtual host.
@@ -319,65 +436,25 @@ components:
         code:
           type: integer
           description: HTTP status code.
-    HTTPProxySpec:
+    TLS:
       type: object
-      description: Specification for the HTTPProxy defining routing behavior.
+      description: TLS configuration for the virtual host.
       properties:
-        virtualhost:
-          $ref: '#/components/schemas/VirtualHost'
-        includes:
-          type: array
-          description: List of HTTPProxy resources from the same or other namespaces to include as sub-routes under this proxy.
-          items:
-            $ref: '#/components/schemas/Include'
-        routes:
-          type: array
-          description: List of routing rules for this HTTPProxy.
-          items:
-            $ref: '#/components/schemas/Route'
-        tcpproxy:
-          $ref: '#/components/schemas/TCPProxy'
-        ingressClassName:
+        secretName:
           type: string
-          description: Name of the IngressClass to use for this HTTPProxy.
-    TCPProxy:
-      type: object
-      description: TCP proxy configuration for passthrough TLS or TCP routing.
-      properties:
-        services:
-          type: array
-          description: Backend services for TCP proxying.
-          items:
-            $ref: '#/components/schemas/Service'
-        include:
-          $ref: '#/components/schemas/Include'
-    TimeoutPolicy:
-      type: object
-      description: Timeout configuration for requests on this route.
-      properties:
-        response:
+          description: Name of the Kubernetes Secret containing the TLS certificate and private key. May reference a Secret in another namespace if TLSCertificateDelegation is configured.
+        minimumProtocolVersion:
           type: string
-          description: Timeout for a complete response from the backend.
-        idle:
-          type: string
-          description: Timeout for idle connections.
-        idleConnection:
-          type: string
-          description: Timeout for idle backend connections.
-    HeadersPolicy:
-      type: object
-      description: Policy for manipulating HTTP request or response headers.
-      properties:
-        set:
-          type: array
-          description: Headers to set on requests or responses.
-          items:
-            $ref: '#/components/schemas/HeaderValue'
-        remove:
-          type: array
-          description: Header names to remove from requests or responses.
-          items:
-            type: string
+          description: Minimum TLS protocol version to negotiate.
+          enum:
+          - '1.2'
+          - '1.3'
+        passthrough:
+          type: boolean
+          description: If true, TLS termination is done at the backend service.
+        enableFallbackCertificate:
+          type: boolean
+          description: If true, a default fallback certificate is served for SNI names that don't match any configured virtual host.
     CORSPolicy:
       type: object
       description: CORS policy configuration for the virtual host.
@@ -408,148 +485,18 @@ components:
         maxAge:
           type: string
           description: Duration to cache preflight responses.
-    HTTPProxyList:
+    MatchCondition:
       type: object
-      description: List of HTTPProxy resources.
-      required:
-      - apiVersion
-      - kind
-      - items
+      description: A condition that must match for a route or include to apply.
       properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - HTTPProxyList
-        metadata:
-          type: object
-          properties:
-            resourceVersion:
-              type: string
-            continue:
-              type: string
-        items:
-          type: array
-          description: List of HTTPProxy resources.
-          items:
-            $ref: '#/components/schemas/HTTPProxy'
-    Include:
-      type: object
-      description: Reference to another HTTPProxy resource to include as child routes, optionally in another namespace.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name of the HTTPProxy resource to include.
-        namespace:
-          type: string
-          description: Namespace of the included HTTPProxy. Defaults to the current namespace.
-        conditions:
-          type: array
-          description: Conditions that must match for this include to apply.
-          items:
-            $ref: '#/components/schemas/MatchCondition'
-    QueryParameterMatchCondition:
-      type: object
-      description: A condition matching on HTTP query parameters.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Query parameter name to match.
-        exact:
-          type: string
-          description: Exact value the query parameter must equal.
         prefix:
           type: string
-          description: Prefix value the query parameter must start with.
-        suffix:
-          type: string
-          description: Suffix value the query parameter must end with.
-        contains:
-          type: string
-          description: Value the query parameter must contain.
-        present:
-          type: boolean
-          description: If true, the query parameter must be present.
-    Service:
-      type: object
-      description: A backend Kubernetes service to route traffic to.
-      required:
-      - name
-      - port
-      properties:
-        name:
-          type: string
-          description: Name of the Kubernetes Service.
-        port:
-          type: integer
-          description: Port number of the Kubernetes Service.
-          minimum: 1
-          maximum: 65535
-        weight:
-          type: integer
-          description: Relative weight for traffic distribution when multiple services are specified. Defaults to 1.
-          minimum: 0
-        healthPort:
-          type: integer
-          description: Port to use for health checking, if different from the service port.
-        protocol:
-          type: string
-          description: Protocol to use when connecting to the service.
-          enum:
-          - h2
-          - h2c
-          - tls
-    Route:
-      type: object
-      description: A single routing rule mapping request conditions to backend services.
-      properties:
-        conditions:
-          type: array
-          description: Match conditions for this route.
-          items:
-            $ref: '#/components/schemas/MatchCondition'
-        services:
-          type: array
-          description: Backend services to route matching requests to.
-          items:
-            $ref: '#/components/schemas/Service'
-        enableWebsockets:
-          type: boolean
-          description: If true, upgrades HTTP connections to WebSocket connections.
-        permitInsecure:
-          type: boolean
-          description: If true, allows this route to respond to non-TLS requests when the parent virtual host has TLS enabled.
-        retryPolicy:
-          $ref: '#/components/schemas/RetryPolicy'
-        timeoutPolicy:
-          $ref: '#/components/schemas/TimeoutPolicy'
-        rateLimitPolicy:
-          $ref: '#/components/schemas/RateLimitPolicy'
-        requestHeadersPolicy:
-          $ref: '#/components/schemas/HeadersPolicy'
-        responseHeadersPolicy:
-          $ref: '#/components/schemas/HeadersPolicy'
-    RetryPolicy:
-      type: object
-      description: Retry configuration for failed upstream requests.
-      properties:
-        count:
-          type: integer
-          description: Number of retry attempts.
-          minimum: 0
-        perTryTimeout:
-          type: string
-          description: Timeout per retry attempt as a duration string.
-        retriableStatusCodes:
-          type: array
-          description: HTTP status codes that trigger a retry.
-          items:
-            type: integer
+          description: URL path prefix that must match.
+          example: /api
+        header:
+          $ref: '#/components/schemas/HeaderMatchCondition'
+        queryParameter:
+          $ref: '#/components/schemas/QueryParameterMatchCondition'
     HTTPProxy:
       type: object
       description: Contour HTTPProxy custom resource defining advanced ingress routing rules for HTTP and HTTPS traffic entering the cluster.
@@ -575,93 +522,6 @@ components:
           $ref: '#/components/schemas/HTTPProxySpec'
         status:
           $ref: '#/components/schemas/HTTPProxyStatus'
-    DetailedCondition:
-      type: object
-      description: Detailed condition providing status information about the HTTPProxy.
-      properties:
-        type:
-          type: string
-          description: Type of the condition.
-        status:
-          type: string
-          description: Status of the condition.
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-        observedGeneration:
-          type: integer
-          format: int64
-          description: Generation of the resource when this condition was set.
-        lastTransitionTime:
-          type: string
-          format: date-time
-          description: Time when the condition last changed.
-        reason:
-          type: string
-          description: Short reason code for the condition.
-        message:
-          type: string
-          description: Human-readable details about the condition.
-        errors:
-          type: array
-          description: List of error sub-conditions.
-          items:
-            $ref: '#/components/schemas/SubCondition'
-        warnings:
-          type: array
-          description: List of warning sub-conditions.
-          items:
-            $ref: '#/components/schemas/SubCondition'
-    MatchCondition:
-      type: object
-      description: A condition that must match for a route or include to apply.
-      properties:
-        prefix:
-          type: string
-          description: URL path prefix that must match.
-          example: /api
-        header:
-          $ref: '#/components/schemas/HeaderMatchCondition'
-        queryParameter:
-          $ref: '#/components/schemas/QueryParameterMatchCondition'
-    HeaderValue:
-      type: object
-      description: A header name-value pair.
-      required:
-      - name
-      - value
-      properties:
-        name:
-          type: string
-          description: HTTP header name.
-        value:
-          type: string
-          description: HTTP header value.
-    AuthorizationServer:
-      type: object
-      description: External authorization server configuration for the virtual host.
-      properties:
-        extensionRef:
-          type: object
-          description: Reference to an ExtensionService providing authorization.
-          properties:
-            name:
-              type: string
-              description: Name of the ExtensionService resource.
-            namespace:
-              type: string
-              description: Namespace of the ExtensionService resource.
-        authPolicy:
-          type: object
-          description: Authorization policy settings.
-          properties:
-            disabled:
-              type: boolean
-            context:
-              type: object
-              additionalProperties:
-                type: string
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -698,6 +558,148 @@ components:
           type: string
           format: date-time
           description: Timestamp when the resource was created.
+    VirtualHost:
+      type: object
+      description: Defines the virtual host for this HTTPProxy, including its FQDN and TLS configuration. Only present on root HTTPProxy resources.
+      required:
+      - fqdn
+      properties:
+        fqdn:
+          type: string
+          description: Fully qualified domain name of the virtual host.
+          example: app.example.com
+        tls:
+          $ref: '#/components/schemas/TLS'
+        rateLimitPolicy:
+          $ref: '#/components/schemas/RateLimitPolicy'
+        corsPolicy:
+          $ref: '#/components/schemas/CORSPolicy'
+        authorization:
+          $ref: '#/components/schemas/AuthorizationServer'
+    TCPProxy:
+      type: object
+      description: TCP proxy configuration for passthrough TLS or TCP routing.
+      properties:
+        services:
+          type: array
+          description: Backend services for TCP proxying.
+          items:
+            $ref: '#/components/schemas/Service'
+        include:
+          $ref: '#/components/schemas/Include'
+    QueryParameterMatchCondition:
+      type: object
+      description: A condition matching on HTTP query parameters.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Query parameter name to match.
+        exact:
+          type: string
+          description: Exact value the query parameter must equal.
+        prefix:
+          type: string
+          description: Prefix value the query parameter must start with.
+        suffix:
+          type: string
+          description: Suffix value the query parameter must end with.
+        contains:
+          type: string
+          description: Value the query parameter must contain.
+        present:
+          type: boolean
+          description: If true, the query parameter must be present.
+    HeadersPolicy:
+      type: object
+      description: Policy for manipulating HTTP request or response headers.
+      properties:
+        set:
+          type: array
+          description: Headers to set on requests or responses.
+          items:
+            $ref: '#/components/schemas/HeaderValue'
+        remove:
+          type: array
+          description: Header names to remove from requests or responses.
+          items:
+            type: string
+    Service:
+      type: object
+      description: A backend Kubernetes service to route traffic to.
+      required:
+      - name
+      - port
+      properties:
+        name:
+          type: string
+          description: Name of the Kubernetes Service.
+        port:
+          type: integer
+          description: Port number of the Kubernetes Service.
+          minimum: 1
+          maximum: 65535
+        weight:
+          type: integer
+          description: Relative weight for traffic distribution when multiple services are specified. Defaults to 1.
+          minimum: 0
+        healthPort:
+          type: integer
+          description: Port to use for health checking, if different from the service port.
+        protocol:
+          type: string
+          description: Protocol to use when connecting to the service.
+          enum:
+          - h2
+          - h2c
+          - tls
+    Include:
+      type: object
+      description: Reference to another HTTPProxy resource to include as child routes, optionally in another namespace.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the HTTPProxy resource to include.
+        namespace:
+          type: string
+          description: Namespace of the included HTTPProxy. Defaults to the current namespace.
+        conditions:
+          type: array
+          description: Conditions that must match for this include to apply.
+          items:
+            $ref: '#/components/schemas/MatchCondition'
+    RetryPolicy:
+      type: object
+      description: Retry configuration for failed upstream requests.
+      properties:
+        count:
+          type: integer
+          description: Number of retry attempts.
+          minimum: 0
+        perTryTimeout:
+          type: string
+          description: Timeout per retry attempt as a duration string.
+        retriableStatusCodes:
+          type: array
+          description: HTTP status codes that trigger a retry.
+          items:
+            type: integer
+    HeaderValue:
+      type: object
+      description: A header name-value pair.
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+          description: HTTP header name.
+        value:
+          type: string
+          description: HTTP header value.
     HTTPProxyStatus:
       type: object
       description: Observed status of the HTTPProxy resource as reported by Contour.
@@ -720,65 +722,63 @@ components:
           description: Detailed condition information for this HTTPProxy.
           items:
             $ref: '#/components/schemas/DetailedCondition'
-    SubCondition:
+    TimeoutPolicy:
       type: object
-      description: A sub-condition providing additional detail about an error or warning.
+      description: Timeout configuration for requests on this route.
       properties:
-        type:
+        response:
           type: string
-          description: Type of the sub-condition.
-        status:
+          description: Timeout for a complete response from the backend.
+        idle:
           type: string
-          description: Status of the sub-condition.
-        reason:
+          description: Timeout for idle connections.
+        idleConnection:
           type: string
-          description: Short reason code.
-        message:
-          type: string
-          description: Human-readable details.
-    HeaderMatchCondition:
-      type: object
-      description: A condition matching on HTTP request headers.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: HTTP header name to match.
-        present:
-          type: boolean
-          description: If true, the header must be present.
-        contains:
-          type: string
-          description: Value the header must contain.
-        notcontains:
-          type: string
-          description: Value the header must not contain.
-        exact:
-          type: string
-          description: Exact value the header must equal.
-        notexact:
-          type: string
-          description: Value the header must not equal.
-    TLS:
-      type: object
-      description: TLS configuration for the virtual host.
-      properties:
-        secretName:
-          type: string
-          description: Name of the Kubernetes Secret containing the TLS certificate and private key. May reference a Secret in another namespace if TLSCertificateDelegation is configured.
-        minimumProtocolVersion:
-          type: string
-          description: Minimum TLS protocol version to negotiate.
-          enum:
-          - '1.2'
-          - '1.3'
-        passthrough:
-          type: boolean
-          description: If true, TLS termination is done at the backend service.
-        enableFallbackCertificate:
-          type: boolean
-          description: If true, a default fallback certificate is served for SNI names that don't match any configured virtual host.
+          description: Timeout for idle backend connections.
+  parameters:
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
+      schema:
+        type: integer
+        minimum: 1
+    fieldSelector:
+      name: fieldSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their fields.
+      schema:
+        type: string
+    continueToken:
+      name: continue
+      in: query
+      required: false
+      description: A continuation token for paginating through large result sets, returned from a previous list call.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+      schema:
+        type: string
 externalDocs:
   description: Contour HTTPProxy Documentation
   url: https://projectcontour.io/docs/main/config/api/

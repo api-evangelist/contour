@@ -65,39 +65,36 @@ paths:
           description: GatewayClass not found
 components:
   schemas:
-    ObjectMeta:
+    Condition:
       type: object
-      description: Standard Kubernetes object metadata.
+      description: A standard Kubernetes condition indicating the state of a resource.
       required:
-      - name
+      - type
+      - status
       properties:
-        name:
+        type:
           type: string
-          description: Name of the resource.
-        namespace:
+          description: Type of the condition.
+        status:
           type: string
-          description: Namespace the resource belongs to.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Labels for organizing and selecting resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Annotations for non-identifying metadata.
-        resourceVersion:
-          type: string
-          description: Internal version for optimistic concurrency.
-        generation:
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+          description: Status of the condition.
+        observedGeneration:
           type: integer
           format: int64
-        uid:
-          type: string
-        creationTimestamp:
+        lastTransitionTime:
           type: string
           format: date-time
+          description: Time when this condition last changed.
+        reason:
+          type: string
+          description: Short reason code for the condition.
+        message:
+          type: string
+          description: Human-readable details about this condition.
     GatewayClassList:
       type: object
       description: List of GatewayClass resources.
@@ -162,44 +159,40 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Condition'
-    Condition:
+    ObjectMeta:
       type: object
-      description: A standard Kubernetes condition indicating the state of a resource.
+      description: Standard Kubernetes object metadata.
       required:
-      - type
-      - status
+      - name
       properties:
-        type:
+        name:
           type: string
-          description: Type of the condition.
-        status:
+          description: Name of the resource.
+        namespace:
           type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-          description: Status of the condition.
-        observedGeneration:
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Labels for organizing and selecting resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for non-identifying metadata.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        generation:
           type: integer
           format: int64
-        lastTransitionTime:
+        uid:
+          type: string
+        creationTimestamp:
           type: string
           format: date-time
-          description: Time when this condition last changed.
-        reason:
-          type: string
-          description: Short reason code for the condition.
-        message:
-          type: string
-          description: Human-readable details about this condition.
   parameters:
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Label selector to filter resources.
-      schema:
-        type: string
     name:
       name: name
       in: path
@@ -212,6 +205,13 @@ components:
       in: query
       required: false
       description: Field selector to filter resources.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Label selector to filter resources.
       schema:
         type: string
 externalDocs:

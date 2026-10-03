@@ -70,51 +70,6 @@ paths:
           description: Forbidden
 components:
   schemas:
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name of the resource.
-        namespace:
-          type: string
-          description: Namespace the resource belongs to.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Labels for organizing and selecting resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Annotations for non-identifying metadata.
-        resourceVersion:
-          type: string
-          description: Internal version for optimistic concurrency.
-        generation:
-          type: integer
-          format: int64
-        uid:
-          type: string
-        creationTimestamp:
-          type: string
-          format: date-time
-    TLSRouteList:
-      type: object
-      description: List of TLSRoute resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TLSRoute'
     TLSRoute:
       type: object
       description: Namespace-scoped resource defining TLS routing rules for passthrough connections, routing based on SNI hostname to backend services.
@@ -172,6 +127,39 @@ components:
               type: array
               items:
                 type: object
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Labels for organizing and selecting resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for non-identifying metadata.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        generation:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        creationTimestamp:
+          type: string
+          format: date-time
     ParentReference:
       type: object
       description: A reference to a parent resource (typically a Gateway) to attach to.
@@ -196,6 +184,18 @@ components:
         port:
           type: integer
           description: Port of a specific listener within the parent.
+    TLSRouteList:
+      type: object
+      description: List of TLSRoute resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TLSRoute'
   parameters:
     labelSelector:
       name: labelSelector
