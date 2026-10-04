@@ -139,147 +139,6 @@ paths:
           description: HTTPRoute not found
 components:
   schemas:
-    HTTPRoute:
-      type: object
-      description: Namespace-scoped resource defining HTTP/HTTPS routing rules that attach to one or more Gateways. Supports matching on host, path, headers, query parameters, and HTTP method.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          enum:
-          - gateway.networking.k8s.io/v1
-        kind:
-          type: string
-          enum:
-          - HTTPRoute
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          type: object
-          description: HTTPRoute specification.
-          properties:
-            parentRefs:
-              type: array
-              description: References to the Gateways this route attaches to.
-              items:
-                $ref: '#/components/schemas/ParentReference'
-            hostnames:
-              type: array
-              description: Hostnames this route should match. Requests with matching Host headers are routed according to this HTTPRoute.
-              items:
-                type: string
-            rules:
-              type: array
-              description: List of routing rules.
-              items:
-                $ref: '#/components/schemas/HTTPRouteRule'
-        status:
-          type: object
-          description: Status conditions for the route as reported by the controller.
-          properties:
-            parents:
-              type: array
-              items:
-                type: object
-                properties:
-                  parentRef:
-                    $ref: '#/components/schemas/ParentReference'
-                  conditions:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Condition'
-    HTTPRouteRule:
-      type: object
-      description: A single routing rule within an HTTPRoute.
-      properties:
-        matches:
-          type: array
-          description: List of match criteria; request must match at least one.
-          items:
-            $ref: '#/components/schemas/HTTPRouteMatch'
-        filters:
-          type: array
-          description: List of filters applied to matching requests.
-          items:
-            $ref: '#/components/schemas/HTTPRouteFilter'
-        backendRefs:
-          type: array
-          description: Backend services to route matching requests to.
-          items:
-            $ref: '#/components/schemas/HTTPBackendRef'
-        timeouts:
-          type: object
-          description: Timeout configuration for this rule.
-          properties:
-            request:
-              type: string
-              description: Timeout for a complete HTTP request.
-            backendRequest:
-              type: string
-              description: Timeout for a request to the backend.
-    HTTPRouteMatch:
-      type: object
-      description: Criteria for matching an HTTP request to this routing rule.
-      properties:
-        path:
-          type: object
-          description: Path match criteria.
-          properties:
-            type:
-              type: string
-              enum:
-              - Exact
-              - PathPrefix
-              - RegularExpression
-            value:
-              type: string
-        headers:
-          type: array
-          description: Header match criteria.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              type:
-                type: string
-                enum:
-                - Exact
-                - RegularExpression
-              value:
-                type: string
-        queryParams:
-          type: array
-          description: Query parameter match criteria.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              type:
-                type: string
-                enum:
-                - Exact
-                - RegularExpression
-              value:
-                type: string
-        method:
-          type: string
-          description: HTTP method to match.
-          enum:
-          - GET
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-          - HEAD
-          - OPTIONS
-          - CONNECT
-          - TRACE
     Condition:
       type: object
       description: A standard Kubernetes condition indicating the state of a resource.
@@ -310,6 +169,30 @@ components:
         message:
           type: string
           description: Human-readable details about this condition.
+    ParentReference:
+      type: object
+      description: A reference to a parent resource (typically a Gateway) to attach to.
+      required:
+      - name
+      properties:
+        group:
+          type: string
+          description: API group of the parent resource.
+        kind:
+          type: string
+          description: Kind of the parent resource.
+        namespace:
+          type: string
+          description: Namespace of the parent resource.
+        name:
+          type: string
+          description: Name of the parent resource.
+        sectionName:
+          type: string
+          description: Name of a specific listener section within the parent.
+        port:
+          type: integer
+          description: Port of a specific listener within the parent.
     HTTPRouteList:
       type: object
       description: List of HTTPRoute resources.
@@ -411,6 +294,65 @@ components:
               enum:
               - 301
               - 302
+    HTTPRouteMatch:
+      type: object
+      description: Criteria for matching an HTTP request to this routing rule.
+      properties:
+        path:
+          type: object
+          description: Path match criteria.
+          properties:
+            type:
+              type: string
+              enum:
+              - Exact
+              - PathPrefix
+              - RegularExpression
+            value:
+              type: string
+        headers:
+          type: array
+          description: Header match criteria.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                - Exact
+                - RegularExpression
+              value:
+                type: string
+        queryParams:
+          type: array
+          description: Query parameter match criteria.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                - Exact
+                - RegularExpression
+              value:
+                type: string
+        method:
+          type: string
+          description: HTTP method to match.
+          enum:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - HEAD
+          - OPTIONS
+          - CONNECT
+          - TRACE
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -444,43 +386,101 @@ components:
         creationTimestamp:
           type: string
           format: date-time
-    ParentReference:
+    HTTPRoute:
       type: object
-      description: A reference to a parent resource (typically a Gateway) to attach to.
+      description: Namespace-scoped resource defining HTTP/HTTPS routing rules that attach to one or more Gateways. Supports matching on host, path, headers, query parameters, and HTTP method.
       required:
-      - name
+      - apiVersion
+      - kind
+      - metadata
+      - spec
       properties:
-        group:
+        apiVersion:
           type: string
-          description: API group of the parent resource.
+          enum:
+          - gateway.networking.k8s.io/v1
         kind:
           type: string
-          description: Kind of the parent resource.
-        namespace:
-          type: string
-          description: Namespace of the parent resource.
-        name:
-          type: string
-          description: Name of the parent resource.
-        sectionName:
-          type: string
-          description: Name of a specific listener section within the parent.
-        port:
-          type: integer
-          description: Port of a specific listener within the parent.
+          enum:
+          - HTTPRoute
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: HTTPRoute specification.
+          properties:
+            parentRefs:
+              type: array
+              description: References to the Gateways this route attaches to.
+              items:
+                $ref: '#/components/schemas/ParentReference'
+            hostnames:
+              type: array
+              description: Hostnames this route should match. Requests with matching Host headers are routed according to this HTTPRoute.
+              items:
+                type: string
+            rules:
+              type: array
+              description: List of routing rules.
+              items:
+                $ref: '#/components/schemas/HTTPRouteRule'
+        status:
+          type: object
+          description: Status conditions for the route as reported by the controller.
+          properties:
+            parents:
+              type: array
+              items:
+                type: object
+                properties:
+                  parentRef:
+                    $ref: '#/components/schemas/ParentReference'
+                  conditions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Condition'
+    HTTPRouteRule:
+      type: object
+      description: A single routing rule within an HTTPRoute.
+      properties:
+        matches:
+          type: array
+          description: List of match criteria; request must match at least one.
+          items:
+            $ref: '#/components/schemas/HTTPRouteMatch'
+        filters:
+          type: array
+          description: List of filters applied to matching requests.
+          items:
+            $ref: '#/components/schemas/HTTPRouteFilter'
+        backendRefs:
+          type: array
+          description: Backend services to route matching requests to.
+          items:
+            $ref: '#/components/schemas/HTTPBackendRef'
+        timeouts:
+          type: object
+          description: Timeout configuration for this rule.
+          properties:
+            request:
+              type: string
+              description: Timeout for a complete HTTP request.
+            backendRequest:
+              type: string
+              description: Timeout for a request to the backend.
   parameters:
-    name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
     labelSelector:
       name: labelSelector
       in: query
       required: false
       description: Label selector to filter resources.
+      schema:
+        type: string
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
       schema:
         type: string
     namespace:

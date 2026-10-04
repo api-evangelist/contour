@@ -141,6 +141,25 @@ paths:
           description: Gateway not found
 components:
   schemas:
+    ListenerStatus:
+      type: object
+      description: Status of a Gateway listener.
+      properties:
+        name:
+          type: string
+          description: Name of the listener.
+        supportedKinds:
+          type: array
+          description: Route kinds supported by this listener.
+          items:
+            type: object
+        attachedRoutes:
+          type: integer
+          description: Number of routes currently attached to this listener.
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition'
     Condition:
       type: object
       description: A standard Kubernetes condition indicating the state of a resource.
@@ -171,18 +190,6 @@ components:
         message:
           type: string
           description: Human-readable details about this condition.
-    GatewayList:
-      type: object
-      description: List of Gateway resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Gateway'
     SecretObjectReference:
       type: object
       description: A reference to a Kubernetes Secret containing a TLS certificate.
@@ -199,6 +206,39 @@ components:
         name:
           type: string
           description: Name of the Secret.
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Labels for organizing and selecting resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for non-identifying metadata.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        generation:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        creationTimestamp:
+          type: string
+          format: date-time
     Gateway:
       type: object
       description: Namespace-scoped resource describing a network infrastructure instance with one or more listeners for handling inbound traffic.
@@ -267,39 +307,18 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ListenerStatus'
-    ObjectMeta:
+    GatewayList:
       type: object
-      description: Standard Kubernetes object metadata.
-      required:
-      - name
+      description: List of Gateway resources.
       properties:
-        name:
+        apiVersion:
           type: string
-          description: Name of the resource.
-        namespace:
+        kind:
           type: string
-          description: Namespace the resource belongs to.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Labels for organizing and selecting resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Annotations for non-identifying metadata.
-        resourceVersion:
-          type: string
-          description: Internal version for optimistic concurrency.
-        generation:
-          type: integer
-          format: int64
-        uid:
-          type: string
-        creationTimestamp:
-          type: string
-          format: date-time
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gateway'
     Listener:
       type: object
       description: A listener on the Gateway accepting inbound connections.
@@ -364,38 +383,19 @@ components:
                     type: string
                   kind:
                     type: string
-    ListenerStatus:
-      type: object
-      description: Status of a Gateway listener.
-      properties:
-        name:
-          type: string
-          description: Name of the listener.
-        supportedKinds:
-          type: array
-          description: Route kinds supported by this listener.
-          items:
-            type: object
-        attachedRoutes:
-          type: integer
-          description: Number of routes currently attached to this listener.
-        conditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Condition'
   parameters:
-    name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
     labelSelector:
       name: labelSelector
       in: query
       required: false
       description: Label selector to filter resources.
+      schema:
+        type: string
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
       schema:
         type: string
     namespace:

@@ -95,18 +95,6 @@ components:
         message:
           type: string
           description: Human-readable details about this condition.
-    GatewayClassList:
-      type: object
-      description: List of GatewayClass resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/GatewayClass'
     GatewayClass:
       type: object
       description: Cluster-scoped resource associating a controller with Gateways of a given class. Contour registers a GatewayClass pointing to itself.
@@ -192,7 +180,26 @@ components:
         creationTimestamp:
           type: string
           format: date-time
+    GatewayClassList:
+      type: object
+      description: List of GatewayClass resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayClass'
   parameters:
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: Label selector to filter resources.
+      schema:
+        type: string
     name:
       name: name
       in: path
@@ -205,13 +212,6 @@ components:
       in: query
       required: false
       description: Field selector to filter resources.
-      schema:
-        type: string
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: Label selector to filter resources.
       schema:
         type: string
 externalDocs:

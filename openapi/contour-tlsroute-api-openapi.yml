@@ -70,6 +70,30 @@ paths:
           description: Forbidden
 components:
   schemas:
+    ParentReference:
+      type: object
+      description: A reference to a parent resource (typically a Gateway) to attach to.
+      required:
+      - name
+      properties:
+        group:
+          type: string
+          description: API group of the parent resource.
+        kind:
+          type: string
+          description: Kind of the parent resource.
+        namespace:
+          type: string
+          description: Namespace of the parent resource.
+        name:
+          type: string
+          description: Name of the parent resource.
+        sectionName:
+          type: string
+          description: Name of a specific listener section within the parent.
+        port:
+          type: integer
+          description: Port of a specific listener within the parent.
     TLSRoute:
       type: object
       description: Namespace-scoped resource defining TLS routing rules for passthrough connections, routing based on SNI hostname to backend services.
@@ -127,6 +151,18 @@ components:
               type: array
               items:
                 type: object
+    TLSRouteList:
+      type: object
+      description: List of TLSRoute resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TLSRoute'
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -160,42 +196,6 @@ components:
         creationTimestamp:
           type: string
           format: date-time
-    ParentReference:
-      type: object
-      description: A reference to a parent resource (typically a Gateway) to attach to.
-      required:
-      - name
-      properties:
-        group:
-          type: string
-          description: API group of the parent resource.
-        kind:
-          type: string
-          description: Kind of the parent resource.
-        namespace:
-          type: string
-          description: Namespace of the parent resource.
-        name:
-          type: string
-          description: Name of the parent resource.
-        sectionName:
-          type: string
-          description: Name of a specific listener section within the parent.
-        port:
-          type: integer
-          description: Port of a specific listener within the parent.
-    TLSRouteList:
-      type: object
-      description: List of TLSRoute resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TLSRoute'
   parameters:
     labelSelector:
       name: labelSelector
