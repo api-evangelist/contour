@@ -105,6 +105,20 @@ components:
           type: string
           format: date-time
           description: Timestamp when the resource was created.
+    TLSCertificateDelegationList:
+      type: object
+      description: List of TLSCertificateDelegation resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          type: object
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TLSCertificateDelegation'
     TLSCertificateDelegation:
       type: object
       description: Contour TLSCertificateDelegation resource granting other namespaces permission to reference TLS certificates from this namespace in their HTTPProxy resources.
@@ -145,20 +159,6 @@ components:
                     description: Namespaces permitted to reference this certificate. Use '*' to allow all namespaces.
                     items:
                       type: string
-    TLSCertificateDelegationList:
-      type: object
-      description: List of TLSCertificateDelegation resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        metadata:
-          type: object
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TLSCertificateDelegation'
   parameters:
     namespace:
       name: namespace

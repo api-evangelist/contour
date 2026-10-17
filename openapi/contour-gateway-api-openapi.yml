@@ -160,52 +160,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Condition'
-    Condition:
-      type: object
-      description: A standard Kubernetes condition indicating the state of a resource.
-      required:
-      - type
-      - status
-      properties:
-        type:
-          type: string
-          description: Type of the condition.
-        status:
-          type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-          description: Status of the condition.
-        observedGeneration:
-          type: integer
-          format: int64
-        lastTransitionTime:
-          type: string
-          format: date-time
-          description: Time when this condition last changed.
-        reason:
-          type: string
-          description: Short reason code for the condition.
-        message:
-          type: string
-          description: Human-readable details about this condition.
-    SecretObjectReference:
-      type: object
-      description: A reference to a Kubernetes Secret containing a TLS certificate.
-      required:
-      - name
-      properties:
-        group:
-          type: string
-        kind:
-          type: string
-          default: Secret
-        namespace:
-          type: string
-        name:
-          type: string
-          description: Name of the Secret.
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -239,6 +193,36 @@ components:
         creationTimestamp:
           type: string
           format: date-time
+    Condition:
+      type: object
+      description: A standard Kubernetes condition indicating the state of a resource.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of the condition.
+        status:
+          type: string
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+          description: Status of the condition.
+        observedGeneration:
+          type: integer
+          format: int64
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when this condition last changed.
+        reason:
+          type: string
+          description: Short reason code for the condition.
+        message:
+          type: string
+          description: Human-readable details about this condition.
     Gateway:
       type: object
       description: Namespace-scoped resource describing a network infrastructure instance with one or more listeners for handling inbound traffic.
@@ -319,6 +303,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Gateway'
+    SecretObjectReference:
+      type: object
+      description: A reference to a Kubernetes Secret containing a TLS certificate.
+      required:
+      - name
+      properties:
+        group:
+          type: string
+        kind:
+          type: string
+          default: Secret
+        namespace:
+          type: string
+        name:
+          type: string
+          description: Name of the Secret.
     Listener:
       type: object
       description: A listener on the Gateway accepting inbound connections.
@@ -384,6 +384,13 @@ components:
                   kind:
                     type: string
   parameters:
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
     labelSelector:
       name: labelSelector
       in: query
@@ -396,13 +403,6 @@ components:
       in: path
       required: true
       description: The name of the resource.
-      schema:
-        type: string
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
       schema:
         type: string
 externalDocs:
