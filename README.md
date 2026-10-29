@@ -1,4 +1,4 @@
-# Contour (contour)
+# Contour
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,164 +66,190 @@
 
 A Kubernetes ingress controller using Envoy proxy that provides dynamic configuration updates and advanced routing capabilities for managing external access to services in a cluster.
 
-**APIs.json:** [https://projectcontour.io/](https://projectcontour.io/)
+**Areas:** Envoy · Ingress Controller · Kubernetes · Networking · Proxy
 
-## Tags
+## Contour on APIs.io
 
-- Envoy
-- Ingress Controller
-- Kubernetes
-- Networking
-- Proxy
+Everything profiled for Contour is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/contour/](https://apis.io/providers/contour/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (9)
 
-- **Created:** 2025-01-01
-- **Modified:** 2026-05-19
+- [Contour Kubernetes Ingress API](https://apis.io/apis/contour/contour-kubernetes-ingress-api/) — Contour's support for the standard Kubernetes Ingress v1 resource, enabling basic ingress use cases such as host-based and path-based routing to backend…
+- [Contour ExtensionService API](https://apis.io/apis/contour/contour-extensionservice-api/) — Kubernetes Custom Resource Definition for binding gRPC-based extension services to the Contour API. ExtensionService resources allow external components to…
+- [Contour Configuration API](https://apis.io/apis/contour/contour-configuration-api/) — Contour's ContourConfiguration Custom Resource Definition (v1alpha1) that provides cluster-scoped configuration of a Contour instance, including ingress…
+- [Contour Gateway API](https://apis.io/apis/contour/contour-gateway-api/) — Namespace-scoped resources that describe network infrastructure instances that route traffic. Each Gateway is associated with a GatewayClass and defines…
+- [Contour GatewayClass API](https://apis.io/apis/contour/contour-gatewayclass-api/) — Cluster-scoped resources that define the controller responsible for managing Gateways of a particular class. GatewayClass is analogous to IngressClass in…
+- [Contour HTTPProxy API](https://apis.io/apis/contour/contour-httpproxy-api/) — Operations for managing Contour HTTPProxy custom resources in a Kubernetes cluster. HTTPProxy resources define ingress routing rules for HTTP and HTTPS traffic.
+- [Contour HTTPRoute API](https://apis.io/apis/contour/contour-httproute-api/) — Namespace-scoped resources that define HTTP routing rules, mapping HTTP/HTTPS requests to backend Kubernetes services based on host, path, headers, and…
+- [Contour TLSCertificateDelegation API](https://apis.io/apis/contour/contour-tlscertificatedelegation-api/) — Operations for managing TLSCertificateDelegation resources that allow certificates in one namespace to be used by HTTPProxy resources in other namespaces.
+- [Contour TLSRoute API](https://apis.io/apis/contour/contour-tlsroute-api/) — Namespace-scoped resources that define TLS routing rules for routing TLS connections based on SNI hostname to backend services.
 
-## APIs
+### Published properties
 
-### Contour HTTPProxy API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Kubernetes Custom Resource Definition that extends the standard Ingress API with advanced routing, multi-team support, TLS delegation, and weighted load balancing across multiple backend services. HTTPProxy is Contour's primary ingress configuration resource and supports inclusion of routing configuration across namespaces.
+#### Agentic access (1)
 
-- **Human URL:** [https://projectcontour.io/docs/main/config/api/](https://projectcontour.io/docs/main/config/api/)
-- **Base URL:** `https://projectcontour.io`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Contour Agentic Access](https://apis.io/agentic-access/contour/contour-agentic-access/)
 
-- Custom Resource
-- HTTPProxy
-- Ingress
-- Kubernetes
-- Routing
+#### JSON Schema (43)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://projectcontour.io/docs/main/config/api/)
-- [Reference](https://projectcontour.io/docs/main/config/api-reference.html)
-- [OpenAPI](openapi/contour-httpproxy-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contour-httpproxy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contour-httpproxy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/contour-httpproxy-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [AuthorizationServer](https://apis.io/schemas/contour/contour-authorizationserver/)
+- [Condition](https://apis.io/schemas/contour/contour-condition/)
+- [CORSPolicy](https://apis.io/schemas/contour/contour-corspolicy/)
+- [DetailedCondition](https://apis.io/schemas/contour/contour-detailedcondition/)
+- [Gateway](https://apis.io/schemas/contour/contour-gateway/)
+- [GatewayClass](https://apis.io/schemas/contour/contour-gatewayclass/)
+- [GatewayClassList](https://apis.io/schemas/contour/contour-gatewayclasslist/)
+- [GatewayList](https://apis.io/schemas/contour/contour-gatewaylist/)
+- [HeaderMatchCondition](https://apis.io/schemas/contour/contour-headermatchcondition/)
+- [HeadersPolicy](https://apis.io/schemas/contour/contour-headerspolicy/)
+- [HeaderValue](https://apis.io/schemas/contour/contour-headervalue/)
+- [HTTPBackendRef](https://apis.io/schemas/contour/contour-httpbackendref/)
+- [Contour HTTPProxy](https://apis.io/schemas/contour/contour-httpproxy/)
+- [HTTPProxyList](https://apis.io/schemas/contour/contour-httpproxylist/)
+- [HTTPProxySpec](https://apis.io/schemas/contour/contour-httpproxyspec/)
+- [HTTPProxyStatus](https://apis.io/schemas/contour/contour-httpproxystatus/)
+- [HTTPRoute](https://apis.io/schemas/contour/contour-httproute/)
+- [HTTPRouteFilter](https://apis.io/schemas/contour/contour-httproutefilter/)
+- [HTTPRouteList](https://apis.io/schemas/contour/contour-httproutelist/)
+- [HTTPRouteMatch](https://apis.io/schemas/contour/contour-httproutematch/)
+- [HTTPRouteRule](https://apis.io/schemas/contour/contour-httprouterule/)
+- [Include](https://apis.io/schemas/contour/contour-include/)
+- [Listener](https://apis.io/schemas/contour/contour-listener/)
+- [ListenerStatus](https://apis.io/schemas/contour/contour-listenerstatus/)
+- [MatchCondition](https://apis.io/schemas/contour/contour-matchcondition/)
+- …and 18 more published on APIs.io
 
-### Contour Gateway API
+#### JSON Structure (1)
 
-Contour's implementation of the Kubernetes Gateway API, supporting HTTPRoute and TLSRoute resources for defining ingress traffic routing rules. Gateway API is the next-generation Kubernetes ingress standard and Contour provides support for GatewayClass, Gateway, HTTPRoute, and related resources.
+Data models expressed in JSON Structure.
 
-- **Human URL:** [https://projectcontour.io/docs/1.30/config/gateway-api/](https://projectcontour.io/docs/1.30/config/gateway-api/)
-- **Base URL:** `https://projectcontour.io`
+- [Contour Structure](https://apis.io/json-structure/contour/contour-structure/)
 
-#### Tags
+#### JSON-LD (1)
 
-- Gateway API
-- Ingress
-- Kubernetes
-- Networking
-- Routing
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Contour Context](https://apis.io/jsonld/contour/contour-context/)
 
-- [Documentation](https://projectcontour.io/docs/1.30/config/gateway-api/)
-- [Reference](https://projectcontour.io/docs/main/config/api-reference.html)
-- [OpenAPI](openapi/contour-gateway-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contour-gateway.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contour-gateway.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Vocabulary (1)
 
-### Contour Kubernetes Ingress API
+The provider's domain terms, defined.
 
-Contour's support for the standard Kubernetes Ingress v1 resource, enabling basic ingress use cases such as host-based and path-based routing to backend services. Contour watches Ingress v1 resources and translates them into Envoy proxy configuration, with support for IngressClass selection and Contour-specific annotations for extended configuration.
+- [Contour Ingress Vocabulary](https://apis.io/vocabularies/contour/contour-vocabulary/)
 
-- **Human URL:** [https://projectcontour.io/docs/main/config/ingress/](https://projectcontour.io/docs/main/config/ingress/)
-- **Base URL:** `https://projectcontour.io`
+#### Collections (8)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Ingress
-- Kubernetes
-- Networking
-- Routing
-- Standard API
+- [Contour Gateway API](https://apis.io/collections/contour/open-contour-gateway/)
+- [Contour Gateway API](https://apis.io/collections/contour/open-contour-gateway-api/)
+- [Contour Gateway GatewayClass API](https://apis.io/collections/contour/open-contour-gatewayclass-api/)
+- [Contour HTTPProxy API](https://apis.io/collections/contour/open-contour-httpproxy/)
+- [Contour Gateway HTTPProxy API](https://apis.io/collections/contour/open-contour-httpproxy-api/)
+- [Contour Gateway HTTPRoute API](https://apis.io/collections/contour/open-contour-httproute-api/)
+- [Contour Gateway TLSCertificateDelegation API](https://apis.io/collections/contour/open-contour-tlscertificatedelegation-api/)
+- [Contour Gateway TLSRoute API](https://apis.io/collections/contour/open-contour-tlsroute-api/)
 
-#### Properties
+#### Governance rules (3)
 
-- [Documentation](https://projectcontour.io/docs/main/config/ingress/)
-- [Reference](https://projectcontour.io/docs/main/config/annotations/)
-- [Postman Collection](collections/contour-gateway.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contour-gateway.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contour-httpproxy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contour-httpproxy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Spectral rulesets for the provider's contracts.
 
-### Contour ExtensionService API
+- [Contour — gateway rules](https://apis.io/rules/contour/contour-gateway-rules/)
+- [Contour — httpproxy rules](https://apis.io/rules/contour/contour-httpproxy-rules/)
+- [Contour — jsonschema rules](https://apis.io/rules/contour/contour-jsonschema-spectral-rules/)
 
-Kubernetes Custom Resource Definition for binding gRPC-based extension services to the Contour API. ExtensionService resources allow external components to implement Contour API features such as external authorization and rate limiting by registering a network service that Contour will route to via Envoy's gRPC extension protocol (v3).
+#### Security (1)
 
-- **Human URL:** [https://projectcontour.io/docs/main/config/api/](https://projectcontour.io/docs/main/config/api/)
-- **Base URL:** `https://projectcontour.io`
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Contour Domain Security](https://apis.io/security/contour/contour-domain-security/)
 
-- Authorization
-- Custom Resource
-- Extension Service
-- gRPC
-- Kubernetes
+#### Plans and pricing (1)
 
-#### Properties
+Published plans, tiers and prices.
 
-- [Documentation](https://projectcontour.io/docs/main/config/api/)
-- [Reference](https://projectcontour.io/docs/main/config/api-reference.html)
-- [Postman Collection](collections/contour-gateway.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contour-gateway.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contour-httpproxy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contour-httpproxy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Contour Plans Pricing](https://apis.io/plans/contour/contour-plans-pricing/)
 
-### Contour Configuration API
+#### Rate limits (1)
 
-Contour's ContourConfiguration Custom Resource Definition (v1alpha1) that provides cluster-scoped configuration of a Contour instance, including ingress settings, TLS defaults, timeouts, and feature gates. This API allows operators to declaratively manage Contour's runtime behavior through Kubernetes resources instead of command-line flags or static config files.
+Published request limits.
 
-- **Human URL:** [https://projectcontour.io/docs/main/config/api/](https://projectcontour.io/docs/main/config/api/)
-- **Base URL:** `https://projectcontour.io`
+- [Contour Rate Limits](https://apis.io/rate-limits/contour/contour-rate-limits/)
 
-#### Tags
+#### FinOps (1)
 
-- Configuration
-- Custom Resource
-- Kubernetes
-- Networking
-- Operator
+What the API costs to run, by operation.
 
-#### Properties
+- [Contour Finops](https://apis.io/finops/contour/contour-finops/)
 
-- [Documentation](https://projectcontour.io/docs/main/config/api/)
-- [Reference](https://projectcontour.io/docs/main/config/api-reference.html)
-- [Postman Collection](collections/contour-gateway.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contour-gateway.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contour-httpproxy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contour-httpproxy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+## Where to find this API
 
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://projectcontour.io/)
-- [JSON-LD](json-ld/contour-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/contour-httpproxy-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Vocabulary](vocabulary/contour-vocabulary.yml)
-- [Spectral Rules](rules/contour-httpproxy-rules.yml)
-- [Spectral Rules](rules/contour-gateway-rules.yml)
-- [Capability](capabilities/manage-httpproxy-routing.yml)
-- [Capability](capabilities/configure-gateway-api-routing.yml)
-- [Getting Started](https://projectcontour.io/getting-started/)
 - [Documentation](https://projectcontour.io/docs/main/)
-- [GitHub Organization](https://github.com/projectcontour)
-- [GitHub Repository](https://github.com/projectcontour/contour)
+- [Getting started](https://projectcontour.io/getting-started/)
 - [Support](https://projectcontour.io/resources/support/)
-- [Community](https://projectcontour.io/community/)
-- [Resources](https://projectcontour.io/resources/)
 - [Changelog](https://github.com/projectcontour/contour/releases)
-- [Issue  Tracker](https://github.com/projectcontour/contour/issues)
-- [Upgrading](https://projectcontour.io/resources/upgrading/)
+- [GitHub](https://github.com/projectcontour)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 40.0** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 55.4 |
+| Contract quality | 54.1 |
+| Contract governance | 27.3 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 33.3 |
+| Access clarity | 5.3 |
+
+**Agent readiness 16.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 10.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/contour/](https://apis.io/providers/contour/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Contour: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/contour/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
